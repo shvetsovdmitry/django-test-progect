@@ -4,5 +4,9 @@
 			"path": "."
 		}
 	],
-	"settings": {}
+	"settings": {
+		"editor.fontFamily": "Courier",
+		"editor.fontSize": 12,
+		"editor.fontWeight": "600"
+	}
 }
