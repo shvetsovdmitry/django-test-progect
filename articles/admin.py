@@ -27,7 +27,8 @@ admin.site.register(Rubric, RubricAdmin)
 
 
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ('rubric', 'title', 'author', 'created_at', )
+    list_display = ('rubric', 'title', 'author', 'created_at', 'is_active')
+    search_fields = ('title',)
     readonly_fields = ('created_at', )
     
     

@@ -1,0 +1,12 @@
+{% extends 'layout/basic.html' %}
+
+{% load bootstrap4 %}
+
+{% block title %}{{ article.title }} - {{ article.rubric }} | ArticlesSite{% endblock %}
+
+{% block content%}
+<h2 class="text-center">{{ article.title }}</h2>
+<div class="container-fluid">
+    <p>{{ article.content }}</p>
+</div>
+{% endblock %}
