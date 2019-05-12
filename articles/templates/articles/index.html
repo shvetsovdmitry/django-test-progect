@@ -1,0 +1,10 @@
+{% extends 'layout/basic.html' %}
+{% load static %}
+{% block content %}
+<h2>Последние 10 статей</h2>
+{% for article in articles %}
+    <li class="media my-5 p-3 border">
+        <a href="#">{{ article.title }}</a>
+    </li>
+{% endfor %}
+{% endblock %}
