@@ -12,3 +12,12 @@ div.youtube-video iframe {
 	width: 720px;
 	height: 480px;
 }
+.panel {
+  height: 100%;
+}
+.btn-about, .btn-send-message {
+	margin-right: 5px;
+}
+ul.nav {
+	padding-bottom: 15px;
+}

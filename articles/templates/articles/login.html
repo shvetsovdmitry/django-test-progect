@@ -1,0 +1,35 @@
+{% load bootstrap4 %}
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="author" content="Shvetsov Dmitry">
+		{% bootstrap_css %}
+		<link rel="stylesheet" type="text/css" href="{% static 'articles/signin.css' %}">
+		<title>Страница входа | {{ site_name }}</title>
+	</head>
+	<body class="text-center">
+
+		<main role="main" class="container">
+			{% bootstrap_messages %}
+			<form class="form-signin" method="post">
+				<img class="mb-4" alt width="72" height="72">
+				{% csrf_token %}
+				<h1 class="h3 mb-3 font-weight-normal">Введите данные учетной записи</h1>
+				<label for="inputLogin" class="sr-only">Имя пользователя</label>
+				<input type="text" id="id_username" name="username" placeholder="Имя пользователя" class="form-control" required autofocus>
+				<label for="id_password" class="sr-only">Пароль</label>
+				<input type="password" id="id_password" name="password" placeholder="Пароль" class="form-control" required>
+				<button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
+			</form>
+		</main>
+		<footer class="footer">
+      		<div class="container">
+        		<span class="text-muted">&copy; <a href="https://github.com/GrobIvanovich/">Shvetsov Dmitry</a>, 2019 г.</span>
+      		</div>
+    	</footer>
+	</body>
+</html>

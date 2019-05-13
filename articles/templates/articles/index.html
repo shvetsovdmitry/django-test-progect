@@ -1,28 +1,40 @@
 {% extends 'layout/basic.html' %}
+
 {% load static %}
+
+{% block title %}Главная страница{% endblock %}
+
 {% block content %}
 <h2>Последние 10 статей</h2>
-<li class="media my-5 p-3 border">
-{% for article in last_articles %}
-    {% url 'articles:article'  pk=article.pk as url %}
-    <!-- <li class="media my-5 p-3 border"> -->
-        <div class="card" style="width: 18rem;">
-        	{% if article.image %}
-        		<img src="{{ article.image.url }}" alt="asd" width="300px">
-    		{% else %}
-    			<h2>Здесь должно было быть изображение</h2>
-    		{% endif %}
-        	<div class="card-body">
-        		<h5 class="card-title">
-        			{{ article.title }}
-        		</h5>
-        		<p class="card-text">
-        			Text
-        		</p>
-        		<a href="{{ url }}{{ all }}" class="btn btn-primary">Read</a>
-        	</div>
+<div class="album py-5 border">
+    <div class="container">
+        <div class="row">
+            {% for article in last_articles %}
+                {% url 'articles:article'  pk=article.pk as url %}
+                <!-- <li class="media my-5 p-3 border"> -->
+                    <div class="col-md-auto">
+                        <div class="card" style="width: 18rem;">
+                        	{% if article.image %}
+                        		<img src="{{ article.image.url }}" alt="asd" width="300px">
+                            {% elif article.image_url %}
+                                <img src="{{ article.image_url }}" alt="Здесь была картинка" width="300px">
+                    		{% else %}
+                    			<h2>Здесь должно было быть изображение</h2>
+                    		{% endif %}
+                        	<div class="card-body">
+                        		<h5 class="card-title">
+                        			{{ article.title }}
+                        		</h5>
+                        		<p class="card-text">
+                        			Text
+                        		</p>
+                        		<a href="{{ url }}{{ all }}" class="btn btn-primary">Read</a>
+                        	</div>
+                        </div>
+                    </div>
+                <!-- </li> -->
+            {% endfor %}
         </div>
-    <!-- </li> -->
-{% endfor %}
-</li>
+    </div>
+</div>
 {% endblock %}

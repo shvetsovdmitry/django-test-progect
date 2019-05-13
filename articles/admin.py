@@ -4,6 +4,7 @@ from .models import AdvUser, Category, Article, Tag
 
 
 # User model admin
+# @admin.site.register(AdvUser)
 class AdvUserAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'is_activated', 'date_joined')
     search_fields = ('username', 'email', 'first_name', 'last_name')

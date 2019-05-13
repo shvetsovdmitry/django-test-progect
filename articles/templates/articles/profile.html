@@ -1,0 +1,64 @@
+{% extends 'layout/basic.html' %}
+
+{% load bootstrap4 %}
+{% load static %}
+
+{% block title %}Профиль пользователя{% endblock %}
+
+{% block content %}
+<h2>Профиль пользователя {{ user.username }}.</h2>
+<div class="row">
+	<div class="col-lg-4 col-md-4 col-xs-12">
+		<div class="panel panel-default border">
+			<div class="panel-heading">
+				<header class="panel-title border">
+					<div class="text-center">
+						<strong>Пользователь сайта</strong>
+					</div>
+				</header>
+			</div>
+			<div class="panel-body">
+				<div class="text-center">
+					<img src="http://bootstraptema.ru/snippets/element/2016/profilesection/myprofile.jpg">
+					<h3>{{ user.username }}</h3>
+					<small class="label label-warning">Country</small>
+					<p>Status</p>
+					<p>
+						<a href="#">Facebook</a>
+						<a href="#">Twitter</a>
+						<a href="#">VK</a>
+						<a href="#">OK</a>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-8 col-md-8 col-xs-12">
+		<div class="panel">
+			<div class="panel-body">
+				<div class="tab-content">
+					<div class="tab-pane active">
+						<h4>Profile info:</h4>
+						<table class="table table-th-block border">
+							<tr><td class="active">Зарегистрирован:</td><td><!-- {{ user.registrated }} --></td></tr>
+							<tr><td class="active">Последний вход:</td><td><!-- {{ user.last_login }} --></td></tr>
+							<tr><td class="active">Город:</td><td><!-- {{ user.last_login }} --></td></tr>
+							<tr><td class="active">Пол:</td><td><!-- {{ user.last_login }} --></td></tr>
+							<tr><td class="active">Дата рождения:</td><td><!-- {{ user.last_login }} --></td></tr>
+							<tr><td class="active">Рейтинг пользователя:</td><td><!-- {{ user.last_login }} --></td></tr>
+						</table>
+					</div>
+				</div>
+				<ul class="nav nav-pills">
+					<li class="active">
+						<a href="#" class="btn btn-primary btn-about align-middle">О пользователе</a>
+					</li>
+					<li>
+						<a href="" class="btn btn-success btn-send-message align-middle">Отправить сообщение</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

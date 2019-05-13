@@ -1,7 +1,22 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from pipenv.vendor.cerberus.errors import MAX_LENGTH
+from django.dispatch import Signal
 import os
+
+
+def get_image_path(instance, filename):
+    return os.path.join('images', str(instance.id), filename)
+
+
+user_registrated = Signal(providing_args=['instance'])
+
+
+def user_registrated_dispatcher(sender, **kwargs):
+    send_actiovation_notification(kwargs['instance'])
+    
+
+user_registrated.connect(user_registrated_dispatcher)
+
 
 class AdvUser (AbstractUser):
     is_activated = models.BooleanField(default=True, db_index=True, verbose_name='Активирован?')
@@ -37,24 +52,15 @@ class Tag (models.Model):
         ordering = ['name']
 
 
-def get_image_path(instance, filename):
-    return os.path.join('images', str(instance.id), filename)
-
-
-@property
-def image_url(self):
-    if self.image and hasattr(self.image, 'url'):
-        return self.image.url
-
-
 class Article (models.Model):
     category = models.ForeignKey(Category, default=None, on_delete=models.PROTECT, verbose_name='Категория')
     title = models.CharField(max_length=40, verbose_name='Название статьи')
     content = models.TextField(verbose_name='Содержание')
-    image = models.ImageField(verbose_name='Изображение', blank=True, null=True, upload_to='get_image_path')
+    image = models.ImageField(verbose_name='Изображение', blank=True, null=True, upload_to=get_image_path)
+    image_url = models.URLField(verbose_name='Ссылка на изображение', blank=True, null=True)
     card_text = models.TextField(verbose_name='Аннотация', blank=True, null=True)
     author = models.ForeignKey(AdvUser, on_delete=models.PROTECT, verbose_name='Автор')
-    tags = models.ManyToManyField(Tag, verbose_name='Теги')
+    tags = models.ManyToManyField(Tag, verbose_name='Теги', blank=True)
     rating = models.FloatField(verbose_name='Рейтинг', max_length=10, default=0)
     is_active = models.BooleanField(default=False, verbose_name='Прошла ли модерацию?')
     created_at = models.DateTimeField(auto_now_add=True, db_index=True, verbose_name='Опубликовано')
