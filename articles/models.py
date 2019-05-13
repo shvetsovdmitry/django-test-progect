@@ -51,7 +51,7 @@ class Article (models.Model):
     category = models.ForeignKey(Category, default=None, on_delete=models.PROTECT, verbose_name='Категория')
     title = models.CharField(max_length=40, verbose_name='Название статьи')
     content = models.TextField(verbose_name='Содержание')
-    image = models.ImageField(verbose_name='Изображение', blank=True, null=True, upload_to=get_image_path)
+    image = models.ImageField(verbose_name='Изображение', blank=True, null=True, upload_to='get_image_path')
     card_text = models.TextField(verbose_name='Аннотация', blank=True, null=True)
     author = models.ForeignKey(AdvUser, on_delete=models.PROTECT, verbose_name='Автор')
     tags = models.ManyToManyField(Tag, verbose_name='Теги')

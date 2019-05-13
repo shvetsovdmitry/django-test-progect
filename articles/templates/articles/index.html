@@ -2,11 +2,16 @@
 {% load static %}
 {% block content %}
 <h2>Последние 10 статей</h2>
+<li class="media my-5 p-3 border">
 {% for article in last_articles %}
     {% url 'articles:article'  pk=article.pk as url %}
     <!-- <li class="media my-5 p-3 border"> -->
-        <div class="card">
-        	<img src="{{ article.image_url|default_if_none:'#' }}" alt="asd">
+        <div class="card" style="width: 18rem;">
+        	{% if article.image %}
+        		<img src="{{ article.image.url }}" alt="asd" width="300px">
+    		{% else %}
+    			<h2>Здесь должно было быть изображение</h2>
+    		{% endif %}
         	<div class="card-body">
         		<h5 class="card-title">
         			{{ article.title }}
@@ -19,4 +24,5 @@
         </div>
     <!-- </li> -->
 {% endfor %}
+</li>
 {% endblock %}
