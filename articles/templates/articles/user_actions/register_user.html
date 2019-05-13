@@ -26,13 +26,23 @@
 				<label for="id_email" class="sr-only">Email</label>
 				<input type="email" name="email" id="id_email"m placeholder="Email", class="form-control" required>
 
-				<label for="id_password" class="sr-only">Пароль</label>
-				<input type="password" id="id_password" name="password" placeholder="Пароль" class="form-control" required>
+				<label for="id_password1" class="sr-only">Пароль</label>
+				<input type="password" name="password1" id="id_password1" placeholder="Пароль" class="form-control" required>
 
-				<label for="id_password1" class="sr-only">Повторите пароль</label>
-				<input type="password" name="password1" placeholder="Повторите пароль" class="form-control" required>
+				<label for="id_password2" class="sr-only">Повторите пароль</label>
+				<input type="password" name="password2" id="id_password2" placeholder="Повторите пароль" class="form-control" required>
+
+				<label for="id_first_name" class="sr-only">Имя</label>
+				<input type="text" name="first_name" id="id_first_name" placeholder="Имя" class="form-control" required>
+
+				<label for="id_last_name" class="sr-only">Имя</label>
+				<input type="text" name="last_nam" id="id_last_name" placeholder="Фамилия" class="form-control" required>
 
 				<button class="btn btn-lg btn-primary btn-block" type="submit">Зарегистрироваться</button>
+
+				<br><br>
+				<!-- {% bootstrap_form form layout='horizontal' %}
+				{% buttons submin='Зарегистрироваться' %}{% endbuttons %} -->
 			</form>
 		</main>
 		<footer class="footer">

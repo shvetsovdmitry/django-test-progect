@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth import password_validation
 from django.core.exceptions import ValidationError
 from django.forms import inlineformset_factory
-
+from .models import user_registrated
 from .models import AdvUser
 
 
@@ -33,7 +33,7 @@ class ARegisterUserForm(forms.ModelForm):
         user.is_activated = False
         if commit:
             user.save()
-        user_registrated.send(RegisterUserForm, instance=user)
+        user_registrated.send(ARegisterUserForm, instance=user)
         return user
 
     class Meta:

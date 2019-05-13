@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import CreateView
 
 from .models import AdvUser, Category, Article
+from .forms import ARegisterUserForm
 
 
 def index(request):
@@ -44,3 +45,5 @@ class ALogoutView(LoginRequiredMixin, LogoutView):
 class ARegisterUserView(CreateView):
     model = AdvUser
     template_name = 'articles/user_actions/register_user.html'
+    form_class = ARegisterUserForm
+    success_url = reverse_lazy('articles:register_done')

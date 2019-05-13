@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.dispatch import Signal
+from .utilities import send_activation_notification
 import os
 
 
@@ -12,7 +13,7 @@ user_registrated = Signal(providing_args=['instance'])
 
 
 def user_registrated_dispatcher(sender, **kwargs):
-    send_actiovation_notification(kwargs['instance'])
+    send_activation_notification(kwargs['instance'])
     
 
 user_registrated.connect(user_registrated_dispatcher)
