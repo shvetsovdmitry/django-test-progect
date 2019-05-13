@@ -6,7 +6,20 @@
 
 {% block content%}
 <h2 class="text-center">{{ article.title }}</h2>
-<div class="container-fluid">
-    <p>{{ article.content }}</p>
+<div class="row container-fluid">
+	{{ article.rating }}
+	<div class="col">
+		<h6 class="text-center">
+			{% for t in tags %}
+				<button type="button" class="btn btn-info">
+					{{ t.name }}
+				</button>
+			{% endfor %}
+		</h6>
+	</div>
 </div>
+<div class="container-fluid text-center">
+    <p>{{ article.content|safe }}</p>
+</div>
+{{ article.created_at }}
 {% endblock %}

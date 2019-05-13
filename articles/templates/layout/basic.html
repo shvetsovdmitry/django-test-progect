@@ -8,17 +8,39 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<title>{% block title %}Главная{% endblock %} | ArticlesSite</title>
 		{% bootstrap_css %}
-		{% comment %} <link rel="stylesheet" type="text/css" href="{% static 'main/style.css' %}"> {% endcomment %}
+		<link rel="stylesheet" type="text/css" href="{% static 'articles/style.css' %}">
     </head>
     <body class="container-fluid">
         <header class="mb-4">
-            <h1 class="display-1 text-center">Статьи</h1>
+            <h2 class="display-2 text-center"><a href="{% url 'articles:index' %}" class="main-page-link">ArticlesSite</a></h2>
         </header>
         <div class="row">
-            <section class="col border py-2">
-                {% block content %}
-                {% endblock %}
-            </section>
+            <ul class="col nav justify-content-end border">
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Регистрация</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Поиск</a>
+                </li>
+            </ul>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-auto border">
+                    <h5>Популярные статьи</h5>
+                    {% for article in rate_articles %}
+                        {% url 'articles:article' pk=article.pk as url %}
+                        <li class="">
+                            <a href="{{ url }}{{ all }}">{{ article.title }}</a>
+                        </li>
+                    {% endfor %}
+                </div>
+                <div class="col border">
+                    {% bootstrap_messages %}
+                    {% block content %}
+                    {% endblock %}
+                <!-- </div> -->
+            </div>
         </div>
     </body>
 </html>

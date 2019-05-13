@@ -1,8 +1,9 @@
 from django.contrib import admin
 
-from .models import AdvUser, Rubric, Article
+from .models import AdvUser, Category, Article, Tag
 
 
+# User model admin
 class AdvUserAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'is_activated', 'date_joined')
     search_fields = ('username', 'email', 'first_name', 'last_name')
@@ -18,19 +19,30 @@ class AdvUserAdmin(admin.ModelAdmin):
 admin.site.register(AdvUser, AdvUserAdmin)
 
 
-class RubricAdmin(admin.ModelAdmin):
-    model = Rubric
-    list_display = ('name',)
+# Category admin.
+class CategoryAdmin(admin.ModelAdmin):
+    model = Category
+    list_display = ('name', )
     
     
-admin.site.register(Rubric, RubricAdmin)
+admin.site.register(Category, CategoryAdmin)
 
 
+# Tag admin
+class TagAdmin(admin.ModelAdmin):
+    list_display = ('name', )
+    search_fields = ('name', )
+    
+
+admin.site.register(Tag, TagAdmin)
+
+
+# Article admin
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ('rubric', 'title', 'author', 'created_at', 'is_active')
-    search_fields = ('title',)
+    list_display = ('title', 'category', 'author', 'created_at', 'rating', 'is_active', )
+    filter_horizontal = ('tags', )
+    search_fields = ('title', 'rubric', )
     readonly_fields = ('created_at', )
     
     
 admin.site.register(Article, ArticleAdmin)
-    
