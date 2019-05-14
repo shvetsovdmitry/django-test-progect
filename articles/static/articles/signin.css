@@ -1,6 +1,6 @@
 html,
 body {
-  height: 100%;
+  min-height: 100%;
 }
 
 body {
@@ -13,14 +13,14 @@ body {
   align-items: center;
   -webkit-box-pack: center;
   justify-content: center;
-  padding-top: 40px;
-  padding-bottom: 40px;
+  padding-top: 15%;
+  padding-bottom: 15%;
   background-color: #f5f5f5;
 }
 
 .form-signin {
   width: 100%;
-  max-width: 350px;
+  max-width: 375px;
   padding: 15px;
   margin: 0 auto;
 }
@@ -38,9 +38,13 @@ body {
   z-index: 2;
 }
 .form-signin input[type="email"] {
-  margin-bottom: -1px;
+  /*margin-bottom: -1px;*/
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
+}
+.form-signin input[name="password"] {
+  margin-bottom: 10px;
+  margin-top: 10px;
 }
 .form-signin input[name="password1"] {
   margin-top: 10px;
