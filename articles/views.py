@@ -1,19 +1,22 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from articlesboard.settings import SITE_NAME
 from django.urls import reverse_lazy
 from django.core.signing import BadSignature
+from django.contrib import messages
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
-from django.views.generic.edit import CreateView
+from django.contrib.messages.views import SuccessMessageMixin
+from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.base import TemplateView
+from dal import autocomplete
 
-from .models import AdvUser, Category, Article
-from .forms import ARegisterUserForm
+from .models import AdvUser, Category, Article, Tag
+from .forms import ARegisterUserForm, ChangeUserInfoForm, ArticleForm, ArticleFormSet
 from .utilities import signer
 
 def index(request):
-    rate_articles = Article.objects.order_by('-rating')[:10]
+    rate_articles = Article.objects.order_by('-rating').filter(is_active=True)[:10]
     last_articles = Article.objects.filter(is_active=True)
     context = {'last_articles': last_articles, 'rate_articles': rate_articles, 'site_name': SITE_NAME}
     return render(request, 'articles/index.html', context)
@@ -21,14 +24,14 @@ def index(request):
 
 def detail(request, pk):
     article = Article.objects.get(pk=pk)
-    rate_articles = Article.objects.order_by('-rating')[:10]
+    rate_articles = Article.objects.order_by('-rating').filter(is_active=True)[:10]
     context = {'article': article, 'tags': article.tags.all(), 'site_name': SITE_NAME, 'rate_articles': rate_articles}
     return render(request, 'articles/article.html', context)
 
 
 @login_required
 def profile(request):
-    rate_articles = Article.objects.order_by('-rating')[:10]
+    rate_articles = Article.objects.order_by('-rating').filter(is_active=True)[:10]
     context = {'user': request.user, 'site_name': SITE_NAME, 'rate_articles': rate_articles}
     return render(request, 'articles/user_actions/profile.html', context)
 
@@ -49,10 +52,31 @@ def user_activate(request, sign):
     return render(request, template)
 
 
+# @login_required
+class ArticleAddView(TemplateView):
+
+    # template_name = 'articles/add_article.html'
+
+    def get(self, request):
+        form = ArticleForm(initial={'author': request.user.pk})
+        context = {'form': form, 'site_name': SITE_NAME}
+        return render(request, 'articles/add_article.html', context=context)
+        
+    def post(self, request):
+        form = ArticleForm(request.POST, request.FILES, initial={'author': request.user.pk})
+        if form.is_valid():
+            # urlx = form.cleaned_data['']
+            form.save()
+            messages.add_message(request, messages.SUCCESS, 'Объявление отправлено на модерацию.')
+        return redirect('articles:profile')
+
+    class Meta:
+        model = Article
+
+
 class ALoginView(LoginView):
     extra_context = {'site_name': SITE_NAME}
     template_name = 'articles/user_actions/login.html'
-    success_url = reverse_lazy('articles:index') 
     
     
 class ALogoutView(LoginRequiredMixin, LogoutView):
@@ -69,3 +93,20 @@ class ARegisterUserView(CreateView):
     
 class ARegisterDoneView(TemplateView):
     template_name = 'articles/user_actions/register_done.html'
+
+
+class ChangeUserInfoView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
+    model = AdvUser
+    template_name = 'articles/user_actions/change_user_info.html'
+    form_class = ChangeUserInfoForm
+    success_url = reverse_lazy('articles:profile')
+    success_message = 'Личные данные пользователя изменены'
+
+    def dispatch(self, request, *args, **kwargs):
+        self.user_id = request.user.pk
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_object(self, queryset=None):
+        if not queryset:
+            queryset = self.get_queryset()
+        return get_object_or_404(queryset, pk=self.user_id)

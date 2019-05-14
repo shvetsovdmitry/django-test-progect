@@ -1,7 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.dispatch import Signal
-from django.utils.safestring import mark_safe
+from django.utils.html import format_html
 from .utilities import send_activation_notification
 import os
 
@@ -20,14 +20,37 @@ def user_registrated_dispatcher(sender, **kwargs):
 user_registrated.connect(user_registrated_dispatcher)
 
 
+class Gender (models.Model):
+    name = models.CharField(max_length=20, default=None, db_index=True, unique=True, verbose_name='Название')
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Гендер'
+        verbose_name_plural = 'Гендеры'
+
+
 class AdvUser (AbstractUser):
     account_image = models.ImageField(blank=True, null=True, upload_to=get_image_path, verbose_name='Аватар')
-    is_activated = models.BooleanField(default=True, db_index=True, verbose_name='Активирован?')
+    # Socials
+    vk_url = models.URLField(blank=True, null=True, verbose_name='ВКонтакте')
+    fb_url = models.URLField(blank=True, null=True, verbose_name='Facebook')
+    tw_url = models.URLField(blank=True, null=True, verbose_name='Twitter')
+    ok_url = models.URLField(blank=True, null=True, verbose_name='Одноклассники')
+    # Personal
+    city = models.CharField(blank=True, null=True, max_length=50, verbose_name='Город')
+    bdate = models.DateField(blank=True, null=True, verbose_name='Дата рождения')
+    gender = models.ForeignKey(Gender, default=None, blank=True, null=True, on_delete=models.PROTECT, verbose_name='Пол')
+    
+    rating = models.IntegerField(default=0, verbose_name='Рейтинг')
+    
+    is_activated = models.BooleanField(default=True, db_index=True, verbose_name='Активирован?', help_text='Пользователю было отправлено письмо на почту с ссылкой для активации аккаунта.')
     send_messages = models.BooleanField(default=True, verbose_name='Присылать сообщения о новых комментариях?')
 
     def admin_image(self):
-        return mark_safe('<img src="%s" style="width:300px; height: 200px" />' % self.account_image.url)
-    admin_image.short_desctiption = 'Предпросмотр аватара'
+        return format_html('<img src="%s" style="width:300px; height: 200px" />' % self.account_image.url)
+    admin_image.short_description = 'Превью'
     admin_image.allow_tags = True
 
     class Meta :

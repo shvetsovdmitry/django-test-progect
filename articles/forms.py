@@ -2,9 +2,9 @@ from django import forms
 from django.contrib import messages
 from django.contrib.auth import password_validation
 from django.core.exceptions import ValidationError
-from django.forms import inlineformset_factory
+from django.forms import inlineformset_factory, formset_factory
 from .models import user_registrated
-from .models import AdvUser
+from .models import AdvUser, Article, Tag
 
 
 class ARegisterUserForm(forms.ModelForm):
@@ -38,3 +38,27 @@ class ARegisterUserForm(forms.ModelForm):
     class Meta:
         model = AdvUser
         fields = ('username', 'email', 'password1', 'password2', 'first_name', 'last_name', 'send_messages')
+    
+
+class ChangeUserInfoForm(forms.ModelForm):
+    email = forms.EmailField(required=True, label='Адрес электронной почты')
+    account_image = forms.ImageField(required=False, label='Аватар')
+    
+    class Meta:
+        model = AdvUser
+        fields = ('username', 'email', 'first_name', 'last_name', 'send_messages', 'account_image')
+
+
+class ArticleForm(forms.ModelForm):
+    
+    # image = forms.ImageField(required=True, label='Превью')
+    # tag_field = forms.CharField()
+    # tag = Tag.objects.filter(name=tag_field)
+    
+    class Meta:
+        model = Article
+        fields = ('category', 'title', 'image', 'card_text', 'content', 'tags', 'author')
+        widgets = {'author': forms.HiddenInput}
+        
+        
+ArticleFormSet = formset_factory(ArticleForm)

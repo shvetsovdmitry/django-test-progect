@@ -11,11 +11,11 @@
 		{% bootstrap_css %}
 		{% bootstrap_javascript jquery='full' %}
 		<link rel="stylesheet" type="text/css" href="{% static 'articles/signin.css' %}">
-		<title>Регистрация нового пользователя | {{ site_name }}</title>
+		<title>Регистрация | {{ site_name }}</title>
 	</head>
 	<body class="text-center">
 
-		<main role="main" class="container-fluid">
+		<main role="main" class="container">
 			{% bootstrap_messages %}
 			<form class="form-signin" method="post">
 				<img class="mb-4" alt width="72" height="72">
@@ -30,8 +30,33 @@
 				<!-- {% bootstrap_field form.last_name layout='horizontal' size='md' %} -->
 				<!-- {% buttons submit='Зарегистрироваться' %}{% endbuttons %} -->
 
-				{% bootstrap_form form layout='horizontal' %}
-				{% buttons submit='OK' %}{% endbuttons %}
+				<div class="form-group">
+					{{ form.non_field_errors }}
+					{{ form.username.errors }}
+					{{ form.email.errors }}
+					{{ form.password1.errors }}
+					{{ form.password2.errors }}
+					{{ form.first_name.errors }}
+					{{ form.last_name.errors }}
+				</div>
+
+				<div class="form-group">
+					<label for="{{ form.username.id_for_label }}" class="sr-only">Имя пользователя</label>
+					{{ form.username|attr:"class:form-control"|attr:"placeholder:Имя пользователя" }}
+
+					{{ form.email|attr:"class:form-control"|attr:"placeholder:Email" }}
+				</div>
+				<div class="form-group">
+					{{ form.password1|attr:"class:form-control"|attr:"placeholder:Пароль" }}
+					{{ form.password2|attr:"class:form-control"|attr:"placeholder:Повторите пароль" }}
+				</div>
+				<div class="form-group">
+					{{ form.first_name|attr:"class:form-control"|attr:"placeholder:Имя" }}
+					{{ form.last_name|attr:"class:form-control"|attr:"placeholder:Фамилия" }}
+				</div>
+
+				<!-- {% bootstrap_form form layout='horizontal' %}  -->
+				<!-- {% buttons submit='Зарегистрироваться' %}{% endbuttons %} -->
 				<!-- {% bootstrap_form form layout='horizontal' %} -->
 				<!-- {{ form.title|add_class:"form-control" }} -->
 				<!-- {% bootstrap_form form layout='horizontal' %} -->
@@ -64,7 +89,8 @@
 				<input type="text" name="last_nam" id="id_last_name" placeholder="Фамилия" class="form-control" required> -->
 
 				<button class="btn btn-lg btn-primary btn-block" type="submit">Зарегистрироваться</button>
-
+				<a class="btn btn-md btn-default btn-block" href="{% url 'articles:login' %}" style="background-color: purple; color: white">Войти</a>
+				<a class="btn btn-info btn-block" href="{% url 'articles:index' %}">На главную</a>
 				<br><br>
 				<!-- {% bootstrap_form form layout='horizontal' %}
 				{% buttons submin='Зарегистрироваться' %}{% endbuttons %} -->

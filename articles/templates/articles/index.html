@@ -11,9 +11,9 @@
         <div class="row">
             {% for article in last_articles %}
                 {% url 'articles:article'  pk=article.pk as url %}
-                <!-- <li class="media my-5 p-3 border"> -->
                     <div class="col-md-auto">
                         <div class="card" style="width: 18rem;">
+
                         	{% if article.image %}
                         		<img src="{{ article.image.url }}" alt="asd" width="300px">
                             {% elif article.image_url %}
@@ -21,18 +21,21 @@
                     		{% else %}
                     			<h2>Здесь должно было быть изображение</h2>
                     		{% endif %}
+
                         	<div class="card-body">
                         		<h5 class="card-title">
                         			{{ article.title }}
                         		</h5>
+
                         		<p class="card-text">
-                        			Text
+                        			{{ article.card_text }}
                         		</p>
-                        		<a href="{{ url }}{{ all }}" class="btn btn-primary">Read</a>
+
+                        		<a href="{{ url }}{{ all }}" class="btn btn-primary btn-block">Читать</a>
+                                
                         	</div>
                         </div>
                     </div>
-                <!-- </li> -->
             {% endfor %}
         </div>
     </div>

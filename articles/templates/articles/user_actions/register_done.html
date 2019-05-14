@@ -13,11 +13,13 @@
 		<title>Регистрация прошла успешно | {{ site_name }}</title>
 	</head>
 	<body class="text-center">
-		<main role="main" class="container-fluid">
-			<h1 class="h3 mb-3 font-weight-normal" style="width:100%; height: 100%;">Регистрация прошла успешно.
-			На указанный почтовый ящик было отправлено письмо с инструкцией по активации учетной записи.</h1>
-			<a class="btn btn-lg btn-primary btn-block" href="{% url 'articles:login' %}">Войти на сайт</a>
-			<a class="btn btn-lg btn-info btn-block" href="{% url 'articles:index' %}">На главную</a>
+		<main role="main" class="container">
+			<div class="form-signin">
+				<h1 class="h3 mb-3 font-weight-normal" style="width:100%; height: 100%;">Регистрация прошла успешно.
+				На указанный почтовый ящик было отправлено письмо с инструкцией по активации учетной записи.</h1>
+				<a class="btn btn-lg btn-primary btn-block" href="{% url 'articles:login' %}">Войти на сайт</a>
+				<a class="btn btn-lg btn-info btn-block" href="{% url 'articles:index' %}">На главную</a>
+			</div>
 		</main>
 		<footer class="footer">
       		<div class="container">

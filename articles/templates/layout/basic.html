@@ -21,6 +21,9 @@
             <ul class="col nav justify-content-end border">
                 {% if user.is_authenticated %}
                 <li class="nav-item">
+                    <a href="{% url 'articles:add_article' %}" class="nav-link">Добавить статью</a>
+                </li>
+                <li class="nav-item">
                     <a href="{% url 'articles:profile' %}" class="nav-link">Профиль</a>
                 </li>
                 {% endif %}
