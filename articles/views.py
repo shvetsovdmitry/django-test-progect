@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.base import TemplateView
-from dal import autocomplete
+# from dal import autocomplete
 
 from .models import AdvUser, Category, Article, Tag
 from .forms import ARegisterUserForm, ChangeUserInfoForm, ArticleForm, ArticleFormSet
