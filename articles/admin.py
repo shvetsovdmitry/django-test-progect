@@ -4,17 +4,18 @@ from .models import AdvUser, Category, Article, Tag
 
 
 # User model admin
-# @admin.site.register(AdvUser)
 class AdvUserAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'is_activated', 'date_joined')
     search_fields = ('username', 'email', 'first_name', 'last_name')
     fields = (('username', 'email'),
               ('first_name', 'last_name'),
+              ('account_image', 'admin_image'),
               ('send_messages', 'is_activated', 'is_active'),
               ('is_staff', 'is_superuser'),
-              'groups', 'user_permissions',
+              'groups',
               ('last_login', 'date_joined'))
-    readonly_fields = ('last_login', 'date_joined')
+    filter_horizontal = ('groups', )
+    readonly_fields = ('last_login', 'date_joined', 'admin_image')       
     
 
 admin.site.register(AdvUser, AdvUserAdmin)

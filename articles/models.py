@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.dispatch import Signal
+from django.utils.safestring import mark_safe
 from .utilities import send_activation_notification
 import os
 
@@ -20,8 +21,14 @@ user_registrated.connect(user_registrated_dispatcher)
 
 
 class AdvUser (AbstractUser):
+    account_image = models.ImageField(blank=True, null=True, upload_to=get_image_path, verbose_name='Аватар')
     is_activated = models.BooleanField(default=True, db_index=True, verbose_name='Активирован?')
     send_messages = models.BooleanField(default=True, verbose_name='Присылать сообщения о новых комментариях?')
+
+    def admin_image(self):
+        return mark_safe('<img src="%s" style="width:300px; height: 200px" />' % self.account_image.url)
+    admin_image.short_desctiption = 'Предпросмотр аватара'
+    admin_image.allow_tags = True
 
     class Meta :
        verbose_name = 'Пользователь'

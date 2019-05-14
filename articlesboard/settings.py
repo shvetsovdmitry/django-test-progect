@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # Application definition
 
 INSTALLED_APPS = [
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'articles.apps.ArticlesConfig',
     'bootstrap4',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
@@ -130,5 +131,3 @@ MEDIA_URL = '/media/'
 SITE_ID = 2
 
 SITE_NAME = 'ArticlesSite'
-
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

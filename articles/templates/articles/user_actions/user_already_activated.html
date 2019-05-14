@@ -1,0 +1,27 @@
+{% load bootstrap4 %}
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="author" content="Shvetsov Dmitry">
+		{% bootstrap_css %}
+		{% bootstrap_javascript jquery='full' %}
+		<link rel="stylesheet" type="text/css" href="{% static 'articles/signin.css' %}">
+		<title>Пользователь уже активирован | {{ site_name }}</title>
+	</head>
+	<body class="text-center">
+		<main role="main" class="container-fluid">
+			<h1 class="h3 mb-3 font-weight-normal" style="width:100%; height: 100%;">Пользователь уже активирован</h1>
+			<a class="btn btn-lg btn-primary btn-block" href="{% url 'articles:login' %}">Войти на сайт</a>
+			<a class="btn btn-lg btn-info btn-block" href="{% url 'articles:index' %}">На главную</a>
+		</main>
+		<footer class="footer">
+      		<div class="container">
+        		<span class="text-muted">&copy; <a href="https://github.com/GrobIvanovich/">Shvetsov Dmitry</a>, 2019 г.</span>
+      		</div>
+    	</footer>
+	</body>
+</html>

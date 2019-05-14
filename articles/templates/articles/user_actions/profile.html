@@ -19,7 +19,11 @@
 			</div>
 			<div class="panel-body">
 				<div class="text-center">
-					<img src="http://bootstraptema.ru/snippets/element/2016/profilesection/myprofile.jpg">
+					{% if user.account_image %}
+					<img src="{{ user.account_image.url }}">
+					{% else %}
+					<img alt>
+					{% endif %}
 					<h3>{{ user.username }}</h3>
 					<small class="label label-warning">Country</small>
 					<p>Status</p>

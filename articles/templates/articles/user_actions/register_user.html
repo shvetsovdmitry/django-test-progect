@@ -1,5 +1,6 @@
 {% load bootstrap4 %}
 {% load static %}
+{% load widget_tweaks %}
 
 <!DOCTYPE html>
 <html>
@@ -8,19 +9,43 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<meta name="author" content="Shvetsov Dmitry">
 		{% bootstrap_css %}
+		{% bootstrap_javascript jquery='full' %}
 		<link rel="stylesheet" type="text/css" href="{% static 'articles/signin.css' %}">
 		<title>Регистрация нового пользователя | {{ site_name }}</title>
 	</head>
 	<body class="text-center">
 
-		<main role="main" class="container">
+		<main role="main" class="container-fluid">
 			{% bootstrap_messages %}
 			<form class="form-signin" method="post">
 				<img class="mb-4" alt width="72" height="72">
 				{% csrf_token %}
 				<h1 class="h3 mb-3 font-weight-normal">Введите данные учетной записи</h1>
+ 
+				<!-- {% bootstrap_form_errors form type="non-fields" %} -->
+				<!-- {% bootstrap_field form.username layout='horizontal' size='md' %} -->
+				<!-- {% bootstrap_field form.password1 layout='horizontal' size='md' %} -->
+				<!-- {% bootstrap_field form.password2 layout='horizontal' size='md' %} -->
+				<!-- {% bootstrap_field form.first_name layout='horizontal' size='md' %} -->
+				<!-- {% bootstrap_field form.last_name layout='horizontal' size='md' %} -->
+				<!-- {% buttons submit='Зарегистрироваться' %}{% endbuttons %} -->
 
-				<label for="id_username" class="sr-only">Имя пользователя</label>
+				{% bootstrap_form form layout='horizontal' %}
+				{% buttons submit='OK' %}{% endbuttons %}
+				<!-- {% bootstrap_form form layout='horizontal' %} -->
+				<!-- {{ form.title|add_class:"form-control" }} -->
+				<!-- {% bootstrap_form form layout='horizontal' %} -->
+				<!-- {% render_field form.alert %} -->
+				<!-- {% render_field form.username|add_class:"form-control"|attr:"placeholder:Имя пользователя" %}
+				{{ form.title|add_error_attr:"aria-invalid:true" }}
+				{% render_field form.password1|add_class:"form-control"|attr:"placeholder:Пароль" %}
+								{{ form.name.errors }}
+				{% bootstrap_messages %}
+				{% render_field form.password2|add_class:"form-control"|attr:"placeholder:Пароль (повторно)" %}
+				{% render_field form.first_name|add_class:"form-control"|attr:"placeholder:Имя" %}
+				{% render_field form.last_name|add_class:"form-control"|attr:"placeholder:Фамилия" %} -->
+				<!-- Получать сообщения? {% render_field form.send_messages|add_class:"checkbox" %} -->
+				<!-- <label for="id_username" class="sr-only">Имя пользователя</label>
 				<input type="text" id="id_username" name="username" placeholder="Имя пользователя" class="form-control" required autofocus>
 
 				<label for="id_email" class="sr-only">Email</label>
@@ -36,7 +61,7 @@
 				<input type="text" name="first_name" id="id_first_name" placeholder="Имя" class="form-control" required>
 
 				<label for="id_last_name" class="sr-only">Имя</label>
-				<input type="text" name="last_nam" id="id_last_name" placeholder="Фамилия" class="form-control" required>
+				<input type="text" name="last_nam" id="id_last_name" placeholder="Фамилия" class="form-control" required> -->
 
 				<button class="btn btn-lg btn-primary btn-block" type="submit">Зарегистрироваться</button>
 

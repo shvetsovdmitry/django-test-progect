@@ -20,22 +20,25 @@
         <div class="row">
             <ul class="col nav justify-content-end border">
                 {% if user.is_authenticated %}
-                    <div></div>
-                {% else %}
-                    <li class="nav-item">
-                        <a href="{% url 'articles:register' %}" class="nav-link">Регистрация</a>
-                    </li>
-                {% endif %}
                 <li class="nav-item">
-                    {% if user.is_authenticated %}
-                        <a href="{% url 'articles:logout' %}" class="nav-link">Выход</a>
-                    {% else %}
-                        <a href="{% url 'articles:login' %}" class="nav-link">Вход</a>
-                    {% endif %}
+                    <a href="{% url 'articles:profile' %}" class="nav-link">Профиль</a>
                 </li>
+                {% endif %}
                 <li class="nav-item">
                     <a href="#" class="nav-link">Поиск</a>
                 </li>
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                   <a href="{% url 'articles:logout' %}" class="nav-link">Выход</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a href="{% url 'articles:login' %}" class="nav-link">Вход</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'articles:register' %}" class="nav-link">Регистрация</a>
+                </li>
+                {% endif %}
             </ul>
         </div>
         <div class="container-fluid">
