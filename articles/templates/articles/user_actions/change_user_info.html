@@ -25,6 +25,7 @@
 				{% bootstrap_form form layout='horizontal' %}
 				{% buttons submit='Сохранить' %}{% endbuttons %}
 				<br><br>
+				<a href="{{ request.META['HTTP_REFERER'] }}">Назад</a>
 			</form>
 		</main>
 		<footer class="footer">
