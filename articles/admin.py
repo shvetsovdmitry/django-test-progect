@@ -59,7 +59,7 @@ class ArticleAdmin(admin.ModelAdmin):
     list_display = ('title', 'category', 'author', 'created_at', 'rating', 'is_active', )
     filter_horizontal = ('tags', )
     search_fields = ('title', 'rubric', )
-    readonly_fields = ('created_at', )
+    readonly_fields = ('created_at', 'rating_count')
     
     
 admin.site.register(Article, ArticleAdmin)

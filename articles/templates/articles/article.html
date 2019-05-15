@@ -7,7 +7,7 @@
 {% block content%}
 <h2 class="text-center">{{ article.title }}</h2>
 <div class="row container-fluid">
-	{{ article.rating }}
+	<a href="{% url 'articles:change_rating' rating=1 pk=article.pk %}" class="btn btn-warning">1</a> {{ article.rating }}
 	<div class="col">
 		<h6 class="text-center">
 			{% for t in tags %}

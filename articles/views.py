@@ -36,6 +36,41 @@ def profile(request):
     return render(request, 'articles/user_actions/profile.html', context)
 
 
+# @login_required
+class ChangeRatingView(UpdateView):
+    
+    success_url = reverse_lazy('articles:article')
+    
+    def get(self, request, rating, pk):
+        # rate_articles = Article.objects.order_by('-rating').filter(is_active=True)[:10]
+        article = Article.objects.get(pk=pk)
+        article.rating_count += 1
+        # context = {'user': request.user, 'site_name': SITE_NAME, 'rate_articles': rate_articles}
+        if article.rating_count > 0:
+            article.rating = (article.rating + rating)/article.rating_count
+        else:
+            article.rating = rating
+        # messages.add_message(request, messages.SUCCESS, 'Рейтинг успешно изменен.')
+        article.save()
+        return super(ChangeRatingView, self)
+    
+    def get_queryset(self, request, rating, pk):
+        # rate_articles = Article.objects.order_by('-rating').filter(is_active=True)[:10]
+        article = Article.objects.get(pk=pk)
+        article.rating_count += 1
+        # context = {'user': request.user, 'site_name': SITE_NAME, 'rate_articles': rate_articles}
+        if article.rating_count > 0:
+            article.rating = (article.rating + rating)/article.rating_count
+        else:
+            article.rating = rating
+        # messages.add_message(request, messages.SUCCESS, 'Рейтинг успешно изменен.')
+        article.save()
+        return super(ChangeRatingView, self)
+    
+    class Meta:
+        model = Article
+
+
 def user_activate(request, sign):
     try:
         username = signer.unsign(sign)
@@ -61,7 +96,7 @@ class ArticleAddView(TemplateView):
         form = ArticleForm(initial={'author': request.user.pk})
         context = {'form': form, 'site_name': SITE_NAME}
         return render(request, 'articles/add_article.html', context=context)
-        
+    
     def post(self, request):
         form = ArticleForm(request.POST, request.FILES, initial={'author': request.user.pk})
         if form.is_valid():
