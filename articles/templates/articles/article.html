@@ -7,7 +7,16 @@
 {% block content%}
 <h2 class="text-center">{{ article.title }}</h2>
 <div class="row container-fluid">
-	<a href="{% url 'articles:change_rating' rating=1 pk=article.pk %}" class="btn btn-warning">1</a> {{ article.rating }}
+	<div class="col-xs-1">
+		<a href="{% url 'articles:change_rating' rating=1 pk=article.pk %}" class="btn btn-warning">1</a>
+		<a href="{% url 'articles:change_rating' rating=2 pk=article.pk %}" class="btn btn-warning">2</a>
+		<a href="{% url 'articles:change_rating' rating=3 pk=article.pk %}" class="btn btn-warning">3</a>
+		<a href="{% url 'articles:change_rating' rating=4 pk=article.pk %}" class="btn btn-warning">4</a>
+		<a href="{% url 'articles:change_rating' rating=5 pk=article.pk %}" class="btn btn-warning">5</a>
+		{{ article.rating }}
+		<br>
+		Всего проголосовавших: {{ article.rating_count }}
+	</div>
 	<div class="col">
 		<h6 class="text-center">
 			{% for t in tags %}

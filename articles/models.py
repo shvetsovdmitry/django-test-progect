@@ -101,7 +101,15 @@ class Article (models.Model):
     card_text = models.TextField(verbose_name='Аннотация', blank=True, null=True, max_length=200, help_text='Введите до 200 символов.')
     author = models.ForeignKey(AdvUser, on_delete=models.PROTECT, verbose_name='Автор')
     tags = models.ManyToManyField(Tag, verbose_name='Теги', blank=True)
-    rating = models.FloatField(verbose_name='Рейтинг', max_length=5, default=0)
+    RATING_CHOICES = (
+        (1, '1'),
+        (2, '2'),
+        (3, '3'),
+        (4, '4'),
+        (5, '5'),
+    )
+    total_rating = models.IntegerField(verbose_name='Всего баллов', default=0, help_text='Всего баллов, полученных от пользователей')
+    rating = models.FloatField(verbose_name='Текущий рейтинг', default=0, help_text='Текущий рейтинг в 5-ти балльной шкале', max_length=1)
     rating_count = models.IntegerField(verbose_name='Количество проголосовавших', default=0)
     is_active = models.BooleanField(default=False, verbose_name='Прошла ли модерацию?')
     created_at = models.DateTimeField(auto_now_add=True, db_index=True, verbose_name='Опубликовано')
@@ -111,6 +119,16 @@ class Article (models.Model):
     
     def delete(self, *args, **kwargs):
         super().delete(*args, **kwargs)
+        
+    def change_rating(self, rating):
+        self.rating_count += 1
+        if self.rating_count > 0:
+            self.total_rating += rating
+            self.rating = round(self.total_rating/self.rating_count, 2)
+        else:
+            self.rating = rating
+            self.total_rating = rating
+        self.save()
 
     class Meta:
         verbose_name = 'Статья'

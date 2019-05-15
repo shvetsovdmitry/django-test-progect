@@ -1,4 +1,5 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect, reverse
+from django.http import HttpResponseRedirect
 from articlesboard.settings import SITE_NAME
 from django.urls import reverse_lazy
 from django.core.signing import BadSignature
@@ -36,39 +37,12 @@ def profile(request):
     return render(request, 'articles/user_actions/profile.html', context)
 
 
-# @login_required
-class ChangeRatingView(UpdateView):
-    
-    success_url = reverse_lazy('articles:article')
-    
-    def get(self, request, rating, pk):
-        # rate_articles = Article.objects.order_by('-rating').filter(is_active=True)[:10]
+@login_required
+def change_rating(request, rating, pk):       
         article = Article.objects.get(pk=pk)
-        article.rating_count += 1
-        # context = {'user': request.user, 'site_name': SITE_NAME, 'rate_articles': rate_articles}
-        if article.rating_count > 0:
-            article.rating = (article.rating + rating)/article.rating_count
-        else:
-            article.rating = rating
-        # messages.add_message(request, messages.SUCCESS, 'Рейтинг успешно изменен.')
-        article.save()
-        return super(ChangeRatingView, self)
-    
-    def get_queryset(self, request, rating, pk):
-        # rate_articles = Article.objects.order_by('-rating').filter(is_active=True)[:10]
-        article = Article.objects.get(pk=pk)
-        article.rating_count += 1
-        # context = {'user': request.user, 'site_name': SITE_NAME, 'rate_articles': rate_articles}
-        if article.rating_count > 0:
-            article.rating = (article.rating + rating)/article.rating_count
-        else:
-            article.rating = rating
-        # messages.add_message(request, messages.SUCCESS, 'Рейтинг успешно изменен.')
-        article.save()
-        return super(ChangeRatingView, self)
-    
-    class Meta:
-        model = Article
+        article.change_rating(rating)
+        messages.add_message(request, messages.SUCCESS, 'Спасибо! Ваш голос учтен.')
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 def user_activate(request, sign):
