@@ -31,6 +31,10 @@ def index(request):
 
 def detail(request, pk):
     article = Article.objects.get(pk=pk)
+    if request.user not in article.viewed_users:
+        article.viewed_user.add(request.user)
+        article.views = len(article.viewed_user)
+        article.save()
     context = {'article': article, 'tags': article.tags.all(), 'site_name': SITE_NAME, 'rate_articles': rate_articles}
     return render(request, 'articles/article.html', context)
 

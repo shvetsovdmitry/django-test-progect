@@ -110,8 +110,8 @@ class Article (models.Model):
     
     views = models.IntegerField(verbose_name='Просмотры', default=0)
     
-    rated_users = models.ManyToManyField(AdvUser, verbose_name='Проголосовавшие пользователи', blank=True)
-    viewed_users = models.ManyToManyField(AdvUser, verbose_name='Пользователи, читавшие статью', blank=True)
+    rated_users = models.ManyToManyField(AdvUser, related_name='rated_users',  verbose_name='Проголосовавшие пользователи', blank=True)
+    viewed_users = models.ManyToManyField(AdvUser, related_name='viewed_users', verbose_name='Пользователи, читавшие статью', blank=True)
     
     is_active = models.BooleanField(default=False, verbose_name='Прошла ли модерацию?')
     created_at = models.DateTimeField(auto_now_add=True, db_index=True, verbose_name='Опубликовано')
