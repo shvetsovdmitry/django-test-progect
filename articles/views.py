@@ -10,14 +10,16 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.base import TemplateView
-# from dal import autocomplete
 
 from .models import AdvUser, Category, Article, Tag
 from .forms import ARegisterUserForm, ChangeUserInfoForm, ArticleForm, ArticleFormSet
 from .utilities import signer
 
+
+rate_articles = Article.objects.order_by('-rating').filter(is_active=True)[:10]
+
+
 def index(request):
-    rate_articles = Article.objects.order_by('-rating').filter(is_active=True)[:10]
     last_articles = Article.objects.filter(is_active=True)
     context = {'last_articles': last_articles, 'rate_articles': rate_articles, 'site_name': SITE_NAME}
     return render(request, 'articles/index.html', context)
@@ -25,14 +27,12 @@ def index(request):
 
 def detail(request, pk):
     article = Article.objects.get(pk=pk)
-    rate_articles = Article.objects.order_by('-rating').filter(is_active=True)[:10]
     context = {'article': article, 'tags': article.tags.all(), 'site_name': SITE_NAME, 'rate_articles': rate_articles}
     return render(request, 'articles/article.html', context)
 
 
 @login_required
 def profile(request):
-    rate_articles = Article.objects.order_by('-rating').filter(is_active=True)[:10]
     context = {'user': request.user, 'site_name': SITE_NAME, 'rate_articles': rate_articles}
     return render(request, 'articles/user_actions/profile.html', context)
 
@@ -42,6 +42,8 @@ def change_rating(request, rating, pk):
         article = Article.objects.get(pk=pk)
         article.change_rating(rating)
         messages.add_message(request, messages.SUCCESS, 'Спасибо! Ваш голос учтен.')
+        global rate_articles
+        rate_articles = Article.objects.order_by('-rating').filter(is_active=True)[:10]
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
@@ -61,18 +63,12 @@ def user_activate(request, sign):
     return render(request, template)
 
 
-def previous_page(request, previous_page):
-    return HttpResponseRedirect(previous_page)
-
-
-# @login_required
-class ArticleAddView(TemplateView):
+class ArticleAddView(TemplateView, LoginRequiredMixin):
 
     template_name = 'articles/add_article.html'
 
     def get(self, request):
         form = ArticleForm(initial={'author': request.user.pk})
-        rate_articles = Article.objects.order_by('-rating').filter(is_active=True)[:10]
         context = {'form': form, 'site_name': SITE_NAME, 'rate_articles': rate_articles}
         return render(request, self.template_name, context=context)
     
