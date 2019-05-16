@@ -61,6 +61,10 @@ def user_activate(request, sign):
     return render(request, template)
 
 
+def previous_page(request, previous_page):
+    return HttpResponseRedirect(previous_page)
+
+
 # @login_required
 class ArticleAddView(TemplateView):
 
@@ -68,8 +72,12 @@ class ArticleAddView(TemplateView):
 
     def get(self, request):
         form = ArticleForm(initial={'author': request.user.pk})
-        context = {'form': form, 'site_name': SITE_NAME}
+        rate_articles = Article.objects.order_by('-rating').filter(is_active=True)[:10]
+        context = {'form': form, 'site_name': SITE_NAME, 'rate_articles': rate_articles}
         return render(request, 'articles/add_article.html', context=context)
+    
+    # def previous_page(self):
+    #     return redirect(self.request.META.get('HTTP_REFERER'))
     
     def post(self, request):
         form = ArticleForm(request.POST, request.FILES, initial={'author': request.user.pk})
@@ -104,6 +112,31 @@ class ARegisterDoneView(TemplateView):
     template_name = 'articles/user_actions/register_done.html'
 
 
+# class ChangeUserInfoView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
+#     model = AdvUser
+#     template_name = 'articles/user_actions/change_user_info.html'
+#     # form_class = ChangeUserInfoForm
+#     # success_url = reverse_lazy('articles:profile')
+#     # success_message = 'Личные данные пользователя изменены'
+
+#     def post(self, request):
+#         user = get_object_or_404(AdvUser, pk=request.user.pk)
+#         form = ChangeUserInfoForm(request.POST, request.FILES, instance=user)
+#         if form.is_valid():
+#             user = form.save()
+#             messages.add_message(request, messages.SUCCESS, 'Профиль изменен.')
+#             return redirect('articles:profile')
+#         else:
+#             messages.add_message(request, messages.WARNING, 'Профиль не был изменен.')
+#             return reverse_lazy('articles:profile_change')
+            
+#     def get(self, request):
+#         user = get_object_or_404(AdvUser, pk=request.user.pk)
+#         form = ChangeUserInfoForm(instance=user)
+#         context = {'form': form}
+#         return render(request, 'articles/user_actions/change_user_info.html', context)
+    
+
 class ChangeUserInfoView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     model = AdvUser
     template_name = 'articles/user_actions/change_user_info.html'
@@ -119,4 +152,29 @@ class ChangeUserInfoView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
         if not queryset:
             queryset = self.get_queryset()
         return get_object_or_404(queryset, pk=self.user_id)
-    
+
+
+
+@login_required
+def change_user_info(request):
+    user = get_object_or_404(AdvUser, pk=request.user.pk)
+    if request.method == 'POST':
+        form = ChangeUserInfoForm(request.POST, request.FILES, instance=user)
+        if form.is_valid():
+            user = form.save()
+            # formset = AIFormSet(request.POST, request.FILES, instance=bb)
+            # if formset.is_valid():
+            #     formset.save()
+            messages.add_message(request, messages.SUCCESS, 'Профиль изменен')
+            return redirect('articles:profile')
+    else:
+        form = ChangeUserInfoForm(instance=user)
+        # formset = AIFormSet(instance=bb)
+    context = {'form': form}
+    return render(request, 'articles/user_actions/change_user_info.html', context)
+
+
+
+# def change_user_info(request, pk):
+#     article = get_object_or_404(Article, pk=pk)
+#     if request.method

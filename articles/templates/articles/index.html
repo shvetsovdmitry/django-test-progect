@@ -19,7 +19,8 @@
                             {% elif article.image_url %}
                                 <img src="{{ article.image_url }}" alt="Здесь была картинка" width="300px">
                     		{% else %}
-                    			<h2>Здесь должно было быть изображение</h2>
+                    			<h2 class="alt-image">Здесь должно было быть изображение</h2>
+                                <!-- <img alt="asdasd" width="300px"> -->
                     		{% endif %}
 
                         	<div class="card-body">
@@ -31,7 +32,7 @@
                         			{{ article.card_text }}
                         		</p>
 
-                        		<a href="{{ url }}{{ all }}" class="btn btn-primary btn-block">Читать</a>
+                        		<a href="{{ url }}{{ all }}" class="btn btn-primary btn-block card-read-button">Читать</a>
                                 
                         	</div>
                         </div>

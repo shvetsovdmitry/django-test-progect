@@ -41,8 +41,8 @@ class ARegisterUserForm(forms.ModelForm):
     
 
 class ChangeUserInfoForm(forms.ModelForm):
-    email = forms.EmailField(required=True, label='Адрес электронной почты')
-    account_image = forms.ImageField(required=False, label='Аватар')
+    # email = forms.EmailField(required=True, label='Адрес электронной почты')
+    # account_image = forms.ImageField(required=False, label='Аватар')
     
     class Meta:
         model = AdvUser

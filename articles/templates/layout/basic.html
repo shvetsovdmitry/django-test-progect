@@ -11,11 +11,14 @@
 		{% bootstrap_css %}
         {% bootstrap_jquery %}
 		<link rel="stylesheet" type="text/css" href="{% static 'articles/style.css' %}">
+        <!-- <link rel="stylesheet" type="text/css" href="{% static 'articles/signin.css' %}"> -->
     </head>
     <body class="container-fluid">
-        <header class="mb-4">
-            <h2 class="display-2 text-center"><a href="{% url 'articles:index' %}" class="main-page-link">{{ site_name }}</a></h2>
-        </header>
+        <!-- <div class="row"> -->
+            <header class="mb-4">
+                <h2 class="display-2 text-center"><a href="{% url 'articles:index' %}" class="main-page-link">{{ site_name }}</a></h2>
+            </header>
+        <!-- </div> -->
         <!-- Main menu -->
         <div class="row">
             <ul class="col nav justify-content-end border">
@@ -62,8 +65,10 @@
                 </div>
             </div>
         </div>
-        <footer class="mt-3">
-            <p class="text-right font-italic">&copy; Shvetsov Dmitry, 2019 г.</p>
+        <footer class="footer">
+            <div class="container text-center">
+                <span class="text-muted">&copy; <a href="https://github.com/GrobIvanovich/">Shvetsov Dmitry</a>, 2019 г.</span>
+            </div>
         </footer>
     </body>
 </html>

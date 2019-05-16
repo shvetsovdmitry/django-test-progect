@@ -21,3 +21,45 @@ div.youtube-video iframe {
 ul.nav {
 	padding-bottom: 15px;
 }
+.add-article-form {
+	max-width: 700px;
+	margin: 15px auto 0;
+}
+.footer {
+  position: absolute;
+  /*bottom: 0;*/
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  line-height: 60px; /* Vertically center the text there */
+  background-color: #f5f5f5;
+}
+
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+body > .container {
+  padding: 60px 15px 0;
+}
+
+.footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+html, body {
+	height: 100%;
+	padding-bottom: 70px;
+}
+.card {
+	min-height: 400px;
+}
+.card .alt-image {
+	height: 206.5px;
+	/*margin-bottom: -8px;*/
+}
+.card-read-button {
+	position: static;
+	margin-bottom: 10px;
+}
