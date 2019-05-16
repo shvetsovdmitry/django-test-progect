@@ -8,7 +8,7 @@
 {% block content %}
 <h2>Добавить статью</h2>
 <div class="container-fluid add-article-form">
-	<form method="post" class="">
+	<form method="post" class="" enctype="multipart/form-data">
 		{% csrf_token %}
 		{% bootstrap_form form layout='horizontal' %}
 		<button class="btn btn-primary btn-block" type="submit">Отправить</button>
