@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
+from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect
 from articlesboard.settings import SITE_NAME
 from django.urls import reverse_lazy
@@ -8,10 +9,13 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib.messages.views import SuccessMessageMixin
+from django.views import View
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.base import TemplateView
+from django.utils import timezone
 
 from .models import AdvUser, Category, Article, Tag
+# , ArticleStatistics
 from .forms import ARegisterUserForm, ChangeUserInfoForm, ArticleForm, ArticleFormSet
 from .utilities import signer
 
@@ -29,6 +33,27 @@ def detail(request, pk):
     article = Article.objects.get(pk=pk)
     context = {'article': article, 'tags': article.tags.all(), 'site_name': SITE_NAME, 'rate_articles': rate_articles}
     return render(request, 'articles/article.html', context)
+
+
+# class ArticleView(View):
+#     template_name = 'articles/article.html'
+    
+#     def get(self, request, *args, **kwargs):
+#         article = get_object_or_404(Article, id=self.kwargs['article_id'])
+#         context = {}
+        
+#         obj, created = ArticleStatistics.objects.get_or_create(
+#             defaults = {
+#                 'article': article,
+#                 'date': timezone.now()
+#             },
+#             date = timezone.now(),
+#             article = article
+#         )
+#         obj.views += 1
+#         obj.save(update_fields=['views'])
+        
+#         return render_to_response(template_name=self.template_name, context=context)
 
 
 @login_required

@@ -4,6 +4,7 @@ from .views import index, detail, profile
 from .views import ALoginView, ALogoutView, ARegisterUserView
 from .views import ARegisterDoneView, user_activate, ChangeUserInfoView
 from .views import ArticleAddView, change_rating
+# , ArticleView
 
 
 app_name = 'articles'
