@@ -1,6 +1,7 @@
 from django.contrib import admin
 
 from .models import AdvUser, Category, Article, Tag, Gender
+# from .models import ArticleStatistics
 
 
 class GenderAdmin(admin.ModelAdmin):
@@ -56,10 +57,20 @@ admin.site.register(Tag, TagAdmin)
 
 # Article admin
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ('title', 'category', 'author', 'created_at', 'rating', 'is_active', )
+    list_display = ('title', 'category', 'author', 'created_at', 'total_rating', 'rating_count', 'is_active', )
     filter_horizontal = ('tags', )
     search_fields = ('title', 'rubric', )
-    readonly_fields = ('created_at', )
+    readonly_fields = ('created_at', 
+                    #    'rating_count'
+                       )
     
     
 admin.site.register(Article, ArticleAdmin)
+
+
+# class ArticleStatisticsAdmin(admin.ModelAdmin):
+#     list_display = ('__str__', 'rating', 'views')
+#     search_fields = ('__str__', )
+    
+
+# admin.site.register(ArticleStatistics, ArticleStatisticsAdmin)

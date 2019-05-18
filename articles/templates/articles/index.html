@@ -6,20 +6,20 @@
 
 {% block content %}
 <h2>Последние 10 статей</h2>
-<div class="album py-5 border">
-    <div class="container">
-        <div class="row">
+<div class="album py-4 border row">
+    <div class="container-fluid">
+        <div class="row"  style="margin: 0 auto 0 15px;">
             {% for article in last_articles %}
                 {% url 'articles:article'  pk=article.pk as url %}
                     <div class="col-md-auto">
-                        <div class="card" style="width: 18rem;">
+                        <div class="card" style="width: 18rem; margin-top: 5px;">
 
                         	{% if article.image %}
                         		<img src="{{ article.image.url }}" alt="asd" width="300px">
                             {% elif article.image_url %}
                                 <img src="{{ article.image_url }}" alt="Здесь была картинка" width="300px">
                     		{% else %}
-                    			<h2>Здесь должно было быть изображение</h2>
+                    			<h2 class="alt-image">Здесь должно было быть изображение</h2>
                     		{% endif %}
 
                         	<div class="card-body">
@@ -31,7 +31,7 @@
                         			{{ article.card_text }}
                         		</p>
 
-                        		<a href="{{ url }}{{ all }}" class="btn btn-primary btn-block">Читать</a>
+                        		<a href="{{ url }}{{ all }}" class="btn btn-primary btn-block card-read-button">Читать</a>
                                 
                         	</div>
                         </div>

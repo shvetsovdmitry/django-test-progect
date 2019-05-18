@@ -3,7 +3,9 @@ from django.urls import path
 from .views import index, detail, profile
 from .views import ALoginView, ALogoutView, ARegisterUserView
 from .views import ARegisterDoneView, user_activate, ChangeUserInfoView
-from .views import ArticleAddView
+from .views import ArticleAddView, change_rating
+# , ArticleView
+
 
 app_name = 'articles'
 urlpatterns = [
@@ -15,6 +17,7 @@ urlpatterns = [
     path('accounts/profile/', profile, name='profile'),
     path('accounts/logout/', ALogoutView.as_view(), name='logout'),
     path('accounts/login/', ALoginView.as_view(redirect_authenticated_user=True), name='login'),
+    path('articles/<int:pk>/<int:rating>/', change_rating, name='change_rating'),
     path('articles/<int:pk>/', detail, name='article'),
     path('', index, name='index'),
 ]

@@ -73,10 +73,7 @@ html {
   position: relative;
   min-height: 100%;
 }
-/*body {
-  /* Margin bottom by footer height */
-  /*margin-bottom: 60px;
-}*/
+
 .footer {
   position: absolute;
   bottom: 0;
@@ -88,14 +85,6 @@ html {
 }
 
 
-/* Custom page CSS
--------------------------------------------------- */
-/* Not required for template or sticky footer method. */
-
-/*body > .container {
-  padding: 60px 15px 0;
-}*/
-
 .footer > .container {
   padding-right: 15px;
   padding-left: 15px;
@@ -103,4 +92,12 @@ html {
 
 code {
   font-size: 80%;
+}
+
+.errorlist {
+  margin-bottom: 0px;
+  list-style-type: none;
+}
+.errorlist li {
+  margin-left: -30px;
 }

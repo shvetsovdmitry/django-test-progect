@@ -17,7 +17,7 @@
 
 		<main role="main" class="container-fluid">
 			{% bootstrap_messages %}
-			<form class="form-signin" method="post">
+			<form class="form-signin" method="post" enctype="multipart/form-data">
 				<img class="mb-4" alt width="72" height="72">
 				{% csrf_token %}
 				<h1 class="h3 mb-3 font-weight-normal">Измените данные учетной записи</h1>
@@ -25,6 +25,7 @@
 				{% bootstrap_form form layout='horizontal' %}
 				{% buttons submit='Сохранить' %}{% endbuttons %}
 				<br><br>
+				<a href="{% url 'articles:profile' %}" class="btn btn-primary btn-block">Назад</a>
 			</form>
 		</main>
 		<footer class="footer">

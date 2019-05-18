@@ -7,9 +7,13 @@
 
 {% block content %}
 <h2>Добавить статью</h2>
-<form method="post">
-	{% csrf_token %}
-	{% bootstrap_form form layout='horizontal' %}
-	{% buttons submit='Добавить' %}{% endbuttons %}
-</form>
+<div class="container-fluid add-article-form">
+	<form method="post" class="" enctype="multipart/form-data">
+		{% csrf_token %}
+		{% bootstrap_form form layout='horizontal' %}
+		<button class="btn btn-primary btn-block" type="submit">Отправить</button>
+	</form>
+
+	<a href="{% url 'articles:index' %}" class="btn btn-info btn-block">На главную</a>
+</div>
 {% endblock %}
