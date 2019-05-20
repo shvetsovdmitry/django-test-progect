@@ -1,218 +1,110 @@
-<!DOCTYPE html>
-<html>
-
-	<head>
-		<title>PageTitle | ArticlesSite</title>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<meta name="author" content="Shvetsov Dmitry">
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-		<link rel="stylesheet" type="text/css" href="../../static/articles/style-new.css">
-		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-		<script src="https://getbootstrap.com/docs/4.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous"></script>
-
-	</head>
-
-	<body>
-		<header>
-			<nav class="navbar navbar-expand-lg navbar-dark shadow nav-bg">
-			    <a class="navbar-brand" href="#">ArticlesSite</a>
-			    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-			        <span class="navbar-toggler-icon"></span>
-			    </button>
-			    <div class="collapse navbar-collapse" id="navbarCollapse">
-			        <ul class="navbar-nav mr-auto">
-				        <li class="nav-item active">
-				            <a class="nav-link" href="#">Главная<span class="sr-only">(current)</span></a>
-				        </li>
-				        <li class="nav-item">
-				            <a class="nav-link" href="#">Вход</a>
-				        </li>
-				        <li class="nav-item">
-				            <a class="nav-link" href="#">Регистрация</a>
-				        </li>
-				        <li class="nav-item">
-				            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Добавить статью</a>
-				        </li>
-				        <li class="nav-item">
-				            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Профиль</a>
-				        </li>
-			        </ul>
-			        <form class="form-inline mt-2 mt-md-0">
-			        	<input class="form-control mr-sm-2" type="text" placeholder="Поиск" aria-label="Search">
-			        	<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
-			        </form>
-			    </div>
-			</nav>
-		</header>
-			<div class="row content">
-				<div class="col-light col-xs-6 col-sm-12 col-md-4 col-lg-3 text-center pr-0">
-					<nav class="navbar navbar-expand-md navbar-dark p-0 d-block">
-			    		<h3 class="text-white py-3 px-1 shadow text-header-hl d-none d-lg-block d-md-block">Популярные статьи</h3>
-			    		<div class="navbar-toggler w-100 bg-dark" type="button" data-toggle="collapse" data-target="#articlesCollapse" aria-controls="articlesCollapse" aria-expanded="false" aria-label="Toggle navigation">
-			    			<h3 class="text-white py-3 shadow text-header-hl">Популярные статьи</h3>
-			    		</div>
-			    		<div class="collapse navbar-collapse flex-column w-100 nabvbar-nav" id="articlesCollapse">
-							<!-- <div class="py-1"> -->
-								<div class="col-light text-white list-unstyled shadow p-2 text-body-hl w-100">
-									<a class="my-1 nav-item nav-link btn btn-secondary" href="#">Первая статья</a>
-									<a class="my-1 nav-item nav-link btn btn-secondary" href="#">Вторая статья</a>
-									<a class="my-1 nav-item nav-link btn btn-secondary" href="#">Третья статья</a>
-									<a class="my-1 nav-item nav-link btn btn-secondary" href="#">Четвертая статья</a>
-									<a class="my-1 nav-item nav-link btn btn-secondary" href="#">Пятая статья</a>
-								</div>
-							<!-- </div> --> <!-- /py-1 -->
-						</div>
-					</nav>
-				</div> <!-- /col-light -->
-				
-				<div class="col col-dark">		
-					<main role="main">
-						<!-- Main content -->
-						<h1 class="display-4 font-weight-normal text-white mx-4">Добавить статью</h1>
-						<div class="px-5 pt-4">
-							<form method="post" enctype="multipart/form-data" class="needs-validation text-white">
-								<div class="row mb-3">
-									<div class="col-lg-2">
-										<label for="id_title">Название статьи</label>
-									</div>
-									<div class="col-lg-6">
-										<input type="text" class="form-control" id="id_title" name="title" placeholder="Название статьи" required>
-									</div>
-									<div class="col-lg-3">
-										<div class="invalid-feedback" style="width: 100%;">
-											Поле обязательно к заполнению!
-										</div>
-									</div>
-								</div>
-
-								<div class="row mb-3">
-									<div class="col-lg-2">
-										<label for="id_category">Категория</label>
-									</div>
-									<div class="col-lg-6">
-										<select class="custom-select d-block w-100" id="id_category" required>
-											<option>1</option>
-											<option>2</option>
-											<option>3</option>
-										</select>
-									<div class="col-lg-3">
-										<div class="invalid-feedback" style="width: 100%;">
-											Поле обязательно к заполнению!
-										</div>
-									</div>
-									</div>
-								</div>
-
-								<div class="row mb-3">
-									<div class="col-lg-2">
-										<label for="id_image">Превью</label>
-									</div>
-									<div class="col">
-										<input type="file" name="image" id="id_image" required>
-									</div>
-								</div>
-
-								<div class="row mb-3">
-									<div class="col-lg-2">
-										<label for="id_image_url">Ссылка на превью (необязательно)</label>
-									</div>
-									<div class="col-lg-6">
-										<input type="url" class="form-control" name="image_url" id="id_image_url" placeholder="http://example.com/example.jpg">
-									</div>
-									<div class="col-lg-3">
-										<div class="invalid-feedback" style="width: 100%;">
-											Поле обязательно к заполнению!
-										</div>
-									</div>
-								</div>
-
-								<div class="row mb-3">
-									<div class="col-lg-2">
-										<label for="id_card_text">Аннотация</label>
-									</div>
-									<div class="col-lg-6">
-										<textarea class="form-control" name="card_text" id="id_card_text" placeholder="До 200 символов." rows="3" required></textarea>
-									</div>
-									<div class="col-lg-3">
-										<div class="invalid-feedback" style="width: 100%;">
-											Поле обязательно к заполнению!
-										</div>
-									</div>
-								</div>
-
-								<div class="row mb-3">
-									<div class="col-lg-2">
-										<label for="id_card_text">Содержимое</label>
-									</div>
-									<div class="col-lg-6">
-										<textarea class="form-control" name="card_text" id="id_card_text" placeholder="Поддерживает html теги." rows="7" required></textarea>
-									</div>
-									<div class="col-lg-3">
-										<div class="invalid-feedback" style="width: 100%;">
-											Поле обязательно к заполнению!
-										</div>
-									</div>
-								</div>
-
-								<div class="row mb-3">
-									<div class="col-lg-2">
-										<label for="id_tags">Теги</label>
-									</div>
-									<div class="col-lg-6">
-										<input class="form-control" name="tags" id="id_tags" placeholder="Вводите через запятую.">
-									</div>
-									<div class="col-lg-3">
-										<div class="invalid-feedback" style="width: 100%;">
-											Поле обязательно к заполнению!
-										</div>
-									</div>
-								</div>
-
-								<div class="row mb-3">
-									<div class="col-lg-2"></div>
-									<div class="col-lg-6">
-										<button class="btn btn-md btn-primary btn-block">Отправить</button>
-									</div>
-									<div class="col-lg-3"></div>
-								</div>
-							</form>
-						</div>
-					</main>
-				</div>
-
-			</div> <!-- /row -->
-
-		<footer class="page-footer font-small text-white pt-4 footer-bg">
-			<div class="container-fluid text-center text-md-left">
-				<div class="row">
-					<div class="col-md-6 mt-md-0 mt-3">
-						<h5 class="text-uppercase">Содержимое</h5>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-					</div>
-					<!-- /Footer text -->
-					<hr class="clearfix w-100 d-md-none pb-3">
-					<!-- Footer links -->
-					<div class="col-md-3 mb-md-0 mb-3">
-						<h5 class="text-uppercase">Links</h5>
-						<ul class="list-unstyled">
-							<li><a href="#">Ссылка 1</a></li>
-							<li><a href="#">Ссылка 2</a></li>
-							<li><a href="#">Ссылка 3</a></li>
-							<li><a href="#">Ссылка 4</a></li>
-						</ul>
-					</div>
-					<!-- /Footer links -->
-				</div> <!-- /row -->
-			</div> <!-- /container-fluid -->
-			<!-- Copyright -->
-			<div class="footer-copyright text-center py-2 nav-bg">
-				<!-- style="background-color: #1C2331" -->
-				&copy; 2019 Copyright: <a href="#"> Shvetsov Dmitry</a>
+<!-- Main content -->
+<h1 class="display-4 font-weight-normal text-white mx-4 text-shadow-lg">Добавить статью</h1>
+<div class="px-5 pt-4">
+	<form method="post" enctype="multipart/form-data" class="needs-validation text-white">
+		<div class="row mb-3">
+			<div class="col-lg-2">
+				<label for="id_title">Название статьи</label>
 			</div>
-			<!-- /Copyright -->
-		</footer>
+			<div class="col-lg-6">
+				<input type="text" class="form-control" id="id_title" name="title" placeholder="Название статьи" required>
+			</div>
+			<div class="col-lg-3">
+				<div class="invalid-feedback" style="width: 100%;">
+					Поле обязательно к заполнению!
+				</div>
+			</div>
+		</div>
 
-	</body>
-</html>
+		<div class="row mb-3">
+			<div class="col-lg-2">
+				<label for="id_category">Категория</label>
+			</div>
+			<div class="col-lg-6">
+				<select class="custom-select d-block w-100" id="id_category" required>
+					<option>1</option>
+					<option>2</option>
+					<option>3</option>
+				</select>
+			<div class="col-lg-3">
+				<div class="invalid-feedback" style="width: 100%;">
+					Поле обязательно к заполнению!
+				</div>
+			</div>
+			</div>
+		</div>
+
+		<div class="row mb-3">
+			<div class="col-lg-2">
+				<label for="id_image">Превью</label>
+			</div>
+			<div class="col">
+				<input type="file" name="image" id="id_image" required>
+			</div>
+		</div>
+
+		<div class="row mb-3">
+			<div class="col-lg-2">
+				<label for="id_image_url">Ссылка на превью (необязательно)</label>
+			</div>
+			<div class="col-lg-6">
+				<input type="url" class="form-control" name="image_url" id="id_image_url" placeholder="http://example.com/example.jpg">
+			</div>
+			<div class="col-lg-3">
+				<div class="invalid-feedback" style="width: 100%;">
+					Поле обязательно к заполнению!
+				</div>
+			</div>
+		</div>
+
+		<div class="row mb-3">
+			<div class="col-lg-2">
+				<label for="id_card_text">Аннотация</label>
+			</div>
+			<div class="col-lg-6">
+				<textarea class="form-control" name="card_text" id="id_card_text" placeholder="До 200 символов." rows="3" required></textarea>
+			</div>
+			<div class="col-lg-3">
+				<div class="invalid-feedback" style="width: 100%;">
+					Поле обязательно к заполнению!
+				</div>
+			</div>
+		</div>
+
+		<div class="row mb-3">
+			<div class="col-lg-2">
+				<label for="id_card_text">Содержимое</label>
+			</div>
+			<div class="col-lg-6">
+				<textarea class="form-control" name="card_text" id="id_card_text" placeholder="Поддерживает html теги." rows="7" required></textarea>
+			</div>
+			<div class="col-lg-3">
+				<div class="invalid-feedback" style="width: 100%;">
+					Поле обязательно к заполнению!
+				</div>
+			</div>
+		</div>
+
+		<div class="row mb-3">
+			<div class="col-lg-2">
+				<label for="id_tags">Теги</label>
+			</div>
+			<div class="col-lg-6">
+				<input class="form-control" name="tags" id="id_tags" placeholder="Вводите через запятую.">
+			</div>
+			<div class="col-lg-3">
+				<div class="invalid-feedback" style="width: 100%;">
+					Поле обязательно к заполнению!
+				</div>
+			</div>
+		</div>
+
+		<div class="row mb-3">
+			<div class="col-lg-2"></div>
+			<div class="col-lg-6">
+				<button class="btn btn-md btn-success btn-block shadow-sm">Отправить</button>
+			</div>
+			<div class="col-lg-3"></div>
+		</div>
+	</form>
+</div>

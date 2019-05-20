@@ -1,43 +1,58 @@
 {% extends 'layout/basic.html' %}
-
 {% load static %}
 
-{% block title %}Главная страница{% endblock %}
+{% block title %}Главная{% endblock %}
 
 {% block content %}
-<h2>Последние 10 статей</h2>
-<div class="album py-4 border row">
-    <div class="container-fluid">
-        <div class="row"  style="margin: 0 auto 0 15px;">
-            {% for article in last_articles %}
-                {% url 'articles:article'  pk=article.pk as url %}
-                    <div class="col-md-auto">
-                        <div class="card" style="width: 18rem; margin-top: 5px;">
+<h3 class="text-white py-3 shadow text-center text-header-hl">Статьи</h3>
+<div class="album py-1">
+	<div class="container">
+		<div class="row">
 
-                        	{% if article.image %}
-                        		<img src="{{ article.image.url }}" alt="asd" width="300px">
-                            {% elif article.image_url %}
-                                <img src="{{ article.image_url }}" alt="Здесь была картинка" width="300px">
-                    		{% else %}
-                    			<h2 class="alt-image">Здесь должно было быть изображение</h2>
-                    		{% endif %}
+			<!-- Cards -->
+			{% for article in last_articles %}
+				{% url 'articles:article' pk=article.pk as url %}
+				<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+					<div class="card mb-4 shadow-sm">
+						{% if article.image %}
+							<img src="{{ article.image.url }}" height="225">
+						{% elif article.image_url %}
+							<img src="{{ article.image_url }}" height="225">
+						{% else %}
+							<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+						{% endif %}
+						<!-- Rating -->
+						<div class="rating shadow-sm p-2">
+							<h6 class="text-white rating-text">{{ article.rating }}</h6>
+						</div>
+						<!-- /Rating -->
+						<div class="card-body">
+							<p class="card-text">
+								{{ article.title }}
+							</p>
+							<div class="d-flex justify-content-between align-items-center">
+								<div class="btn-group btn-block">
+									<a class="btn btn-sm btn-outline-secondary" href="{{ url }}{{ all }}">View</a>
+									<!-- Если пользователь - автор этой статьи, то отображать эту кнопку -->
+									{% if article.author == request.user %}
+										<button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+									{% endif %}
+								</div>
+							</div> <!-- /d-flex -->
+							<div class="row">
+								<div class="col text-left">
+									<small class="text-muted">{{ article.views }} просмотров</small>
+								</div>
+								<div class="col text-right">
+									<small class="text-muted">{{ article.created_at }}</small>
+								</div>
+							</div>
+						</div> <!-- /card-body -->
+					</div> <!-- /card -->
+				</div> <!-- /col-md-4 -->
+			{% endfor %}
 
-                        	<div class="card-body">
-                        		<h5 class="card-title">
-                        			{{ article.title }}
-                        		</h5>
-
-                        		<p class="card-text">
-                        			{{ article.card_text }}
-                        		</p>
-
-                        		<a href="{{ url }}{{ all }}" class="btn btn-primary btn-block card-read-button">Читать</a>
-                                
-                        	</div>
-                        </div>
-                    </div>
-            {% endfor %}
-        </div>
-    </div>
-</div>
+		</div> <!-- /row -->
+	</div> <!-- /container -->
+</div> <!-- /album -->
 {% endblock %}

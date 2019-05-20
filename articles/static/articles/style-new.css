@@ -24,6 +24,22 @@ body {
 .col-dark {
 	background-color: #2E2E2E;
 }
+.btn-success {
+	background-color: #187b57;
+	border-color: #0c563b;
+}
+.text-shadow-lg {
+	text-shadow: 5px 5px #292929;
+}
+.text-shadow-md {
+	text-shadow: 3px 3px #292929;
+}
+.text-shadow-sm {
+	text-shadow: 2px 2px #292929;
+}
+.border-right {
+	border-right: 1px dashed #333;
+}
 .footer-bg {
 	background-color: #373d48;
 }
