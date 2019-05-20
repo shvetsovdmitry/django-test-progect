@@ -1,3 +1,6 @@
+body {
+	background-color: #100417;
+}
 .content {
 	/*position: relative;*/
 	margin-right: 0px;
@@ -16,6 +19,7 @@
 }
 .col-light {
 	background-color: #3a3b3e;
+	min-height: 100%;
 }
 .col-dark {
 	background-color: #2E2E2E;
@@ -23,9 +27,7 @@
 .footer-bg {
 	background-color: #373d48;
 }
-body {
-	background-color: #100417;
-}
+
 .bd-placeholder-img {
     font-size: 1.125rem;
     text-anchor: middle;
@@ -39,6 +41,7 @@ body {
     	font-size: 3.5rem;
 	}
 }
+
 .rating {
 	position: absolute;
 	right: 3%;
