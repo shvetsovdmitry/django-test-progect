@@ -43,7 +43,11 @@ body {
 .footer-bg {
 	background-color: #373d48;
 }
+.img-thumbnail {
+	max-height: 250px;
+	max-width: 250px;
 
+}
 .bd-placeholder-img {
     font-size: 1.125rem;
     text-anchor: middle;
@@ -56,7 +60,9 @@ body {
 	.auth-icon {
 		height: 2.5rem;
 	}
-
+	.card-image {
+		height: 375px;
+	}
 }
 @media (min-width: 768px) and (max-width: 992px) {
 	.bd-placeholder-img-lg {
@@ -72,10 +78,16 @@ body {
 	.dropdown-menu {
 		max-width: 400px;
 	}
+	.card-image {
+		height: 325px;
+	}
 }
 @media (min-width: 992px) {
 	.dropdown-menu {
 		min-width: 250px;
+	}
+	.card-image {
+		height: 325px;
 	}
 }
 .dropdown-item:active {

@@ -6,67 +6,65 @@
 {% block title %}Профиль пользователя{% endblock %}
 
 {% block content %}
-<h2>Профиль пользователя {{ user.username }}.</h2>
-<div class="row">
-	<div class="col-lg-4 col-md-4 col-xs-12">
-		<div class="panel panel-default border">
-			<div class="panel-heading">
-				<header class="panel-title border">
-					<div class="text-center">
-						<strong>Пользователь сайта</strong>
-					</div>
-				</header>
-			</div>
-			<div class="panel-body">
-				<div class="text-center">
-
-					{% if user.account_image %}
-						<img src="{{ user.account_image.url }}">
-					{% else %}
-						<img alt>
-					{% endif %}
-
-					<h3>{{ user.username }}</h3>
-					<small class="label label-warning">Country</small>
-					<p>Status</p>
-					<p>
-						{% if user.fb_url %}
-							<a href="{{ user.fb_url }}" class="social-links">Facebook</a>
-						{% endif %}
-						{% if user.tw_url %}
-							<a href="{{ user.tw_url }}" class="social-links">Twitter</a>
-						{% endif %}
-						{% if user.vk_url %}
-							<a href="{{ user.vk_url }}" class="social-links">VK</a>
-						{% endif %}
-						{% if user.ok_url %}
-							<a href="{{ user.ok_url }}" class="social-links">OK</a>
-						{% endif %}
-					</p>
-				</div>
-			</div>
+<h3 class="text-white py-3 text-center text-header-hl w-100 shadow-lg text-shadow-md">Профиль пользователя {{ username }}</h3>
+<!-- Main content -->
+<div class="row container-fluid">
+	<div class="ml-3 col-sm-9 col-md-5 col-lg-4">
+		<div class="row mx-auto">
+			<h5 class="text-white text-shadow-sm">{{ username }}</h5>
+		</div>
+		<div class="row mx-auto">
+			<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Boostrap_logo.svg/2000px-Boostrap_logo.svg.png" class="img-thumbnail">
 		</div>
 	</div>
-	<div class="col-lg-8 col-md-8 col-xs-12">
-		<div class="panel">
-			<div class="panel-body">
-				<div class="tab-content">
-					<div class="tab-pane active">
-						<h4>Profile info:</h4>
-						<table class="table table-th-block border">
-							<tr><td class="active">Зарегистрирован:</td><td>{{ user.date_joined }}</td></tr>
-							<tr><td class="active">Последний вход:</td><td>{{ user.last_login }}</td></tr>
-							<!-- <tr><td class="active">Город:</td><td>{{ user.last_login }}</td></tr> -->
-							<!-- <tr><td class="active">Пол:</td><td>{{ user.last_login }}</td></tr> -->
-							<!-- <tr><td class="active">Дата рождения:</td><td>{{ user.last_login }}</td></tr> -->
-							<!-- <tr><td class="active">Рейтинг пользователя:</td><td>{{ user.last_login }}</td></tr> -->
-						</table>
-					</div>
-				</div>
-				<ul class="nav nav-pills">
-						<a href="{% url 'articles:profile_change' %}" class="btn btn-primary btn-about align-middle btn-block">Изменить данные</a>
-						<a href="" class="btn btn-success btn-send-message align-middle btn-block">Отправить сообщение</a>
-				</ul>
+	<div class="col-sm-12 col-md-10 col-lg-7">
+		<h5 class="text-white text-shadow-sm">Информация</h5>
+		<div class="row">
+			<div class="col-5">
+				<h6 class="text-secondary text-shadow-sm">Имя</h6>
+			</div>
+			<div class="col">
+				<h6 class="text-white">{{ user.first_name }}</h6>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-5">
+				<h6 class="text-secondary text-shadow-sm">Фамилия</h6>
+			</div>
+			<div class="col">
+				<h6 class="text-white">{{ user.last_name }}</h6>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-5">
+				<h6 class="text-secondary text-shadow-sm">Город</h6>
+			</div>
+			<div class="col">
+				<h6 class="text-white">{{ user.city }}</h6>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-5">
+				<h6 class="text-secondary text-shadow-sm">Дата рождения</h6>
+			</div>
+			<div class="col">
+				<h6 class="text-white">{{ user.bdate }}</h6>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-5">
+				<h6 class="text-secondary text-shadow-sm">Пол</h6>
+			</div>
+			<div class="col">
+				<h6 class="text-white">{{ user.gender }}</h6>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-5">
+				<h6 class="text-secondary text-shadow-sm">Рейтинг</h6>
+			</div>
+			<div class="col">
+				<h6 class="text-white">{{ user.rating }}</h6>
 			</div>
 		</div>
 	</div>

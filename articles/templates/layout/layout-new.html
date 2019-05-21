@@ -31,11 +31,9 @@
 			        <span class="navbar-toggler-icon"></span>
 			    </button>
 			    <div class="collapse navbar-collapse" id="navbarCollapse">
-			        <ul class="navbar-nav mr-auto">
-				        <li class="nav-item active">
-				            <a class="nav-link" href="#">Главная<span class="sr-only">(current)</span></a>
-				        </li>
-				        <li class="nav-item dropdown" id="profileDropdown">
+			        <div class="navbar-nav mr-auto">
+			            <a class="nav-link nav-item" href="#">Главная<span class="sr-only">(current)</span></a>
+				        <div class="nav-item dropdown" id="profileDropdown">
 				            <a class="dropdown-toggle nav-link" id="profileDropdownLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">Профиль</a>
 
 				            <div class="dropdown-menu ml-0" aria-labelledby="profileDropdownLink">
@@ -84,14 +82,10 @@
 				            	</div>
 				            	<!-- <div style="position: absolute; right: 5%; bottom: 5%;">a</div> -->
 				            </div>
-				        </li>
-				        <li class="nav-item">
-				            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Добавить статью</a>
-				        </li>
-				        <li class="nav-item">
-				            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Профиль</a>
-				        </li>
-			        </ul>
+				        </div>
+			            <a class="nav-link nav-item disabled" href="#" tabindex="-1" aria-disabled="true">Добавить статью</a>
+			            <a class="nav-link nav-item disabled" href="#" tabindex="-1" aria-disabled="true">Профиль</a>
+			        </div>
 			        <form class="form-inline mt-2 mt-md-0">
 	        			<input class="form-control mr-sm-2" type="text" placeholder="Поиск" aria-label="Search">
 			        	<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
@@ -104,7 +98,7 @@
 					<nav class="navbar navbar-expand-md navbar-dark p-0 d-block">
 		    			<h3 class="text-white py-3 px-1 shadow text-header-hl d-none d-lg-block d-md-block text-shadow-md">Популярные статьи</h3>
 			    		<div class="navbar-toggler w-100 bg-dark" type="button" data-toggle="collapse" data-target="#articlesCollapse" aria-controls="articlesCollapse" aria-expanded="false" aria-label="Toggle navigation">
-			    			<h3 class="text-white py-3 shadow text-header-hl">Популярные статьи</h3>
+			    			<h3 class="text-white py-3 shadow text-header-hl"><span class="navbar-toggler-icon"></span>Популярные статьи</h3>
 			    		</div>
 			    		<div class="collapse navbar-collapse flex-column w-100 nabvbar-nav" id="articlesCollapse">
 							<!-- <div class="py-1"> -->
@@ -123,7 +117,7 @@
 				<div class="col col-dark pr-0 pl-lg-0 pl-md-0">
 					<main role="main">
 
-						<h3 class="text-white py-3 text-center text-header-hl w-100 shadow-lg ">Статьи</h3>
+		<h3 class="text-white py-3 text-center text-header-hl w-100 shadow-lg ">Статьи</h3>
 		<div class="album py-1 px-auto">
 			<!-- <div class="container"> -->
 				<div class="row container-fluid d-flex justify-content-center mr-auto ml-auto pl-sm-4 pl-xs-5 pr-auto">

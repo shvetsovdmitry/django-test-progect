@@ -1,36 +1,61 @@
 {% extends 'layout/basic.html' %}
 
-{% load bootstrap4 %}
+{% load static %}
 
 {% block title %}{{ article.title }} - {{ article.rubric }} | ArticlesSite{% endblock %}
 
 {% block content%}
-<h2 class="text-center">{{ article.title }}</h2>
-<div class="row container-fluid">
-	<div class="col-xs-1">
-		<a href="{% url 'articles:change_rating' rating=1 pk=article.pk %}" class="btn btn-warning">1</a>
-		<a href="{% url 'articles:change_rating' rating=2 pk=article.pk %}" class="btn btn-warning">2</a>
-		<a href="{% url 'articles:change_rating' rating=3 pk=article.pk %}" class="btn btn-warning">3</a>
-		<a href="{% url 'articles:change_rating' rating=4 pk=article.pk %}" class="btn btn-warning">4</a>
-		<a href="{% url 'articles:change_rating' rating=5 pk=article.pk %}" class="btn btn-warning">5</a>
-		{{ article.rating }}
-		<br>
-		Всего проголосовавших: {{ article.rating_count }}
-		<br>
-		Просмотры: {{ article.views }}
+<!-- Аннотация -->
+<div class="position-relative overflow-hidden p-md-1 m-md-2 text-center bg-light">
+	<div class="col-md-12 py-3 mx-auto my-5">
+		<h1 class="display-4 font-weight-normal">{{ article.title }}</h1>
+		<p class="lead font-weith-normal py-3">
+			{{ article.card_text }}
+		</p>
+		<div class="row">
+			<div class="col d-flex flex-wrap align-items-top justify-content-center">
+				<ul class="list-unstyled list-group list-group-horizontal">
+					{% for tag in tags %}
+					<li class="pr-2">
+						<a class="btn btn-secondary" href="#">{{ tag.name }}</a>
+					</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+	</div> <!-- /col -->
+	
+	<div class="row pd-md-2">
+		<div class="col text-left pl-4">
+			<h6 class="text-muted text-left">{{ article.views }}</h6>
+		</div>
+		<div class="col text-right pr-4">
+			<h6 class="text-muted text-right">{{ article.created_at }}</h6>
+		</div>
+	</div> <!-- /row -->
+	<div class="rating p-2">
+		<h5 class="rating-text text-white">{{ article.rating }}</h5>
 	</div>
-	<div class="col">
-		<h6 class="text-center">
-			{% for t in tags %}
-				<button type="button" class="btn btn-info">
-					{{ t.name }}
-				</button>
-			{% endfor %}
-		</h6>
+	<div class="author p-2">
+		<h5 class="author-text text-white">{{ article.author }}</h5>
 	</div>
-</div>
-<div class="container-fluid text-center">
-    <p>{{ article.content|safe }}</p>
-</div>
-{{ article.created_at }}
+</div> <!-- /position-relative -->
+<!-- Статья -->
+<div class="col-dark mr-md-2 pt-3 px-3 pt-md-4 px-md-5 text-center text-white overflow-hidden">
+	<div class="my-3 py-1">
+		<h2 class="display-5">{{ article.title }}</h2>
+		<p class="lead pt-3">
+			{{ article.content }}
+		</p>
+
+	</div>
+	<div class="row p-md-3">
+		<div class="col text-left">
+			<h6 class="btn btn-secondary">Автор: <a class="btn btn-secondary" href="#">{{ article.author }}</a></h6>
+		</div>
+		<div class="col text-right">
+			<h6 class="btn btn-secondary">Рейтинг: <a class="btn btn-secondary">{{ article.rating }}</a></h6>
+		</div>
+	</div>
+</div> <!-- /col-dark -->
 {% endblock %}
