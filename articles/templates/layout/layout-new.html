@@ -39,19 +39,23 @@
 				            <a class="dropdown-toggle nav-link" id="profileDropdownLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">Профиль</a>
 
 				            <div class="dropdown-menu ml-0" aria-labelledby="profileDropdownLink">
-				            	<!-- <h6 class="dropdown-header">Профиль</h6> -->
-				            	<!-- <div class="dropdown-divider"></div> -->
-			            		<div class="dropdown-item disabled">
-						            <a class="btn btn-outline-secondary btn-block disabled" href="#">Добавить статью</a>
-						        </div>
-						        <div class="dropdown-item disabled">
+				            	<h6 class="dropdown-header">Профиль</h6>
+						        <div class="dropdown-item">
 						            <a class="btn btn-outline-secondary btn-block disabled" href="#">Профиль</a>
 						        </div>
+						        <div class="dropdown-divider"></div>
+						        <div class="dropdown-item">
+						            <a class="btn btn-outline-secondary btn-block disabled" href="#">Добавить статью</a>
+						        </div>
+						        <div class="dropdown-divider"></div>
 				            	<div class="dropdown-item">
 				            		<a href="#" class="btn btn-info btn-block">Вход</a>
 				            	</div>
 				            	<div class="dropdown-item">
 				            		<a href="#" class="btn btn-info btn-block">Регистрация</a>
+				            	</div>
+				            	<div class="dropdown-item">
+				            		<a href="#" class="btn btn-outline-secondary btn-block disabled">Выход</a>
 				            	</div>
 				            	<div class="dropdown-divider"></div>
 				            	<h6 class="dropdown-header">Войти с помощью</h6>
@@ -95,11 +99,10 @@
 			    </div>
 			</nav>
 		</header>
-		<div>
 			<div class="row content">
 				<div class="col-light col-xs-6 col-sm-12 col-md-4 col-lg-3 text-center pr-0">
 					<nav class="navbar navbar-expand-md navbar-dark p-0 d-block">
-			    		<h3 class="text-white py-3 px-1 shadow text-header-hl d-none d-lg-block d-md-block text-shadow-md">Популярные статьи</h3>
+		    			<h3 class="text-white py-3 px-1 shadow text-header-hl d-none d-lg-block d-md-block text-shadow-md">Популярные статьи</h3>
 			    		<div class="navbar-toggler w-100 bg-dark" type="button" data-toggle="collapse" data-target="#articlesCollapse" aria-controls="articlesCollapse" aria-expanded="false" aria-label="Toggle navigation">
 			    			<h3 class="text-white py-3 shadow text-header-hl">Популярные статьи</h3>
 			    		</div>
@@ -117,241 +120,240 @@
 					</nav>
 				</div> <!-- /col-light -->
 				
-				<div class="col col-dark">
+				<div class="col col-dark pr-0 pl-lg-0 pl-md-0">
 					<main role="main">
 
-<h3 class="text-white py-3 shadow text-center text-header-hl">Статьи</h3>
-<div class="album py-1">
-	<div class="container">
-		<div class="row">
-			<!-- Card 1 -->
-			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
-				<div class="card mb-4 shadow-sm">
-					<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-					<!-- Rating -->
-					<div class="rating shadow-sm p-2">
-						<h6 class="text-white rating-text">4.7</h6>
-					</div>
-					<!-- /Rating -->
-					<div class="card-body">
-						<p class="card-text">
-							Title
-						</p>
-						<div class="d-flex justify-content-between align-items-center">
-							<div class="btn-group btn-block">
-								<button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-								<!-- Если пользователь - автор этой статьи, то отображать эту кнопку -->
-								<button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+						<h3 class="text-white py-3 text-center text-header-hl w-100 shadow-lg ">Статьи</h3>
+		<div class="album py-1 px-auto">
+			<!-- <div class="container"> -->
+				<div class="row container-fluid d-flex justify-content-center mr-auto ml-auto pl-sm-4 pl-xs-5 pr-auto">
+					<!-- Card 1 -->
+					<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+						<div class="card mb-4 shadow-sm">
+							<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+							<!-- Rating -->
+							<div class="rating shadow-sm p-2">
+								<h6 class="text-white rating-text">4.7</h6>
 							</div>
-						</div> <!-- /d-flex -->
-						<div class="row">
-							<div class="col text-left">
-								<small class="text-muted">10 просмотров</small>
-							</div>
-							<div class="col text-right">
-								<small class="text-muted">19.05.2019</small>
-							</div>
-						</div>
-					</div> <!-- /card-body -->
-				</div> <!-- /card -->
-			</div> <!-- /col-md-4 -->
+							<!-- /Rating -->
+							<div class="card-body">
+								<p class="card-text">
+									Title
+								</p>
+								<div class="d-flex justify-content-between align-items-center">
+									<div class="btn-group btn-block">
+										<button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+										<!-- Если пользователь - автор этой статьи, то отображать эту кнопку -->
+										<button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+									</div>
+								</div> <!-- /d-flex -->
+								<div class="row">
+									<div class="col text-left">
+										<small class="text-muted">10 просмотров</small>
+									</div>
+									<div class="col text-right">
+										<small class="text-muted">19.05.2019</small>
+									</div>
+								</div>
+							</div> <!-- /card-body -->
+						</div> <!-- /card -->
+					</div> <!-- /col-md-4 -->
 
-			<!-- Card 2 -->
-			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
-				<div class="card mb-4 shadow-sm">
-					<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-					<!-- Rating -->
-					<div class="rating shadow-sm p-2">
-						<h6 class="text-white rating-text">4.7</h6>
-					</div>
-					<!-- /Rating -->
-					<div class="card-body">
-						<p class="card-text">
-							Title
-						</p>
-						<div class="d-flex justify-content-between align-items-center">
-							<div class="btn-group btn-block">
-								<button type="button" class="btn btn-sm btn-outline-secondary btn-block">View</button>
-								<!-- <button type="button" class="btn btn-sm btn-outline-secondary btn-block">Edit</button> -->
+					<!-- Card 2 -->
+					<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+						<div class="card mb-4 shadow-sm">
+							<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+							<!-- Rating -->
+							<div class="rating shadow-sm p-2">
+								<h6 class="text-white rating-text">4.7</h6>
 							</div>
-						</div> <!-- /d-flex -->
-						<div class="row">
-							<div class="col text-left">
-								<small class="text-muted">10 просмотров</small>
-							</div>
-							<div class="col text-right">
-								<small class="text-muted">19.05.2019</small>
-							</div>
-						</div>
-					</div> <!-- /card-body -->
-				</div> <!-- /card -->
-			</div> <!-- /col-md-4 -->
+							<!-- /Rating -->
+							<div class="card-body">
+								<p class="card-text">
+									Title
+								</p>
+								<div class="d-flex justify-content-between align-items-center">
+									<div class="btn-group btn-block">
+										<button type="button" class="btn btn-sm btn-outline-secondary btn-block">View</button>
+										<!-- <button type="button" class="btn btn-sm btn-outline-secondary btn-block">Edit</button> -->
+									</div>
+								</div> <!-- /d-flex -->
+								<div class="row">
+									<div class="col text-left">
+										<small class="text-muted">10 просмотров</small>
+									</div>
+									<div class="col text-right">
+										<small class="text-muted">19.05.2019</small>
+									</div>
+								</div>
+							</div> <!-- /card-body -->
+						</div> <!-- /card -->
+					</div> <!-- /col-md-4 -->
 
-			<!-- Card 3 -->
-			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
-				<div class="card mb-4 shadow-sm">
-					<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-					<!-- Rating -->
-					<div class="rating shadow-sm p-2">
-						<h6 class="text-white rating-text">4.7</h6>
-					</div>
-					<!-- /Rating -->
-					<div class="card-body">
-						<p class="card-text">
-							Title
-						</p>
-						<div class="d-flex justify-content-between align-items-center">
-							<div class="btn-group btn-block">
-								<button type="button" class="btn btn-sm btn-outline-secondary btn-block">View</button>
-								<!-- <button type="button" class="btn btn-sm btn-outline-secondary btn-block">Edit</button> -->
+					<!-- Card 3 -->
+					<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+						<div class="card mb-4 shadow-sm">
+							<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+							<!-- Rating -->
+							<div class="rating shadow-sm p-2">
+								<h6 class="text-white rating-text">4.7</h6>
 							</div>
-						</div> <!-- /d-flex -->
-						<div class="row">
-							<div class="col text-left">
-								<small class="text-muted">10 просмотров</small>
-							</div>
-							<div class="col text-right">
-								<small class="text-muted">19.05.2019</small>
-							</div>
-						</div>
-					</div> <!-- /card-body -->
-				</div> <!-- /card -->
-			</div> <!-- /col-md-4 -->
+							<!-- /Rating -->
+							<div class="card-body">
+								<p class="card-text">
+									Title
+								</p>
+								<div class="d-flex justify-content-between align-items-center">
+									<div class="btn-group btn-block">
+										<button type="button" class="btn btn-sm btn-outline-secondary btn-block">View</button>
+										<!-- <button type="button" class="btn btn-sm btn-outline-secondary btn-block">Edit</button> -->
+									</div>
+								</div> <!-- /d-flex -->
+								<div class="row">
+									<div class="col text-left">
+										<small class="text-muted">10 просмотров</small>
+									</div>
+									<div class="col text-right">
+										<small class="text-muted">19.05.2019</small>
+									</div>
+								</div>
+							</div> <!-- /card-body -->
+						</div> <!-- /card -->
+					</div> <!-- /col-md-4 -->
 
-			<!-- Card 4 -->
-			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
-				<div class="card mb-4 shadow-sm">
-					<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-					<!-- Rating -->
-					<div class="rating shadow-sm p-2">
-						<h6 class="text-white rating-text">4.7</h6>
-					</div>
-					<!-- /Rating -->
-					<div class="card-body">
-						<p class="card-text">
-							Title
-						</p>
-						<div class="d-flex justify-content-between align-items-center">
-							<div class="btn-group btn-block">
-								<button type="button" class="btn btn-sm btn-outline-secondary btn-block">View</button>
-								<!-- <button type="button" class="btn btn-sm btn-outline-secondary btn-block">Edit</button> -->
+					<!-- Card 4 -->
+					<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+						<div class="card mb-4 shadow-sm">
+							<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+							<!-- Rating -->
+							<div class="rating shadow-sm p-2">
+								<h6 class="text-white rating-text">4.7</h6>
 							</div>
-						</div> <!-- /d-flex -->
-						<div class="row">
-							<div class="col text-left">
-								<small class="text-muted">10 просмотров</small>
-							</div>
-							<div class="col text-right">
-								<small class="text-muted">19.05.2019</small>
-							</div>
-						</div>
-					</div> <!-- /card-body -->
-				</div> <!-- /card -->
-			</div> <!-- /col-md-4 -->
+							<!-- /Rating -->
+							<div class="card-body">
+								<p class="card-text">
+									Title
+								</p>
+								<div class="d-flex justify-content-between align-items-center">
+									<div class="btn-group btn-block">
+										<button type="button" class="btn btn-sm btn-outline-secondary btn-block">View</button>
+										<!-- <button type="button" class="btn btn-sm btn-outline-secondary btn-block">Edit</button> -->
+									</div>
+								</div> <!-- /d-flex -->
+								<div class="row">
+									<div class="col text-left">
+										<small class="text-muted">10 просмотров</small>
+									</div>
+									<div class="col text-right">
+										<small class="text-muted">19.05.2019</small>
+									</div>
+								</div>
+							</div> <!-- /card-body -->
+						</div> <!-- /card -->
+					</div> <!-- /col-md-4 -->
 
-			<!-- Card 5 -->
-			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
-				<div class="card mb-4 shadow-sm">
-					<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-					<!-- Rating -->
-					<div class="rating shadow-sm p-2">
-						<h6 class="text-white rating-text">4.7</h6>
-					</div>
-					<!-- /Rating -->
-					<div class="card-body">
-						<p class="card-text">
-							Title
-						</p>
-						<div class="d-flex justify-content-between align-items-center">
-							<div class="btn-group btn-block">
-								<button type="button" class="btn btn-sm btn-outline-secondary btn-block">View</button>
-								<!-- <button type="button" class="btn btn-sm btn-outline-secondary btn-block">Edit</button> -->
+					<!-- Card 5 -->
+					<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+						<div class="card mb-4 shadow-sm">
+							<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+							<!-- Rating -->
+							<div class="rating shadow-sm p-2">
+								<h6 class="text-white rating-text">4.7</h6>
 							</div>
-						</div> <!-- /d-flex -->
-						<div class="row">
-							<div class="col text-left">
-								<small class="text-muted">10 просмотров</small>
-							</div>
-							<div class="col text-right">
-								<small class="text-muted">19.05.2019</small>
-							</div>
-						</div>
-					</div> <!-- /card-body -->
-				</div> <!-- /card -->
-			</div> <!-- /col-md-4 -->
+							<!-- /Rating -->
+							<div class="card-body">
+								<p class="card-text">
+									Title
+								</p>
+								<div class="d-flex justify-content-between align-items-center">
+									<div class="btn-group btn-block">
+										<button type="button" class="btn btn-sm btn-outline-secondary btn-block">View</button>
+										<!-- <button type="button" class="btn btn-sm btn-outline-secondary btn-block">Edit</button> -->
+									</div>
+								</div> <!-- /d-flex -->
+								<div class="row">
+									<div class="col text-left">
+										<small class="text-muted">10 просмотров</small>
+									</div>
+									<div class="col text-right">
+										<small class="text-muted">19.05.2019</small>
+									</div>
+								</div>
+							</div> <!-- /card-body -->
+						</div> <!-- /card -->
+					</div> <!-- /col-md-4 -->
 
-			<!-- Card 6 -->
-			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
-				<div class="card mb-4 shadow-sm">
-					<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-					<!-- Rating -->
-					<div class="rating shadow-sm p-2">
-						<h6 class="text-white rating-text">4.7</h6>
-					</div>
-					<!-- /Rating -->
-					<div class="card-body">
-						<p class="card-text">
-							Title
-						</p>
-						<div class="d-flex justify-content-between align-items-center">
-							<div class="btn-group btn-block">
-								<button type="button" class="btn btn-sm btn-outline-secondary btn-block">View</button>
-								<!-- <button type="button" class="btn btn-sm btn-outline-secondary btn-block">Edit</button> -->
+					<!-- Card 6 -->
+					<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+						<div class="card mb-4 shadow-sm">
+							<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+							<!-- Rating -->
+							<div class="rating shadow-sm p-2">
+								<h6 class="text-white rating-text">4.7</h6>
 							</div>
-						</div> <!-- /d-flex -->
-						<div class="row">
-							<div class="col text-left">
-								<small class="text-muted">10 просмотров</small>
-							</div>
-							<div class="col text-right">
-								<small class="text-muted">19.05.2019</small>
-							</div>
-						</div>
-					</div> <!-- /card-body -->
-				</div> <!-- /card -->
-			</div> <!-- /col-md-4 -->
+							<!-- /Rating -->
+							<div class="card-body">
+								<p class="card-text">
+									Title
+								</p>
+								<div class="d-flex justify-content-between align-items-center">
+									<div class="btn-group btn-block">
+										<button type="button" class="btn btn-sm btn-outline-secondary btn-block">View</button>
+										<!-- <button type="button" class="btn btn-sm btn-outline-secondary btn-block">Edit</button> -->
+									</div>
+								</div> <!-- /d-flex -->
+								<div class="row">
+									<div class="col text-left">
+										<small class="text-muted">10 просмотров</small>
+									</div>
+									<div class="col text-right">
+										<small class="text-muted">19.05.2019</small>
+									</div>
+								</div>
+							</div> <!-- /card-body -->
+						</div> <!-- /card -->
+					</div> <!-- /col-md-4 -->
 
-			<!-- Card 7 -->
-			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
-				<div class="card mb-4 shadow-sm">
-					<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-					<!-- Rating -->
-					<div class="rating shadow-sm p-2">
-						<h6 class="text-white rating-text">4.7</h6>
-					</div>
-					<!-- /Rating -->
-					<div class="card-body">
-						<p class="card-text">
-							Title
-						</p>
-						<div class="d-flex justify-content-between align-items-center">
-							<div class="btn-group btn-block">
-								<button type="button" class="btn btn-sm btn-outline-secondary btn-block">View</button>
-								<!-- <button type="button" class="btn btn-sm btn-outline-secondary btn-block">Edit</button> -->
+					<!-- Card 7 -->
+					<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+						<div class="card mb-4 shadow-sm">
+							<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+							<!-- Rating -->
+							<div class="rating shadow-sm p-2">
+								<h6 class="text-white rating-text">4.7</h6>
 							</div>
-						</div> <!-- /d-flex -->
-						<div class="row">
-							<div class="col text-left">
-								<small class="text-muted">10 просмотров</small>
-							</div>
-							<div class="col text-right">
-								<small class="text-muted">19.05.2019</small>
-							</div>
-						</div>
-					</div> <!-- /card-body -->
-				</div> <!-- /card -->
-			</div> <!-- /col-md-4 -->
+							<!-- /Rating -->
+							<div class="card-body">
+								<p class="card-text">
+									Title
+								</p>
+								<div class="d-flex justify-content-between align-items-center">
+									<div class="btn-group btn-block">
+										<button type="button" class="btn btn-sm btn-outline-secondary btn-block">View</button>
+										<!-- <button type="button" class="btn btn-sm btn-outline-secondary btn-block">Edit</button> -->
+									</div>
+								</div> <!-- /d-flex -->
+								<div class="row">
+									<div class="col text-left">
+										<small class="text-muted">10 просмотров</small>
+									</div>
+									<div class="col text-right">
+										<small class="text-muted">19.05.2019</small>
+									</div>
+								</div>
+							</div> <!-- /card-body -->
+						</div> <!-- /card -->
+					</div> <!-- /col-md-4 -->
 
-		</div> <!-- /row -->
-	</div> <!-- /container -->
-</div> <!-- /album -->
+				</div> <!-- /row -->
+			<!-- </div> /container -->
+		</div> <!-- /album -->
 						<!-- Main content -->
 						
 					</main>
 				</div>
 
 			</div> <!-- /row -->
-		</div> <!-- /content -->
 
 		<footer class="page-footer font-small text-white pt-4 footer-bg">
 			<div class="container-fluid text-center text-md-left">
