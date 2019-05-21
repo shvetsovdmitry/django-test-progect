@@ -7,15 +7,24 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<meta name="author" content="Shvetsov Dmitry">
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-		<link rel="stylesheet" type="text/css" href="../../static/articles/style-new.css">
+		<link rel="stylesheet" type="text/css" href="../../static/articles/style.css">
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 		<script src="https://getbootstrap.com/docs/4.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous"></script>
-
+		<!-- Prevent closing dropdown when it's onclick -->
+		<script type="text/javascript">
+			$(function () {
+        		$('.dropdown-toggle').dropdown();
+        		$('.dropdown div').click(function (e) {
+        			e.stopPropagation();
+        		});
+    		});
+		</script>
 	</head>
 
 	<body>
-		<header>
+		<header class="shadow">
+
 			<nav class="navbar navbar-expand-lg navbar-dark shadow nav-bg">
 			    <a class="navbar-brand" href="#">ArticlesSite</a>
 			    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,11 +35,51 @@
 				        <li class="nav-item active">
 				            <a class="nav-link" href="#">Главная<span class="sr-only">(current)</span></a>
 				        </li>
-				        <li class="nav-item">
-				            <a class="nav-link" href="#">Вход</a>
-				        </li>
-				        <li class="nav-item">
-				            <a class="nav-link" href="#">Регистрация</a>
+				        <li class="nav-item dropdown" id="profileDropdown">
+				            <a class="dropdown-toggle nav-link" id="profileDropdownLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">Профиль</a>
+
+				            <div class="dropdown-menu ml-0" aria-labelledby="profileDropdownLink">
+				            	<!-- <h6 class="dropdown-header">Профиль</h6> -->
+				            	<!-- <div class="dropdown-divider"></div> -->
+			            		<div class="dropdown-item disabled">
+						            <a class="btn btn-outline-secondary btn-block disabled" href="#">Добавить статью</a>
+						        </div>
+						        <div class="dropdown-item disabled">
+						            <a class="btn btn-outline-secondary btn-block disabled" href="#">Профиль</a>
+						        </div>
+				            	<div class="dropdown-item">
+				            		<a href="#" class="btn btn-info btn-block">Вход</a>
+				            	</div>
+				            	<div class="dropdown-item">
+				            		<a href="#" class="btn btn-info btn-block">Регистрация</a>
+				            	</div>
+				            	<div class="dropdown-divider"></div>
+				            	<h6 class="dropdown-header">Войти с помощью</h6>
+				            	<!-- <div style="position: absolute; left: 5%; bottom: 5%;">a</div> -->
+				            	<div class="row d-flex flex-row justify-content-between container-fluid align-items-center">
+				            		<div class="ml-2 col-1 auth-item">
+				            			<a href="#">
+				            				<img class="auth-icon" src="https://playntrade-a.akamaihd.net/jbimg/76f4f371fa2a487c5f7e26e5f6dd4c93.png" height="25">
+				            			</a>
+				            		</div>
+				            		<div class="col-1 auth-item">
+				            			<a href="#">
+				            				<img class="auth-icon" src="http://cdn.onlinewebfonts.com/svg/download_190412.png" height="25">
+				            			</a>
+				            		</div>
+				            		<div class="col-1 auth-item">
+				            			<a href="#">
+				            				<img class="auth-icon" src="https://cdn.pixabay.com/photo/2015/12/11/11/43/google-1088004_1280.png" height="25">
+				            			</a>
+				            		</div>
+				            		<div class="col-1 auth-item">
+				            			<a href="#">
+				            				<img class="auth-icon" src="https://habr.com/images/favicons/favicon-32x32.png" class="shadow border" height="25">
+				            			</a>
+				            		</div>
+				            	</div>
+				            	<!-- <div style="position: absolute; right: 5%; bottom: 5%;">a</div> -->
+				            </div>
 				        </li>
 				        <li class="nav-item">
 				            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Добавить статью</a>
