@@ -31,10 +31,10 @@ def index(request):
 
 def detail(request, pk):
     article = Article.objects.get(pk=pk)
-    if request.user not in article.viewed_users:
-        article.viewed_user.add(request.user)
-        article.views = len(article.viewed_user)
-        article.save()
+    if request.user not in article.viewed_users.all():
+        article.viewed_users.add(request.user)
+    article.views += 1
+    article.save()
     context = {'article': article, 'tags': article.tags.all(), 'site_name': SITE_NAME, 'rate_articles': rate_articles}
     return render(request, 'articles/article.html', context)
 
@@ -61,8 +61,9 @@ def detail(request, pk):
 
 
 @login_required
-def profile(request):
-    context = {'user': request.user, 'site_name': SITE_NAME, 'rate_articles': rate_articles}
+def profile(request, username):
+    user = get_object_or_404(AdvUser, username=username)
+    context = {'user': user, 'site_name': SITE_NAME, 'rate_articles': rate_articles}
     return render(request, 'articles/user_actions/profile.html', context)
 
 

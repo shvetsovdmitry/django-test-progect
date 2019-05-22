@@ -48,7 +48,7 @@
     	                        {% if user.is_authenticated %}
 				            	<!-- <h6 class="dropdown-header">Профиль</h6> -->
 						        <div class="dropdown-item">
-						            <a class="btn btn-outline-info btn-block" href="{% url 'articles:profile' %}">Профиль</a>
+						            <a class="btn btn-outline-info btn-block" href="{% url 'articles:profile' username=user.username %}">Профиль</a>
 						        </div>
 						        <div class="dropdown-divider"></div>
 						        <div class="dropdown-item">

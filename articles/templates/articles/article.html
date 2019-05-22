@@ -27,7 +27,7 @@
 	
 	<div class="row pd-md-2">
 		<div class="col text-left pl-4">
-			<h6 class="text-muted text-left">{{ article.views }}</h6>
+			<h6 class="text-muted text-left">Просмотры: {{ article.views }}</h6>
 		</div>
 		<div class="col text-right pr-4">
 			<h6 class="text-muted text-right">{{ article.created_at }}</h6>
@@ -51,7 +51,7 @@
 	</div>
 	<div class="row p-md-3">
 		<div class="col text-left">
-			<h6 class="btn btn-secondary">Автор: <a class="btn btn-secondary" href="#">{{ article.author }}</a></h6>
+			<h6 class="btn btn-secondary">Автор: <a class="btn btn-secondary" href="{% url 'articles:profile' username=article.author %}">{{ article.author }}</a></h6>
 		</div>
 		<div class="col text-right">
 			<h6 class="btn btn-secondary">Рейтинг: <a class="btn btn-secondary">{{ article.rating }}</a></h6>
