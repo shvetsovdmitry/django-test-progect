@@ -14,26 +14,27 @@ from django.views import View
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.base import TemplateView
 from django.utils import timezone
-# from django.contrib.sites.models import Site
 
 from .models import AdvUser, Category, Article, Tag
-# , ArticleStatistics
 from .forms import ARegisterUserForm, ChangeUserInfoForm, ArticleForm, ArticleFormSet
 from .utilities import signer
 
 
+# Popular articles.
 rate_articles = Article.objects.order_by('-rating').filter(is_active=True)[:10]
-# current_site = Site.objects.get_current()
 
 
+# Main page view.
 def index(request):
     last_articles = Article.objects.filter(is_active=True)
     context = {'last_articles': last_articles, 'rate_articles': rate_articles, 'site_name': SITE_NAME}
     return render(request, 'articles/index.html', context)
 
 
+# Article page view.
 def detail(request, pk):
     article = Article.objects.get(pk=pk)
+    # Check if current user already read the article.
     if request.user not in article.viewed_users.all():
         if request.user.is_authenticated:
             article.viewed_users.add(request.user)
@@ -43,13 +44,16 @@ def detail(request, pk):
     return render(request, 'articles/article.html', context)
 
 
-@login_required
+# Profile page view.
+# @login_required
 def profile(request, username):
+    # Get AdvUser object by username.
     user = get_object_or_404(AdvUser, username=username)
     context = {'user': user, 'rate_articles': rate_articles, 'site_name': SITE_NAME}
     return render(request, 'articles/user_actions/profile.html', context)
 
 
+# When user press rating button.
 @login_required
 def change_rating(request, rating, pk):
     article = Article.objects.get(pk=pk)
@@ -59,11 +63,13 @@ def change_rating(request, rating, pk):
         messages.add_message(request, messages.SUCCESS, 'Спасибо! Ваш голос учтен.')
     else:
         messages.add_message(request, messages.WARNING, 'Вы уже голосовали за эту статью!')
+    # Refresh current rate_articles.
     global rate_articles
     rate_articles = Article.objects.order_by('-rating').filter(is_active=True)[:10]
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
+# Post-registration activation controller.
 def user_activate(request, sign):
     try:
         username = signer.unsign(sign)
@@ -80,6 +86,7 @@ def user_activate(request, sign):
     return render(request, template)
 
 
+# Add article page view.
 class ArticleAddView(TemplateView, LoginRequiredMixin):
 
     template_name = 'articles/add_article.html'
@@ -100,6 +107,7 @@ class ArticleAddView(TemplateView, LoginRequiredMixin):
         model = Article
 
 
+# Login page view.
 class ALoginView(LoginView):
 
     extra_context = {'site_name': SITE_NAME}
@@ -119,12 +127,14 @@ class ALoginView(LoginView):
         else:
             messages.add_message(self.request, messages.ERROR, 'Неправильный логин или пароль')
     
-    
+
+# Logout page view.
 class ALogoutView(LoginRequiredMixin, LogoutView):
     extra_context = {'site_name': SITE_NAME}
     template_name = 'articles/user_actions/logout.html'
     
     
+# Register page view.
 class ARegisterUserView(CreateView):
     model = AdvUser
     template_name = 'articles/user_actions/register_user.html'
@@ -132,10 +142,12 @@ class ARegisterUserView(CreateView):
     success_url = reverse_lazy('articles:register_done')
     
     
+# When user activated.
 class ARegisterDoneView(TemplateView):
     template_name = 'articles/user_actions/register_done.html'
  
 
+# Change info view.
 class ChangeUserInfoView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     model = AdvUser
     template_name = 'articles/user_actions/change_user_info.html'

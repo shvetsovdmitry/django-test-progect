@@ -6,6 +6,7 @@ from articlesboard.settings import ALLOWED_HOSTS, SITE_NAME
 signer = Signer()
 
 
+# Send activation message to user.
 def send_activation_notification(user):
     if ALLOWED_HOSTS:
         host = 'http://' + ALLOWED_HOSTS[0]

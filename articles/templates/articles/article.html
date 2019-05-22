@@ -9,54 +9,54 @@
 <div class="position-relative overflow-hidden p-md-1 m-2 text-center bg-light img-thumbnail shadow" style="background-image: url({{ article.image_url }}); background-size: cover; border-radius: 5px">
 	<!-- <div class="preview-container"> -->
 		<!-- <img src="{{ article.image_url }}" style="max-width: 100%; max-height: 650px; border-radius: 10px"> -->
-		<div class="col-md-12 py-3 mx-auto my-5">
-			<h1 class="display-4 font-weight-normal preview-text">{{ article.title }}</h1>
-			<p class="lead font-weith-normal py-3 preview-text">
-				{{ article.card_text }}
-			</p>
-			<div class="row">
-				<div class="col">
-					<div class="row d-flex justify-content-center">
-						<ul class="list-unstyled list-group list-group-horizontal  d-flex flex-wrap align-items-top justify-content-center">
-							{% for tag in tags %}
-							<li class="pr-2 pt-1">
-								<a class="btn btn-secondary" href="#">{{ tag.name }}</a>
-							</li>
-							{% endfor %}
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div> <!-- /col -->
-	
-		<!-- <div class="rating p-2">
-			<h5 class="rating-text text-white">{{ article.rating }}</h5>
-		</div> -->
-		<div class="rating p-2">
-			<h5 class="rating-text text-white">{{ article.rating }}</h5>
-			{% if user.is_authenticated %}
-				<div class="py-1">
-					<a class="btn btn-outline-info" href="{% url 'articles:change_rating' pk=article.pk rating=1 %}">1</a>
-					<a class="btn btn-outline-info" href="{% url 'articles:change_rating' pk=article.pk rating=2 %}">2</a>
-					<a class="btn btn-outline-info" href="{% url 'articles:change_rating' pk=article.pk rating=3 %}">3</a>
-					<a class="btn btn-outline-info" href="{% url 'articles:change_rating' pk=article.pk rating=4 %}">4</a>
-					<a class="btn btn-outline-info" href="{% url 'articles:change_rating' pk=article.pk rating=5 %}">5</a>
-				</div>
-			{% endif %}
-		</div>
-	<!-- </div> --> <!-- /container -->
-	<!-- <div class="author p-2">
-		<h5 class="author-text text-white">{{ article.author }}</h5>
-	</div> -->
+	<div class="col-md-12 py-3 mx-auto my-5">
+		<h1 class="display-4 font-weight-normal preview-text">{{ article.title }}</h1>
+		<p class="lead font-weith-normal py-3 preview-text">
+			{{ article.card_text }}
+		</p>
+		<div class="row">
+			<div class="col">
+				<div class="row d-flex justify-content-center">
+					<ul class="list-unstyled list-group list-group-horizontal  d-flex flex-wrap align-items-top justify-content-center">
+						{% for tag in tags %}
+						<li class="pr-2 pt-1">
+							<a class="btn btn-secondary" href="#">{{ tag.name }}</a>
+						</li>
+						{% endfor %}
+					</ul>
+				</div> <!-- /row -->
+			</div> <!-- /col -->
+		</div> <!-- /row -->
+	</div> <!-- /col -->
 </div> <!-- /position-relative -->
+
 <div class="row mx-0">
-	<div class="col pl-4 ml-2 shadow">
+	<div class="col pl-4 ml-2 col-light d-flex align-items-center">
+			<h6 class="text-white text-left">Рейтинг: {{ article.rating }}</h6>
+	</div>
+	<div class="col pr-4 mr-2 col-light text-right">
+		{% if user.is_authenticated %}
+			<div class="py-1">
+				<a class="btn btn-outline-info" href="{% url 'articles:change_rating' pk=article.pk rating=1 %}">1</a>
+				<a class="btn btn-outline-info" href="{% url 'articles:change_rating' pk=article.pk rating=2 %}">2</a>
+				<a class="btn btn-outline-info" href="{% url 'articles:change_rating' pk=article.pk rating=3 %}">3</a>
+				<a class="btn btn-outline-info" href="{% url 'articles:change_rating' pk=article.pk rating=4 %}">4</a>
+				<a class="btn btn-outline-info" href="{% url 'articles:change_rating' pk=article.pk rating=5 %}">5</a>
+			</div> <!-- /py-1 -->
+		{% endif %}
+	</div>
+</div>
+<div class="row mx-0 mt-1">
+	<div class="col pl-4 pr-0 ml-2 mr-0 col-light py-1">
 		<h6 class="text-white text-left">Просмотры: {{ article.views }}</h6>
 	</div>
-	<div class="col pr-4 mr-2 shadow">
+	<div class="col pr-4 mr-2 pl-0 ml-0 col-light py-1">
 		<h6 class="text-white text-right">{{ article.created_at }}</h6>
 	</div>
 </div> <!-- /row -->
+
+
+
 <!-- Статья -->
 <div class="col-dark mr-md-2 pt-3 px-3 pt-md-4 px-md-5 text-center text-white overflow-hidden">
 	<div class="my-3 py-1">

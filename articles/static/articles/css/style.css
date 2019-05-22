@@ -94,8 +94,8 @@ body {
 }
 .rating {
 	position: absolute;
-	left: 3%;
-	top: 3%;
+	left: 0%;
+	top: 0%;
 	background-color: #333;
 	border-radius: 4px;
 }

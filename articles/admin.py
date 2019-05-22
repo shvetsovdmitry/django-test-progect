@@ -1,16 +1,17 @@
 from django.contrib import admin
 
 from .models import AdvUser, Category, Article, Tag, Gender
-# from .models import ArticleStatistics
 
 
+# Gender admin panel.
 class GenderAdmin(admin.ModelAdmin):
-    # model = Gender
     list_display = ('name',)
+
 
 admin.site.register(Gender, GenderAdmin)
 
-# User model admin
+
+# User admin panel.
 class AdvUserAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'is_activated', 'date_joined')
     search_fields = ('username', 'email', 'first_name', 'last_name')
@@ -31,47 +32,37 @@ class AdvUserAdmin(admin.ModelAdmin):
               'last_login')
     filter_horizontal = ('groups', )
     readonly_fields = ('last_login', 'date_joined', 'admin_image')
-    # inlines = (GenderAdmin,)
     
 
 admin.site.register(AdvUser, AdvUserAdmin)
 
 
-# Category admin.
+# Category admin panel.
 class CategoryAdmin(admin.ModelAdmin):
     model = Category
     list_display = ('name', )
-    
-    
+
+
 admin.site.register(Category, CategoryAdmin)
 
 
-# Tag admin
+# Tag admin.
 class TagAdmin(admin.ModelAdmin):
     list_display = ('name', )
     search_fields = ('name', )
-    
+
 
 admin.site.register(Tag, TagAdmin)
 
 
-# Article admin
+# Article admin.
 class ArticleAdmin(admin.ModelAdmin):
     list_display = ('title', 'category', 'author', 'created_at', 'total_rating', 'rating_count', 'is_active', )
     filter_horizontal = ('tags', )
     search_fields = ('title', 'rubric', )
     readonly_fields = ('views',
                        'created_at',
-                    #    'rating_count'
                        )
     
     
 admin.site.register(Article, ArticleAdmin)
-
-
-# class ArticleStatisticsAdmin(admin.ModelAdmin):
-#     list_display = ('__str__', 'rating', 'views')
-#     search_fields = ('__str__', )
-    
-
-# admin.site.register(ArticleStatistics, ArticleStatisticsAdmin)

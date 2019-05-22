@@ -7,11 +7,13 @@ from .models import user_registrated
 from .models import AdvUser, Article, Tag
 
 
+# Registration form.
 class ARegisterUserForm(forms.ModelForm):
     email = forms.EmailField(required=True, label='Email')
     password1 = forms.CharField(label='Пароль', widget=forms.PasswordInput, help_text=password_validation.password_validators_help_text_html())
     password2 = forms.CharField(label='Пароль (повторно)', widget=forms.PasswordInput, help_text='Введите тот же самый пароль еще раз для проверки.')
 
+    # Check the passwords.
     def clean(self):
         super().clean()
         password1 = self.cleaned_data['password1']
@@ -25,6 +27,7 @@ class ARegisterUserForm(forms.ModelForm):
             errors = {'password2': ValidationError('Введенные пароли не совпадают', code='password_mismatch')}
             raise ValidationError(errors)
 
+    # If everything OK.
     def save(self, commit=True):
         user = super().save(commit=False)
         user.set_password(self.cleaned_data['password1'])
