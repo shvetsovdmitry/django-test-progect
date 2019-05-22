@@ -116,9 +116,7 @@ class Article (models.Model):
     total_rating = models.IntegerField(verbose_name='Всего баллов', default=0, help_text='Всего баллов, полученных от пользователей')
     # Current rating (total_rating/rating_count).
     rating = models.FloatField(verbose_name='Текущий рейтинг', default=0, help_text='Текущий рейтинг в 5-ти балльной шкале', max_length=1)
-    # Number of votes.
-    # rating_count = models.IntegerField(verbose_name='Количество проголосовавших', default=0)
-    # Nubmer of views.
+    # Number of views.
     views = models.IntegerField(verbose_name='Просмотры', default=0)
     # Users who vote for article.
     rated_users = models.ManyToManyField(AdvUser, related_name='rated_users',  verbose_name='Проголосовавшие пользователи', blank=True)
