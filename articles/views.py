@@ -28,6 +28,8 @@ rate_articles = Article.objects.order_by('-rating').filter(is_active=True)[:10]
 # Main page view.
 def index(request):
     last_articles = Article.objects.filter(is_active=True)
+    # Popular articles.
+    rate_articles = Article.objects.order_by('-rating').filter(is_active=True)[:10]
     context = {'last_articles': last_articles, 'rate_articles': rate_articles, 'site_name': SITE_NAME}
     return render(request, 'articles/index.html', context)
 
