@@ -44,8 +44,6 @@ class ARegisterUserForm(forms.ModelForm):
     
 
 class ChangeUserInfoForm(forms.ModelForm):
-    # email = forms.EmailField(required=True, label='Адрес электронной почты')
-    # account_image = forms.ImageField(required=False, label='Аватар')
     
     class Meta:
         model = AdvUser
@@ -53,10 +51,6 @@ class ChangeUserInfoForm(forms.ModelForm):
 
 
 class ArticleForm(forms.ModelForm):
-    
-    # image_url = forms.URLField(required=True, label='Ссылка на превью')
-    # tag_field = forms.CharField()
-    # tag = Tag.objects.filter(name=tag_field)
     
     class Meta:
         model = Article
