@@ -54,13 +54,13 @@ class ChangeUserInfoForm(forms.ModelForm):
 
 class ArticleForm(forms.ModelForm):
     
-    # image = forms.ImageField(required=True, label='Превью')
+    # image_url = forms.URLField(required=True, label='Ссылка на превью')
     # tag_field = forms.CharField()
     # tag = Tag.objects.filter(name=tag_field)
     
     class Meta:
         model = Article
-        fields = ('category', 'title', 'image', 'card_text', 'content', 'tags', 'author')
+        fields = ('category', 'title', 'image', 'image_url', 'card_text', 'content', 'tags', 'author')
         widgets = {'author': forms.HiddenInput}
         
         

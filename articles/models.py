@@ -104,7 +104,7 @@ class Article (models.Model):
                               Это поле проверяется первым.
                               Если файл отсутствует - получает картинку по ссылке (ниже).""")
     # If image does not exists - load image_url.
-    image_url = models.URLField(verbose_name='Ссылка на изображение',
+    image_url = models.TextField(verbose_name='Ссылка на изображение',
                                 blank=True,
                                 null=True,
                                 help_text='Изображение на плитке на главной странице.')

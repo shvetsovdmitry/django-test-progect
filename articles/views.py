@@ -14,6 +14,7 @@ from django.views import View
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.base import TemplateView
 from django.utils import timezone
+from django.forms import ValidationError
 
 from .models import AdvUser, Category, Article, Tag
 from .forms import ARegisterUserForm, ChangeUserInfoForm, ArticleForm, ArticleFormSet
@@ -97,14 +98,17 @@ class ArticleAddView(TemplateView, LoginRequiredMixin):
         return render(request, self.template_name, context=context)
     
     def post(self, request):
-        form = ArticleForm(request.POST, request.FILES, initial={'author': request.user.pk})
+        form = ArticleForm(self.request.POST, self.request.FILES, initial={'author': request.user.pk})
         if form.is_valid():
             form.save()
-            messages.add_message(request, messages.SUCCESS, 'Объявление отправлено на модерацию.')
-        return redirect('articles:profile')
+            messages.add_message(request, messages.SUCCESS, 'Статья отправлена на модерацию.')
+        else:
+            messages.add_message(request, messages.WARNING, 'Ошибка')
+        return redirect('articles:index')
 
     class Meta:
         model = Article
+        fields = ('__all__', )
 
 
 # Login page view.
