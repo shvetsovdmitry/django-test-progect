@@ -113,3 +113,6 @@ body {
 .author-text {
 	margin: 3px;
 }
+.article-read {
+	border-color: #188c73;
+}

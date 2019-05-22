@@ -11,8 +11,13 @@
 		<!-- Cards -->
 		{% for article in last_articles %}
 			{% url 'articles:article' pk=article.pk as url %}
+
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-5 col-xl-4">
+				{% if request.user in article.viewed_users.all %}
+				<div class="card mb-4 shadow-sm article-read">
+				{% else %}
 				<div class="card mb-4 shadow-sm">
+				{% endif %}
 					{% if article.image %}
 						<img src="{{ article.image.url }}" class="card-image">
 					{% elif article.image_url %}

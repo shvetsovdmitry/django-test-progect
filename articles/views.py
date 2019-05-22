@@ -43,27 +43,6 @@ def detail(request, pk):
     return render(request, 'articles/article.html', context)
 
 
-# class ArticleView(View):
-#     template_name = 'articles/article.html'
-    
-#     def get(self, request, *args, **kwargs):
-#         article = get_object_or_404(Article, id=self.kwargs['article_id'])
-#         context = {}
-        
-#         obj, created = ArticleStatistics.objects.get_or_create(
-#             defaults = {
-#                 'article': article,
-#                 'date': timezone.now()
-#             },
-#             date = timezone.now(),
-#             article = article
-#         )
-#         obj.views += 1
-#         obj.save(update_fields=['views'])
-        
-#         return render_to_response(template_name=self.template_name, context=context)
-
-
 @login_required
 def profile(request, username):
     user = get_object_or_404(AdvUser, username=username)
