@@ -10,7 +10,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<meta name="author" content="Shvetsov Dmitry">
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-		<link rel="stylesheet" type="text/css" href="{% static 'articles/style.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'articles/css/style.css' %}">
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 		<script src="https://getbootstrap.com/docs/4.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous"></script>
@@ -23,7 +23,6 @@
         		});
     		});
 		</script>
-
 	</head>
 
 	<body>
@@ -103,8 +102,8 @@
 			</nav>
 		</header>
 		<div class="row content">
-			<div class="col-light col-xs-6 col-sm-12 col-md-4 col-lg-3 text-center pr-0">
-				<nav class="navbar navbar-expand-md navbar-dark p-0 d-block">
+			<div class="col-light col-xs-6 col-sm-12 col-md-12 col-lg-3 text-center pr-0">
+				<nav class="navbar navbar-expand-lg navbar-dark p-0 d-block">
 		    		<h3 class="text-white py-3 px-1 shadow text-header-hl d-none d-lg-block d-md-block text-shadow-md">Популярные статьи</h3>
 		    		<div class="navbar-toggler w-100 bg-dark" type="button" data-toggle="collapse" data-target="#articlesCollapse" aria-controls="articlesCollapse" aria-expanded="false" aria-label="Toggle navigation">
 		    			<h3 class="text-white py-3 shadow text-header-hl"><span class="navbar-toggler-icon"></span>Популярные статьи</h3>
@@ -120,7 +119,7 @@
 				</nav>
 			</div> <!-- /col-light -->
 			
-			<div class="col col-dark pr-0 pl-lg-0 -l-md-0">
+			<div class="col-md-12 col-lg-9 col-dark pr-0 pl-lg-0 ml-md-0">
 				<main role="main">
                     {% block content %}
 					<!-- Main content -->

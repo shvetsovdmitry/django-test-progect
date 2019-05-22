@@ -43,10 +43,9 @@ body {
 .footer-bg {
 	background-color: #373d48;
 }
-.img-thumbnail {
+.img-thumbnail .profile-image {
 	max-height: 250px;
 	max-width: 250px;
-
 }
 .bd-placeholder-img {
     font-size: 1.125rem;
@@ -115,4 +114,21 @@ body {
 }
 .article-read {
 	border-color: #188c73;
+}
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.preview-container {
+	width: 100%;
+	padding: 0;
+}
+.preview-text {
+	background-color: rgba(255, 255, 255, 0.7);
+	border-radius: 10px;
+}
+.preview-article-info {
+	background-color: rgba(200, 200, 200, 0.7);
 }

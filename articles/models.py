@@ -85,8 +85,9 @@ class Tag (models.Model):
 
 class Article (models.Model):
     category = models.ForeignKey(Category, default=None, on_delete=models.PROTECT, verbose_name='Категория')
-    title = models.CharField(max_length=50, verbose_name='Название статьи', help_text='Введите до 50 символов.')
+    title = models.CharField(max_length=100, verbose_name='Название статьи', help_text='Введите до 100 символов.')
     content = models.TextField(verbose_name='Содержание')
+    
     image = models.ImageField(verbose_name='Превью',
                               blank=True,
                               null=True,
