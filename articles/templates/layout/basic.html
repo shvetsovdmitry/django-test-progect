@@ -26,7 +26,6 @@
 	</head>
 
 	<body>
-		{% bootstrap_messages %}
 		<header class="shadow">
 			<nav class="navbar navbar-expand-lg navbar-dark shadow nav-bg">
 			    <a class="navbar-brand" href="{% url 'articles:index' %}">{{ site_name }}</a>
@@ -101,6 +100,7 @@
 			    </div>
 			</nav>
 		</header>
+		{% bootstrap_messages %}
 		<div class="row content">
 			<div class="col-light col-xs-6 col-sm-12 col-md-12 col-lg-3 text-center pr-0">
 				<nav class="navbar navbar-expand-lg navbar-dark p-0 d-block">
@@ -118,7 +118,7 @@
 					</div>
 				</nav>
 			</div> <!-- /col-light -->
-			
+
 			<div class="col-md-12 col-lg-9 col-dark pr-0 pl-lg-0 ml-md-0">
 				<main role="main">
                     {% block content %}

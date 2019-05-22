@@ -57,7 +57,7 @@ admin.site.register(Tag, TagAdmin)
 
 # Article admin.
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ('title', 'category', 'author', 'created_at', 'total_rating', 'rating_count', 'is_active', )
+    list_display = ('title', 'category', 'author', 'created_at', 'total_rating', 'is_active', )
     filter_horizontal = ('tags', )
     search_fields = ('title', 'rubric', )
     readonly_fields = ('views',

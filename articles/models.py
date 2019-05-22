@@ -117,7 +117,7 @@ class Article (models.Model):
     # Current rating (total_rating/rating_count).
     rating = models.FloatField(verbose_name='Текущий рейтинг', default=0, help_text='Текущий рейтинг в 5-ти балльной шкале', max_length=1)
     # Number of votes.
-    rating_count = models.IntegerField(verbose_name='Количество проголосовавших', default=0)
+    # rating_count = models.IntegerField(verbose_name='Количество проголосовавших', default=0)
     # Nubmer of views.
     views = models.IntegerField(verbose_name='Просмотры', default=0)
     # Users who vote for article.
@@ -135,15 +135,14 @@ class Article (models.Model):
         super().delete(*args, **kwargs)
     
     # When user press rating button.
-    def change_rating(self, rating):
-        self.rating_count += 1
-        # self.views -= 1
-        if self.rating_count > 0:
+    def change_rating(self, rating, user):
+        if len(self.rated_users.all()) > 0:
             self.total_rating += rating
-            self.rating = round(self.total_rating/self.rating_count, 2)
+            self.rating = round(self.total_rating/(len(self.rated_users.all()) + 1), 2)
         else:
             self.rating = rating
             self.total_rating = rating
+        self.rated_users.add(user)            
         self.save()
 
     class Meta:

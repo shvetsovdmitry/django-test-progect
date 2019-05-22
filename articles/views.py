@@ -59,8 +59,8 @@ def profile(request, username):
 def change_rating(request, rating, pk):
     article = Article.objects.get(pk=pk)
     if request.user not in article.rated_users.all():
-        article.change_rating(rating)
-        article.rated_users.add(request.user)
+        article.change_rating(rating, request.user)
+        # article.rated_users.add(request.user)
         messages.add_message(request, messages.SUCCESS, 'Спасибо! Ваш голос учтен.')
     else:
         messages.add_message(request, messages.WARNING, 'Вы уже голосовали за эту статью!')
