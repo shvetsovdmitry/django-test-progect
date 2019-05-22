@@ -5,6 +5,7 @@ from articlesboard.settings import SITE_NAME
 from django.urls import reverse_lazy
 from django.core.signing import BadSignature
 from django.contrib import messages
+from django.contrib.auth import authenticate, login 
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
@@ -13,6 +14,7 @@ from django.views import View
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.base import TemplateView
 from django.utils import timezone
+# from django.contrib.sites.models import Site
 
 from .models import AdvUser, Category, Article, Tag
 # , ArticleStatistics
@@ -21,6 +23,7 @@ from .utilities import signer
 
 
 rate_articles = Article.objects.order_by('-rating').filter(is_active=True)[:10]
+# current_site = Site.objects.get_current()
 
 
 def index(request):
@@ -32,9 +35,10 @@ def index(request):
 def detail(request, pk):
     article = Article.objects.get(pk=pk)
     if request.user not in article.viewed_users.all():
-        article.viewed_users.add(request.user)
-    article.views += 1
-    article.save()
+        if request.user.is_authenticated:
+            article.viewed_users.add(request.user)
+        article.views += 1
+        article.save()
     context = {'article': article, 'tags': article.tags.all(), 'site_name': SITE_NAME, 'rate_articles': rate_articles}
     return render(request, 'articles/article.html', context)
 
@@ -63,18 +67,22 @@ def detail(request, pk):
 @login_required
 def profile(request, username):
     user = get_object_or_404(AdvUser, username=username)
-    context = {'user': user, 'site_name': SITE_NAME, 'rate_articles': rate_articles}
+    context = {'user': user, 'rate_articles': rate_articles, 'site_name': SITE_NAME}
     return render(request, 'articles/user_actions/profile.html', context)
 
 
 @login_required
-def change_rating(request, rating, pk):       
-        article = Article.objects.get(pk=pk)
+def change_rating(request, rating, pk):
+    article = Article.objects.get(pk=pk)
+    if request.user not in article.rated_users.all():
         article.change_rating(rating)
+        article.rated_users.add(request.user)
         messages.add_message(request, messages.SUCCESS, 'Спасибо! Ваш голос учтен.')
-        global rate_articles
-        rate_articles = Article.objects.order_by('-rating').filter(is_active=True)[:10]
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    else:
+        messages.add_message(request, messages.WARNING, 'Вы уже голосовали за эту статью!')
+    global rate_articles
+    rate_articles = Article.objects.order_by('-rating').filter(is_active=True)[:10]
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 def user_activate(request, sign):
@@ -114,8 +122,23 @@ class ArticleAddView(TemplateView, LoginRequiredMixin):
 
 
 class ALoginView(LoginView):
+
     extra_context = {'site_name': SITE_NAME}
     template_name = 'articles/user_actions/login.html'
+    
+    redirect_field_name = reverse_lazy('articles:index')
+    redirect_authenticated_user = True
+    
+    def get(self, *args):
+        return render(self.request, self.template_name, self.extra_context)
+
+    def post(self, *args):
+        user = authenticate(self.request, username=self.request.POST['username'], password=self.request.POST['password'])
+        if user is not None:
+            login(self.request, user)
+            return redirect(self.redirect_field_name)
+        else:
+            messages.add_message(self.request, messages.ERROR, 'Неправильный логин или пароль')
     
     
 class ALogoutView(LoginRequiredMixin, LogoutView):

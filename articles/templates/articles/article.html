@@ -33,12 +33,24 @@
 			<h6 class="text-muted text-right">{{ article.created_at }}</h6>
 		</div>
 	</div> <!-- /row -->
+	<!-- <div class="rating p-2">
+		<h5 class="rating-text text-white">{{ article.rating }}</h5>
+	</div> -->
 	<div class="rating p-2">
 		<h5 class="rating-text text-white">{{ article.rating }}</h5>
+		{% if user.is_authenticated %}
+			<div class="py-1">
+				<a class="btn btn-outline-info" href="{% url 'articles:change_rating' pk=article.pk rating=1 %}">1</a>
+				<a class="btn btn-outline-info" href="{% url 'articles:change_rating' pk=article.pk rating=2 %}">2</a>
+				<a class="btn btn-outline-info" href="{% url 'articles:change_rating' pk=article.pk rating=3 %}">3</a>
+				<a class="btn btn-outline-info" href="{% url 'articles:change_rating' pk=article.pk rating=4 %}">4</a>
+				<a class="btn btn-outline-info" href="{% url 'articles:change_rating' pk=article.pk rating=5 %}">5</a>
+			</div>
+		{% endif %}
 	</div>
-	<div class="author p-2">
+	<!-- <div class="author p-2">
 		<h5 class="author-text text-white">{{ article.author }}</h5>
-	</div>
+	</div> -->
 </div> <!-- /position-relative -->
 <!-- Статья -->
 <div class="col-dark mr-md-2 pt-3 px-3 pt-md-4 px-md-5 text-center text-white overflow-hidden">

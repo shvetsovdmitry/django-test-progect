@@ -124,6 +124,7 @@ class Article (models.Model):
         
     def change_rating(self, rating):
         self.rating_count += 1
+        # self.views -= 1
         if self.rating_count > 0:
             self.total_rating += rating
             self.rating = round(self.total_rating/self.rating_count, 2)
