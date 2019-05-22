@@ -6,15 +6,19 @@
 {% block title %}Профиль пользователя{% endblock %}
 
 {% block content %}
-<h3 class="text-white py-3 text-center text-header-hl w-100 shadow-lg text-shadow-md">Профиль пользователя {{ username }}</h3>
+<h3 class="text-white py-3 text-center text-header-hl w-100 shadow-lg text-shadow-md">Профиль пользователя {{ user.username }}</h3>
 <!-- Main content -->
 <div class="row container-fluid">
 	<div class="ml-3 col-sm-9 col-md-5 col-lg-4">
 		<div class="row mx-auto">
-			<h5 class="text-white text-shadow-sm">{{ username }}</h5>
+			<h5 class="text-white text-shadow-sm">{{ user.username }}</h5>
 		</div>
 		<div class="row mx-auto">
-			<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Boostrap_logo.svg/2000px-Boostrap_logo.svg.png" class="img-thumbnail profile-image">
+			{% if user.account_image %}
+				<img src="{{ user.account_image.url }}" class="img-thumbnail profile-image">
+			{% else %}
+				<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Boostrap_logo.svg/2000px-Boostrap_logo.svg.png" class="img-thumbnail profile-image">
+			{% endif %}
 		</div>
 	</div>
 	<div class="col-sm-12 col-md-10 col-lg-7">
