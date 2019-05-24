@@ -144,6 +144,11 @@ class ALogoutView(LoginRequiredMixin, LogoutView):
     extra_context = {'site_name': SITE_NAME}
     template_name = 'articles/user_actions/logout.html'
     
+    def get(self, *args):
+        messages.add_message(self.request, messages.SUCCESS, 'Вы успешно вышли с сайта!')
+        return redirect(reverse_lazy('articles:index'))
+    
+    
     
 # Register page view.
 class ARegisterUserView(CreateView):
