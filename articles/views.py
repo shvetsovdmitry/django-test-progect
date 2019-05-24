@@ -52,6 +52,11 @@ def detail(request, pk):
 def profile(request, username):
     # Get AdvUser object by username.
     user = get_object_or_404(AdvUser, username=username)
+    # socials = {}
+    # socials['fb'] = user.fb_url
+    # socials['vk'] = user.vk_url is not None ? 
+    # socials['tw'] = user.tw_url
+    # socials['ok'] = user.ok_url
     context = {'user': user, 'rate_articles': rate_articles, 'site_name': SITE_NAME}
     return render(request, 'articles/user_actions/profile.html', context)
 
