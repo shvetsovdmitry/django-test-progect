@@ -121,7 +121,7 @@ class ArticleAddView(TemplateView, LoginRequiredMixin):
 # Login page view.
 class ALoginView(LoginView):
 
-    extra_context = {'site_name': SITE_NAME}
+    extra_context = {'site_name': SITE_NAME, 'rate_articles': rate_articles}
     template_name = 'articles/user_actions/login.html'
     
     redirect_field_name = reverse_lazy('articles:index')
