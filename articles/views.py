@@ -118,6 +118,16 @@ class ArticleAddView(TemplateView, LoginRequiredMixin):
         fields = ('__all__', )
 
 
+class ArticleDeleteView(TemplateView, LoginRequiredMixin):
+    
+    template_name = 'articles/user_actions/delete_article.html'
+    
+    def get(self, request, pk):
+        article = get_object_or_404(Article, pk=pk)
+        context = {'article': article, 'site_name': SITE_NAME, 'rate_articles': rate_articles}
+        return render(request, self.template_name, context)    
+        
+
 # Login page view.
 class ALoginView(LoginView):
 

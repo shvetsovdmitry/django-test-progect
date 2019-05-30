@@ -1,23 +1,26 @@
 {% extends 'layout/basic.html' %}
-{% load static %}
 
-{% block title %}Главная{% endblock %}
+{% load static %}
+{% load bootstrap4 %}
+
+{% block title %}Удалить статью{% endblock %}
 
 {% block content %}
-<h3 class="text-white py-3 shadow text-center text-header-hl text-shadow-md">Статьи</h3>
-<div class="album py-1 px-auto">
-	<div class="row container-fluid d-flex justify-content-center mx-auto pl-sm-4 pl-xs-5 pr-auto">
-
-		<!-- Cards -->
-		{% for article in last_articles %}
-			{% url 'articles:article' pk=article.pk as url %}
-
+<h3 class="text-white py-3 text-center text-header-hl w-100 shadow-lg text-shadow-md">Удалить статью</h3>
+<div class="mx-auto py-3 col">
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#id_username').on('input', function() {
+				if ($("#id_username").val() == "{{ article.author }}"){
+					$("#submit_btn").removeClass("disabled");
+				}
+			});
+		});
+	</script>
+	<div class="album py-1 px-auto">
+		<div class="row container-fluid d-flex justify-content-center mx-auto pl-sm-4 pl-xs-5 pr-auto">
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-5 col-xl-4">
-				{% if request.user in article.viewed_users.all %}
-				<div class="card mb-4 shadow-sm article-read">
-				{% else %}
 				<div class="card mb-4 shadow-sm my-0">
-				{% endif %}
 					{% if article.image %}
 						<img src="{{ article.image.url }}" class="card-image">
 					{% elif article.image_url %}
@@ -37,16 +40,11 @@
 							</p>
 						</div>
 						<div class="row pt-3">
-							<!-- <div class="d-flex justify-content-between align-items-center"> -->
-								<div class="btn-group btn-block">
-									<a class="btn btn-sm btn-outline-secondary" href="{{ url }}{{ all }}">View</a>
-									<!-- Если пользователь - автор этой статьи, то отображать эту кнопку -->
-									{% if article.author == request.user %}
-										<a class="btn btn-sm btn-outline-secondary" href="#">Edit</a>
-										<a class="btn btn-sm btn-outline-secondary" href="{% url 'articles:delete_article' pk=article.pk %}">Delete</a>
-									{% endif %}
-								</div>
-							<!-- </div> --> <!-- /d-flex -->
+							<div class="btn-group btn-block">
+								<a class="btn btn-sm btn-outline-secondary" href="{{ url }}{{ all }}">View</a>
+								<!-- Если пользователь - автор этой статьи, то отображать эту кнопку -->
+								<a class="btn btn-sm btn-outline-secondary" href="#">Edit</a>
+							</div>
 						</div>
 						<div class="row pt-3 pd-0 my-0">
 							<div class="col text-left">
@@ -59,8 +57,20 @@
 					</div> <!-- /card-body -->
 				</div> <!-- /card -->
 			</div> <!-- /col-md-4 -->
-		{% endfor %}
+		</div> <!-- /row -->
+	</div> <!-- /album -->
 
-	</div> <!-- /row -->
-</div> <!-- /album -->
+	<div class="row d-flex justify-content-center">
+		<form class="text-white" method="post">
+			<div class="row">
+				<label for="id_username">Введите ваш логин чтобы подтвердить удаление:</label>
+			</div>
+			<div class="row">
+				<input type="text" name="username" id="id_username" class="form-control" placeholder="">
+			</div>
+			<a href="#" class="btn btn-danger btn-block mt-2 disabled" type="submit" id="submit_btn">Подтвердить</a>
+			<a href="#" class="btn btn-info btn-block">Отмена</a>
+		</form>
+	</div>
+</div>
 {% endblock %}

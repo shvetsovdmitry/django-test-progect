@@ -3,7 +3,7 @@ from django.urls import path
 from .views import index, detail, profile
 from .views import ALoginView, ALogoutView, ARegisterUserView
 from .views import ARegisterDoneView, user_activate, ChangeUserInfoView
-from .views import ArticleAddView, change_rating
+from .views import ArticleAddView, change_rating, ArticleDeleteView
 # , ArticleView
 
 
@@ -12,6 +12,7 @@ urlpatterns = [
     path('accounts/register/activate/<str:sign>/', user_activate, name='register_activate'),
     path('accounts/register/done/', ARegisterDoneView.as_view(), name='register_done'),
     path('accounts/register/', ARegisterUserView.as_view(), name='register'),
+    path('accounts/profile/delete/<int:pk>/', ArticleDeleteView.as_view(), name='delete_article'),
     path('accounts/profile/add/', ArticleAddView.as_view(), name='add_article'),
     path('accounts/profile/change/', ChangeUserInfoView.as_view(), name='profile_change'),
     path('accounts/profile/<str:username>/', profile, name='profile'),
