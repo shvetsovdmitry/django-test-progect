@@ -59,3 +59,10 @@ class ArticleForm(forms.ModelForm):
         
         
 ArticleFormSet = formset_factory(ArticleForm)
+
+
+class DeleteArticleForm(forms.Form):
+    
+    class Meta:
+        # model = AdvUser
+        fields = ('username', )

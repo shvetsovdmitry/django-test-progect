@@ -18,6 +18,7 @@ from django.forms import ValidationError
 
 from .models import AdvUser, Category, Article, Tag
 from .forms import ARegisterUserForm, ChangeUserInfoForm, ArticleForm, ArticleFormSet
+from .forms import DeleteArticleForm
 from .utilities import signer
 
 
@@ -99,18 +100,18 @@ class ArticleAddView(TemplateView, LoginRequiredMixin):
 
     template_name = 'articles/user_actions/add_article.html'
 
-    def get(self, request):
-        form = ArticleForm(initial={'author': request.user.pk})
+    def get(self):
+        form = ArticleForm(initial={'author': self.request.user.pk})
         context = {'form': form, 'site_name': SITE_NAME, 'rate_articles': rate_articles}
-        return render(request, self.template_name, context=context)
+        return render(self.request, self.template_name, context=context)
     
-    def post(self, request):
-        form = ArticleForm(self.request.POST, self.request.FILES, initial={'author': request.user.pk})
+    def post(self):
+        form = ArticleForm(self.request.POST, self.request.FILES, initial={'author': self.request.user.pk})
         if form.is_valid():
             form.save()
-            messages.add_message(request, messages.SUCCESS, 'Статья отправлена на модерацию.')
+            messages.add_message(self.request, messages.SUCCESS, 'Статья отправлена на модерацию.')
         else:
-            messages.add_message(request, messages.WARNING, 'Ошибка')
+            messages.add_message(self.request, messages.WARNING, 'Ошибка')
         return redirect('articles:index')
 
     class Meta:
@@ -122,10 +123,23 @@ class ArticleDeleteView(TemplateView, LoginRequiredMixin):
     
     template_name = 'articles/user_actions/delete_article.html'
     
-    def get(self, request, pk):
+    def get(self, *args, pk):
         article = get_object_or_404(Article, pk=pk)
-        context = {'article': article, 'site_name': SITE_NAME, 'rate_articles': rate_articles}
-        return render(request, self.template_name, context)    
+        form = DeleteArticleForm()
+        context = {'form': form, 'article': article, 'site_name': SITE_NAME, 'rate_articles': rate_articles}
+        return render(self.request, self.template_name, context)
+    
+    def post(self, *args, pk):
+        form = DeleteArticleForm(self.request.POST)
+        article = get_object_or_404(Article, pk=pk)
+        if form.is_valid():
+            article.is_active = False
+            article.save()
+            messages.add_message(self.request, messages.SUCCESS, 'Статья успешно удалена')
+        else:
+            messages.add_message(self.request, messages.WARNING, 'Возникла ошибка во время удаления статьи!')
+        return redirect('articles:index')
+            
         
 
 # Login page view.

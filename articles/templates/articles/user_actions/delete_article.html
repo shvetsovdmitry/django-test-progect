@@ -62,13 +62,14 @@
 
 	<div class="row d-flex justify-content-center">
 		<form class="text-white" method="post">
+			{% csrf_token %}
 			<div class="row">
 				<label for="id_username">Введите ваш логин чтобы подтвердить удаление:</label>
 			</div>
 			<div class="row">
-				<input type="text" name="username" id="id_username" class="form-control" placeholder="">
+				<input type="text" name="author" id="id_username" class="form-control" placeholder="">
 			</div>
-			<a href="#" class="btn btn-danger btn-block mt-2 disabled" type="submit" id="submit_btn">Подтвердить</a>
+			<button class="btn btn-danger btn-block mt-2 disabled" type="submit" id="submit_btn">Подтвердить</button>
 			<a href="#" class="btn btn-info btn-block">Отмена</a>
 		</form>
 	</div>
