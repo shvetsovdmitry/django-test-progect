@@ -38,13 +38,13 @@
 
                         <div class="nav-item dropdown" id="profileDropdown">
                         	{% if user.is_authenticated %}
-				            	<a class="dropdown-toggle nav-link" id="profileDropdownLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">Профиль</a>
+				            	<a class="dropdown-toggle nav-link " id="profileDropdownLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">{{ user.username }}</a>
 			            	{% else %}
 			            		<a class="dropdown-toggle nav-link" id="profileDropdownLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">Вход/Регистрация</a>
 	            			{% endif %}
 				            <div class="dropdown-menu ml-0 bg-light shadow" aria-labelledby="profileDropdownLink">
     	                        {% if user.is_authenticated %}
-				            	<!-- <h6 class="dropdown-header">Профиль</h6> -->
+				            	<h3 class="dropdown-header">{{ user.username }}</h3>
 						        <div class="dropdown-item">
 						            <a class="btn btn-outline-info btn-block" href="{% url 'articles:profile' username=user.username %}">Профиль</a>
 						        </div>

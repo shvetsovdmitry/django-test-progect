@@ -131,7 +131,7 @@ class ArticleDeleteView(TemplateView, LoginRequiredMixin):
         if form.is_valid():
             # Restricting deletion from other users.
             if self.request.user.username.__ne__(article.author.username) and self.request.user.username.__ne__('admin'):
-                messages.add_message(self.request, messages.ERROR, f'У вас {self.request.user.username} {article.author.username} недостаточно прав для удаления данной статьи.')
+                messages.add_message(self.request, messages.ERROR, f'У пользователя {self.request.user.username} недостаточно прав для удаления данной статьи.')
                 return redirect('articles:index')
             
             article.is_active = False
