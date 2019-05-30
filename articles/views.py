@@ -97,7 +97,7 @@ def user_activate(request, sign):
 # Add article page view.
 class ArticleAddView(TemplateView, LoginRequiredMixin):
 
-    template_name = 'articles/add_article.html'
+    template_name = 'articles/user_actions/add_article.html'
 
     def get(self, request):
         form = ArticleForm(initial={'author': request.user.pk})
