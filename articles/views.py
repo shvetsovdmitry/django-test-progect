@@ -53,11 +53,6 @@ def detail(request, pk):
 def profile(request, username):
     # Get AdvUser object by username.
     user = get_object_or_404(AdvUser, username=username)
-    # socials = {}
-    # socials['fb'] = user.fb_url
-    # socials['vk'] = user.vk_url is not None ? 
-    # socials['tw'] = user.tw_url
-    # socials['ok'] = user.ok_url
     context = {'user': user, 'rate_articles': rate_articles, 'site_name': SITE_NAME}
     return render(request, 'articles/user_actions/profile.html', context)
 
@@ -119,6 +114,7 @@ class ArticleAddView(TemplateView, LoginRequiredMixin):
         fields = ('__all__', )
 
 
+# Confirm deletion of article page.
 class ArticleDeleteView(TemplateView, LoginRequiredMixin):
     
     template_name = 'articles/user_actions/delete_article.html'
@@ -133,6 +129,11 @@ class ArticleDeleteView(TemplateView, LoginRequiredMixin):
         form = DeleteArticleForm(self.request.POST)
         article = get_object_or_404(Article, pk=pk)
         if form.is_valid():
+            # Restricting deletion from other users.
+            if self.request.user.username.__ne__(article.author.username) and self.request.user.username.__ne__('admin'):
+                messages.add_message(self.request, messages.ERROR, f'У вас {self.request.user.username} {article.author.username} недостаточно прав для удаления данной статьи.')
+                return redirect('articles:index')
+            
             article.is_active = False
             article.save()
             messages.add_message(self.request, messages.SUCCESS, 'Статья успешно удалена')
@@ -140,7 +141,6 @@ class ArticleDeleteView(TemplateView, LoginRequiredMixin):
             messages.add_message(self.request, messages.WARNING, 'Возникла ошибка во время удаления статьи!')
         return redirect('articles:index')
             
-        
 
 # Login page view.
 class ALoginView(LoginView):
@@ -171,7 +171,6 @@ class ALogoutView(LoginRequiredMixin, LogoutView):
     def get(self, *args):
         messages.add_message(self.request, messages.SUCCESS, 'Вы успешно вышли с сайта!')
         return redirect(reverse_lazy('articles:index'))
-    
     
     
 # Register page view.
