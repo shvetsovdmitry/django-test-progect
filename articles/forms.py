@@ -3,6 +3,9 @@ from django.contrib import messages
 from django.contrib.auth import password_validation
 from django.core.exceptions import ValidationError
 from django.forms import inlineformset_factory, formset_factory
+
+from django_countries.widgets import CountrySelectWidget
+
 from .models import user_registrated
 from .models import AdvUser, Article, Tag
 
@@ -12,7 +15,7 @@ class ARegisterUserForm(forms.ModelForm):
     email = forms.EmailField(required=True, label='Email')
     password1 = forms.CharField(label='Пароль', widget=forms.PasswordInput, help_text=password_validation.password_validators_help_text_html())
     password2 = forms.CharField(label='Пароль (повторно)', widget=forms.PasswordInput, help_text='Введите тот же самый пароль еще раз для проверки.')
-
+    
     # Check the passwords.
     def clean(self):
         super().clean()
@@ -40,7 +43,9 @@ class ARegisterUserForm(forms.ModelForm):
 
     class Meta:
         model = AdvUser
-        fields = ('username', 'email', 'password1', 'password2', 'first_name', 'last_name', 'send_messages')
+        fields = ('username', 'email', 'password1', 'password2', 'first_name', 'last_name', 'send_messages', 'country', 'city', )
+        widgets = {'country': CountrySelectWidget()}
+
     
 
 class ChangeUserInfoForm(forms.ModelForm):

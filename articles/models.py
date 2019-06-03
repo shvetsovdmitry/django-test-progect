@@ -3,6 +3,9 @@ from django.db import models
 from django.dispatch import Signal
 from django.utils import timezone
 from django.utils.html import format_html
+
+from django_countries.fields import CountryField
+
 from .utilities import send_activation_notification
 import os
 
@@ -25,7 +28,7 @@ user_registrated.connect(user_registrated_dispatcher)
 # Gender model.
 class Gender (models.Model):
     name = models.CharField(max_length=20, default=None, db_index=True, unique=True, verbose_name='Название')
-
+    one_letter_name = models.CharField(max_length=1, default=None, unique=True, verbose_name='Название пола в одну букву', help_text='Используется в коде.')
     def __str__(self):
         return self.name
 
@@ -42,7 +45,9 @@ class AdvUser (AbstractUser):
     tw_url = models.URLField(blank=True, null=True, verbose_name='Twitter')
     ok_url = models.URLField(blank=True, null=True, verbose_name='Одноклассники')
     # Personal.
-    account_image = models.ImageField(blank=True, null=True, upload_to=get_image_path, verbose_name='Аватар')
+    account_image = models.ImageField(blank=True, null=True, upload_to=get_image_path, verbose_name='Изображение профиля', help_text='Лучше всего подобрать картинку с соотношением сторон 4:3.')
+    account_image_url = models.URLField(blank=True, null=True, verbose_name='Ссылка на изображение профиля', help_text='Вы можете либо загрузить картинку, либо вставить ссылку на нее.')
+    country = CountryField(blank_label='Выберите страну', blank=True, null=True, verbose_name='Страна')
     city = models.CharField(blank=True, null=True, max_length=50, verbose_name='Город')
     bdate = models.DateField(blank=True, null=True, verbose_name='Дата рождения')
     gender = models.ForeignKey(Gender, default=None, blank=True, null=True, on_delete=models.PROTECT, verbose_name='Пол')
@@ -54,7 +59,10 @@ class AdvUser (AbstractUser):
 
     # account_image preview in admin site.
     def admin_image(self):
-        return format_html('<img src="%s" style="width:300px; height: 200px" />' % self.account_image.url)
+        if self.account_image:
+            return format_html('<img src="%s" style="width:400px; height: 200px" />' % self.account_image.url)
+        elif self.account_image_url:
+            return format_html('<img src="%s" style="width:300px; height: 200px" />' % self.account_image_url)
     admin_image.short_description = 'Превью'
     admin_image.allow_tags = True
 

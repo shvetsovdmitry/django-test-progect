@@ -16,6 +16,8 @@ from django.views.generic.base import TemplateView
 from django.utils import timezone
 from django.forms import ValidationError
 
+from dal import autocomplete
+
 from .models import AdvUser, Category, Article, Tag
 from .forms import ARegisterUserForm, ChangeUserInfoForm, ArticleForm, ArticleFormSet
 from .forms import DeleteArticleForm
@@ -216,3 +218,9 @@ class ChangeUserInfoView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
             form.save()
             messages.add_message(request, messages.SUCCESS, 'Профиль изменен')
             return redirect('articles:profile')
+        
+        
+# class CountryAutocomplete(autocomplete.Select2QuerySetView):
+    
+#     def get_queryset(self):
+#         qs     

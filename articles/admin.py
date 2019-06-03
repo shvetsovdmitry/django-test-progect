@@ -5,7 +5,7 @@ from .models import AdvUser, Category, Article, Tag, Gender
 
 # Gender admin panel.
 class GenderAdmin(admin.ModelAdmin):
-    list_display = ('name',)
+    list_display = ('name', 'one_letter_name', )
 
 
 admin.site.register(Gender, GenderAdmin)
@@ -18,8 +18,8 @@ class AdvUserAdmin(admin.ModelAdmin):
     fields = (('username', 'email'),
               'gender',
               ('first_name', 'last_name'),
-              ('account_image', 'admin_image'),
-              'city',
+              ('account_image', 'account_image_url', 'admin_image'),
+              'country', 'city',
               'bdate',
               'fb_url',
               'tw_url',
