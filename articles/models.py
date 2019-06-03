@@ -5,6 +5,7 @@ from django.utils import timezone
 from django.utils.html import format_html
 
 from django_countries.fields import CountryField
+from tagging_autocomplete.models import TagAutocompleteField
 
 from .utilities import send_activation_notification
 import os
@@ -119,7 +120,7 @@ class Article (models.Model):
     # Text on card on index page.
     card_text = models.TextField(verbose_name='Аннотация', blank=True, null=True, max_length=200, help_text='Введите до 200 символов.')
     author = models.ForeignKey(AdvUser, on_delete=models.PROTECT, verbose_name='Автор')
-    tags = models.ManyToManyField(Tag, verbose_name='Теги', blank=True)
+    tags = TagAutocompleteField()
     # Total article rating (sum of all votes).
     total_rating = models.IntegerField(verbose_name='Всего баллов', default=0, help_text='Всего баллов, полученных от пользователей')
     # Current rating (total_rating/rating_count).

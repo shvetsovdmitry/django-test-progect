@@ -97,10 +97,10 @@ class ArticleAddView(TemplateView, LoginRequiredMixin):
 
     template_name = 'articles/user_actions/add_article.html'
 
-    def get(self, request):
+    def get(self, request, *args, **kwargs):
         form = ArticleForm(initial={'author': self.request.user.pk})
         context = {'form': form, 'site_name': SITE_NAME, 'rate_articles': rate_articles}
-        return render(self.request, self.template_name, context=context)
+        return render(self.request, self.template_name, context=context, *args)
     
     def post(self, request):
         form = ArticleForm(self.request.POST, self.request.FILES, initial={'author': self.request.user.pk})

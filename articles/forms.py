@@ -5,6 +5,8 @@ from django.core.exceptions import ValidationError
 from django.forms import inlineformset_factory, formset_factory
 
 from django_countries.widgets import CountrySelectWidget
+from tagging.forms import TagField
+from tagging_autocomplete.widgets import TagAutocomplete
 
 from .models import user_registrated
 from .models import AdvUser, Article, Tag
@@ -64,6 +66,8 @@ class ChangeUserInfoForm(forms.ModelForm):
 
 class ArticleForm(forms.ModelForm):
     
+    tags = TagField(widget=TagAutocomplete())
+    
     class Meta:
         model = Article
         fields = ('category', 'title', 'image', 'image_url', 'card_text', 'content', 'tags', 'author')
@@ -74,6 +78,8 @@ ArticleFormSet = formset_factory(ArticleForm)
 
 
 class EditArticleForm(forms.ModelForm):
+    
+    tags = TagField(widget=TagAutocomplete())
     
     class Meta:
         model = Article

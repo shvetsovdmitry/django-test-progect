@@ -33,6 +33,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 INSTALLED_APPS = [
     'dal',
     'dal_select2',
+    'tagging',
+    'tagging_autocomplete',
     'django_countries',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -134,3 +136,7 @@ MEDIA_URL = '/media/'
 SITE_ID = 2
 
 SITE_NAME = 'ArticlesSite'
+
+TAGGING_AUTOCOMPLETE_SEARCH_CONTAINS = True
+
+TAGGING_AUTOCOMPLETE_MIN_LENGTH = 1

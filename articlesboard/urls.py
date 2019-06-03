@@ -6,6 +6,7 @@ from django.contrib.staticfiles.views import serve
 from django.views.decorators.cache import never_cache
 
 urlpatterns = [
+    path('tagging_autocomplete/', include('tagging_autocomplete.urls')),
     path('admin/', admin.site.urls),
     path('', include('articles.urls', namespace='')),
 ]
