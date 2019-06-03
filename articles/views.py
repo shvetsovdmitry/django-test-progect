@@ -83,7 +83,7 @@ def user_activate(request, sign):
         return render(request, 'articles/user_actions/bad_signature.html')
     user = get_object_or_404(AdvUser, username=username)
     if user.is_activated:
-        template = 'articles/user_actions/user_is_activated.html'
+        template = 'articles/user_actions/user_already_activated.html'
     else:
         template = 'articles/user_actions/activation_done.html'
         user.is_active = True

@@ -1,28 +1,19 @@
+{% extends 'layout/basic.html' %}
+
 {% load bootstrap4 %}
 {% load static %}
+{% load widget_tweaks %}
 
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<meta name="author" content="Shvetsov Dmitry">
-		{% bootstrap_css %}
-		{% bootstrap_javascript jquery='full' %}
-		<link rel="stylesheet" type="text/css" href="{% static 'articles/signin.css' %}">
-		<title>Ошибка | {{ site_name }}</title>
-	</head>
-	<body class="text-center">
-		<main role="main" class="container-fluid">
-			<h1 class="h3 mb-3 font-weight-normal" style="width:100%; height: 100%;">Активация прошла неудачно</h1>
-			<a class="btn btn-lg btn-primary btn-block" href="{% url 'articles:register' %}">Зарегистрироваться повторно</a>
-			<a class="btn btn-lg btn-primary btn-block" href="{% url 'articles:login' %}">Войти на сайт</a>
-			<a class="btn btn-lg btn-info btn-block" href="{% url 'articles:index' %}">На главную</a>
-		</main>
-		<footer class="footer">
-      		<div class="container">
-        		<span class="text-muted">&copy; <a href="https://github.com/GrobIvanovich/">Shvetsov Dmitry</a>, 2019 г.</span>
-      		</div>
-    	</footer>
-	</body>
-</html>
+{% block title %}Ошибка{% endblock %}
+
+{% block content %}
+<h3 class="text-white py-3 shadow text-center text-header-hl text-shadow-md">Ошибка</h3>
+<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 mx-auto">
+	{% bootstrap_messages %}
+	<p class="text-center text-white h4 py-2">
+		При регистрации произошла ошибка. Попробуйте снова.
+	</p>
+	<a class="btn btn-success btn-block" href="{% url 'articles:register' %}">Зарегистрироваться <img src="https://img.icons8.com/dusk/32/000000/enter-2.png"></a>
+	<a class="btn btn-sm btn-info btn-block mb-2" href="{% url 'articles:index' %}">На главную <img src="https://img.icons8.com/dusk/32/000000/home-page.png"></a>
+</div>
+{% endblock %}
