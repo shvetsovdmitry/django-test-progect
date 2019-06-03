@@ -70,7 +70,7 @@
 				<input type="text" name="author" id="id_username" class="form-control" placeholder="">
 			</div>
 			<button class="btn btn-danger btn-block mt-2 disabled" type="submit" id="submit_btn">Подтвердить</button>
-			<a href="#" class="btn btn-info btn-block">Отмена</a>
+			<a href="{{ request.META.HTTP_REFERER }}" class="btn btn-info btn-block">Отмена</a>
 		</form>
 	</div>
 </div>

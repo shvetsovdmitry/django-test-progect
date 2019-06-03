@@ -6,9 +6,13 @@
 
 {% block content%}
 <!-- Аннотация -->
+{% if article.image %}
+<div class="position-relative overflow-hidden p-md-1 m-2 text-center bg-light img-thumbnail shadow" style="background-image: url({{ article.image.url }}); background-size: cover; border-radius: 5px; background-repeat: no-repeat;">
+{% elif article.image_url %}
 <div class="position-relative overflow-hidden p-md-1 m-2 text-center bg-light img-thumbnail shadow" style="background-image: url({{ article.image_url }}); background-size: cover; border-radius: 5px; background-repeat: no-repeat;">
-	<!-- <div class="preview-container"> -->
-		<!-- <img src="{{ article.image_url }}" style="max-width: 100%; max-height: 650px; border-radius: 10px"> -->
+{% else %}
+<div class="position-relative overflow-hidden p-md-1 m-2 text-center bg-light img-thumbnail shadow">
+{% endif %}
 	<div class="col-md-12 py-3 mx-auto my-5">
 		<h1 class="display-4 font-weight-normal preview-text">{{ article.title }}</h1>
 		<p class="lead font-weith-normal py-3 preview-text">

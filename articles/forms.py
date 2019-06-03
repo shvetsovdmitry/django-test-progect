@@ -73,8 +73,15 @@ class ArticleForm(forms.ModelForm):
 ArticleFormSet = formset_factory(ArticleForm)
 
 
+class EditArticleForm(forms.ModelForm):
+    
+    class Meta:
+        model = Article
+        fields = ('category', 'title', 'image', 'image_url', 'card_text', 'content', 'tags', 'author')
+        widgets = {'author': forms.HiddenInput}
+
+
 class DeleteArticleForm(forms.Form):
     
     class Meta:
-        # model = AdvUser
         fields = ('username', )

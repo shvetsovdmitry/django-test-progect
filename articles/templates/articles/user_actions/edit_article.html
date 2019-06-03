@@ -1,0 +1,135 @@
+{% extends 'layout/basic.html' %}
+
+{% load static %}
+{% load bootstrap4 %}
+{% load widget_tweaks %}
+{% block title %}Отредактировать статью{% endblock %}
+
+{% block content %}
+<!-- Main content -->
+<h1 class="display-4 font-weight-normal text-white mx-4 text-shadow-lg">Добавить статью</h1>
+<div class="px-5 pt-4">
+	<form method="post" enctype="multipart/form-data" class="text-white">
+		{% csrf_token %}
+		{{ form.author }}
+
+		<!-- Title -->
+		<div class="row mb-3">
+			<div class="col-lg-2">
+				<label for="id_title">Название статьи</label>
+			</div>
+			<div class="col-lg-6">
+				{{ form.title|attr:"class:form-control" }}
+			</div>
+			<div class="col-lg-3">
+				<div class="invalid-feedback" style="width: 100%;">
+					Поле обязательно к заполнению!
+				</div>
+			</div>
+		</div>
+
+		<!-- Category -->
+		<div class="row mb-3">
+			<div class="col-lg-2">
+				<label for="id_category">Категория</label>
+			</div>
+			<div class="col-lg-6">
+				{{ form.category|attr:"class:custom-select" }}
+			<div class="col-lg-3">
+				<div class="invalid-feedback" style="width: 100%;">
+					Поле обязательно к заполнению!
+				</div>
+			</div>
+			</div>
+		</div>
+
+		<!-- Image -->
+		<div class="row mb-3">
+			<div class="col-lg-2">
+				<label for="id_image">Превью</label>
+			</div>
+			<div class="col">
+				{% if article.image %}
+					<img src="{{ article.image.url }}" height="300">
+				{% endif %}
+				<input type="file" name="image" id="id_image" accept="image/*">
+			</div>
+		</div>
+
+		<!-- Image_url -->
+		<div class="row mb-3">
+			<div class="col-lg-2">
+				<label for="id_image_url">Ссылка на превью (необязательно)</label>
+			</div>
+			<div class="col-lg-6">
+				<input type="text" class="form-control" name="image_url" id="id_image_url" placeholder="http://example.com/example.jpg" value="{{ article.image_url }}">
+			</div>
+			<div class="col-lg-3">
+				<div class="invalid-feedback" style="width: 100%;">
+					Поле обязательно к заполнению!
+				</div>
+			</div>
+		</div>
+
+		<!-- Card_text -->
+		<div class="row mb-3">
+			<div class="col-lg-2">
+				<label for="id_card_text">Аннотация</label>
+			</div>
+			<div class="col-lg-6">
+				<textarea class="form-control" name="card_text" id="id_card_text" placeholder="До 200 символов." rows="3" required>{{ article.card_text }}</textarea>
+			</div>
+			<div class="col-lg-3">
+				<div class="invalid-feedback" style="width: 100%;">
+					Поле обязательно к заполнению!
+				</div>
+			</div>
+		</div>
+
+		<!-- Content -->
+		<div class="row mb-3">
+			<div class="col-lg-2">
+				<label for="id_content">Содержимое</label>
+			</div>
+			<div class="col-lg-6">
+				<textarea class="form-control" name="content" id="id_content" placeholder="Поддерживает html теги." rows="7" required>{{ article.content }}</textarea>
+			</div>
+			<div class="col-lg-3">
+				<div class="invalid-feedback" style="width: 100%;">
+					Поле обязательно к заполнению!
+				</div>
+			</div>
+		</div>
+
+		<!-- Tags -->
+		<div class="row mb-3">
+			<div class="col-lg-2">
+				<label for="id_tags">Теги</label>
+			</div>
+			<div class="col-lg-6">
+				{{ form.tags }}
+			</div>
+			<div class="col-lg-3">
+				<div class="invalid-feedback" style="width: 100%;">
+					Поле обязательно к заполнению!
+				</div>
+			</div>
+		</div>
+
+		<div class="row mb-3">
+			<div class="col-lg-2"></div>
+			<div class="col-lg-6">
+				<input class="btn btn-md btn-success btn-block shadow-sm" type="submit" value="Отправить">
+			</div>
+			<div class="col-lg-3"></div>
+		</div>
+		<div class="row mb-3">
+			<div class="col-lg-2"></div>
+			<div class="col-lg-6">
+				<a class="btn btn-md btn-info btn-block shadow-sm" href="{{ request.META.HTTP_REFERER }}">Назад</a>
+			</div>
+			<div class="col-lg-3"></div>
+		</div>
+	</form>
+</div>
+{% endblock %}

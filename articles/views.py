@@ -20,7 +20,7 @@ from dal import autocomplete
 
 from .models import AdvUser, Category, Article, Tag
 from .forms import ARegisterUserForm, ChangeUserInfoForm, ArticleForm, ArticleFormSet
-from .forms import DeleteArticleForm
+from .forms import DeleteArticleForm, EditArticleForm
 from .utilities import signer
 
 
@@ -97,12 +97,12 @@ class ArticleAddView(TemplateView, LoginRequiredMixin):
 
     template_name = 'articles/user_actions/add_article.html'
 
-    def get(self):
+    def get(self, request):
         form = ArticleForm(initial={'author': self.request.user.pk})
         context = {'form': form, 'site_name': SITE_NAME, 'rate_articles': rate_articles}
         return render(self.request, self.template_name, context=context)
     
-    def post(self):
+    def post(self, request):
         form = ArticleForm(self.request.POST, self.request.FILES, initial={'author': self.request.user.pk})
         if form.is_valid():
             form.save()
@@ -115,6 +115,46 @@ class ArticleAddView(TemplateView, LoginRequiredMixin):
         model = Article
         fields = ('__all__', )
 
+
+class ArticleEditView(UpdateView, SuccessMessageMixin, LoginRequiredMixin):
+    
+    template_name = 'articles/user_actions/edit_article.html'
+    model = Article
+    form_class = EditArticleForm
+    
+    def dispatch(self, request, pk, *args, **kwargs):
+        self.article = get_object_or_404(Article, pk=pk)
+        self.user_id = self.article.pk
+        self.success_url = reverse_lazy('articles:article', kwargs={'pk': self.article.pk})
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_object(self, queryset=None):
+        if not queryset:
+            queryset = self.get_queryset()
+        return get_object_or_404(queryset, pk=self.article.pk)
+    
+    def get(self, request):
+        # article = get_object_or_404(Article, pk=pk)
+        form = EditArticleForm(instance=self.article)
+        context = {'article': self.article, 'form': form, 'site_name': SITE_NAME, 'rate_articles': rate_articles}
+        return render(self.request, self.template_name, context=context)
+    
+    def post(self, request):
+        # article = get_object_or_404(Article, pk=pk)
+        form = EditArticleForm(self.request.POST, self.request.FILES, instance=self.article)
+        if form.is_valid():
+            self.article.is_active = False
+            self.article.save()
+            messages.add_message(self.request, messages.SUCCESS, 'Статья успешно отредактирована и отправлена на модерацию.')
+        else:
+            messages.add_message(self.request, messages.WARNING, 'Ошибка.')
+            return redirect('articles:edit_article', pk=self.article.pk)
+        return redirect('articles:index')
+    
+    class Meta:
+        model = Article
+        fields = ('__all__', )
+        
 
 # Confirm deletion of article page.
 class ArticleDeleteView(TemplateView, LoginRequiredMixin):
@@ -213,7 +253,7 @@ class ChangeUserInfoView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
         return get_object_or_404(queryset, username=self.user.username)
     
     def get(self, request):
-        self.user = get_object_or_404(AdvUser, username=self.user.username)
+        # self.user = get_object_or_404(AdvUser, username=self.user.username)
         form = ChangeUserInfoForm(instance=self.user)
         context = {'form': form}
         return render(request, self.template_name, context)

@@ -42,7 +42,7 @@
 									<a class="btn btn-sm btn-outline-secondary" href="{{ url }}{{ all }}">View</a>
 									<!-- Если пользователь - автор этой статьи, то отображать эту кнопку -->
 									{% if article.author == request.user or request.user.username == 'admin' %}
-										<a class="btn btn-sm btn-outline-secondary" href="#">Edit</a>
+										<a class="btn btn-sm btn-outline-secondary" href="{% url 'articles:edit_article' pk=article.pk %}">Edit</a>
 										<a class="btn btn-sm btn-outline-secondary" href="{% url 'articles:delete_article' pk=article.pk %}">Delete</a>
 									{% endif %}
 								</div>
