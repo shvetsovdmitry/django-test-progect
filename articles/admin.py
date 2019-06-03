@@ -1,7 +1,5 @@
 from django.contrib import admin
 
-from tagging.admin import TagAdmin
-
 from .models import AdvUser, Category, Article, Tag, Gender
 
 
@@ -49,15 +47,6 @@ class CategoryAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Category, CategoryAdmin)
-
-
-# # Tag admin.
-# class TagAdmin(admin.ModelAdmin):
-#     list_display = ('name', )
-#     search_fields = ('name', )
-
-
-admin.site.register(Tag, TagAdmin)
 
 
 # Article admin.

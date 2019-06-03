@@ -16,9 +16,12 @@ from django.views.generic.base import TemplateView
 from django.utils import timezone
 from django.forms import ValidationError
 
-from dal import autocomplete
+# from dal import autocomplete
+from tagging.models import TaggedItem
 
-from .models import AdvUser, Category, Article, Tag
+from tagging_autocomplete.models import TagAutocomplete
+
+from .models import AdvUser, Category, Article
 from .forms import ARegisterUserForm, ChangeUserInfoForm, ArticleForm, ArticleFormSet
 from .forms import DeleteArticleForm, EditArticleForm
 from .utilities import signer
@@ -46,12 +49,16 @@ def detail(request, pk):
             article.viewed_users.add(request.user)
         article.views += 1
         article.save()
-    context = {'article': article, 'tags': article.tags.all(), 'site_name': SITE_NAME, 'rate_articles': rate_articles}
+    # Get TaggedItem objects related to article.
+    tags_objs = TaggedItem.objects.filter(object_id=pk)
+    tags = []
+    for tag in tags_objs:
+        tags.append(tag.tag)
+    context = {'article': article, 'tags': tags, 'site_name': SITE_NAME, 'rate_articles': rate_articles}
     return render(request, 'articles/article.html', context)
 
 
 # Profile page view.
-# @login_required
 def profile(request, username):
     # Get AdvUser object by username.
     user = get_object_or_404(AdvUser, username=username)
@@ -65,7 +72,6 @@ def change_rating(request, rating, pk):
     article = Article.objects.get(pk=pk)
     if request.user not in article.rated_users.all():
         article.change_rating(rating, request.user)
-        # article.rated_users.add(request.user)
         messages.add_message(request, messages.SUCCESS, 'Спасибо! Ваш голос учтен.')
     else:
         messages.add_message(request, messages.WARNING, 'Вы уже голосовали за эту статью!')
@@ -134,13 +140,11 @@ class ArticleEditView(UpdateView, SuccessMessageMixin, LoginRequiredMixin):
         return get_object_or_404(queryset, pk=self.article.pk)
     
     def get(self, request):
-        # article = get_object_or_404(Article, pk=pk)
         form = EditArticleForm(instance=self.article)
         context = {'article': self.article, 'form': form, 'site_name': SITE_NAME, 'rate_articles': rate_articles}
         return render(self.request, self.template_name, context=context)
     
     def post(self, request):
-        # article = get_object_or_404(Article, pk=pk)
         form = EditArticleForm(self.request.POST, self.request.FILES, instance=self.article)
         if form.is_valid():
             self.article.is_active = False
@@ -253,7 +257,6 @@ class ChangeUserInfoView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
         return get_object_or_404(queryset, username=self.user.username)
     
     def get(self, request):
-        # self.user = get_object_or_404(AdvUser, username=self.user.username)
         form = ChangeUserInfoForm(instance=self.user)
         context = {'form': form}
         return render(request, self.template_name, context)
