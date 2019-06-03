@@ -8,9 +8,12 @@
 
 {% block content %}
 <h3 class="text-white py-3 text-center text-header-hl w-100 shadow-lg text-shadow-md d-flex justify-content-center" style="line-height: 0.95">
-	<!-- <h3> -->Профиль пользователя {{ user.username }} 
-		<a title="Профиль подтвержден."><img src="https://img.icons8.com/dusk/32/000000/verified-account.png" class="my-0 py-0"></a>
-	<!-- </h3> -->
+		Профиль пользователя {{ user.username }} 
+		{% if user.is_activated %}
+			<a title="Профиль подтвержден."><img src="https://img.icons8.com/dusk/32/000000/verified-account.png" class="ml-2 my-0 py-0"></a>
+		{% else %}
+			<a title="Профиль не подтвержден."><img src="https://img.icons8.com/dusk/32/000000/unverified-account.png" class="ml-2 my-0 py-0"></a>
+		{% endif %}
 </h3>
 
 <!-- Main content -->

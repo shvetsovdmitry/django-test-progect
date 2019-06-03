@@ -31,7 +31,7 @@ rate_articles = Article.objects.order_by('-rating').filter(is_active=True)[:10]
 # Main page view.
 def index(request):
     last_articles = Article.objects.filter(is_active=True)
-    # Popular articles.
+    # Refreshing popular articles.
     rate_articles = Article.objects.order_by('-rating').filter(is_active=True)[:10]
     context = {'last_articles': last_articles, 'rate_articles': rate_articles, 'site_name': SITE_NAME}
     return render(request, 'articles/index.html', context)
@@ -182,19 +182,24 @@ class ARegisterUserView(CreateView):
     form_class = ARegisterUserForm
     success_url = reverse_lazy('articles:register_done')
     
+    def get(self, request):
+        return render(request, self.template_name, {'site_name': SITE_NAME})
+    
     
 # When user activated.
 class ARegisterDoneView(TemplateView):
     template_name = 'articles/user_actions/register_done.html'
+    
+    def get(self, request):
+        return render(request, self.template_name, {'site_name': SITE_NAME})
  
 
 # Change info view.
 class ChangeUserInfoView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
+    
     model = AdvUser
     template_name = 'articles/user_actions/change_user_info.html'
     form_class = ChangeUserInfoForm
-    # success_message = 'Профиль успешно отредактирован.'
-    # success_url = reverse_lazy('articles:profile')
     
     def dispatch(self, request, username, *args, **kwargs):
         self.user = get_object_or_404(AdvUser, username=username)
@@ -214,7 +219,6 @@ class ChangeUserInfoView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
         return render(request, self.template_name, context)
     
     def post(self, request):
-    
         form = ChangeUserInfoForm(request.POST, request.FILES, instance=self.user)
         if form.is_valid():
             form.save()

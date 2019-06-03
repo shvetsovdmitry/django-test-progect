@@ -40,13 +40,13 @@ class Gender (models.Model):
 # User model.
 class AdvUser (AbstractUser):
     # Socials.
-    vk_url = models.URLField(blank=True, null=True, verbose_name='ВКонтакте')
-    fb_url = models.URLField(blank=True, null=True, verbose_name='Facebook')
-    tw_url = models.URLField(blank=True, null=True, verbose_name='Twitter')
-    ok_url = models.URLField(blank=True, null=True, verbose_name='Одноклассники')
+    vk_url = models.URLField(default="", blank=True, verbose_name='ВКонтакте')
+    fb_url = models.URLField(default="", blank=True, verbose_name='Facebook')
+    tw_url = models.URLField(default="", blank=True, verbose_name='Twitter')
+    ok_url = models.URLField(default="", blank=True, verbose_name='Одноклассники')
     # Personal.
     account_image = models.ImageField(blank=True, null=True, upload_to=get_image_path, verbose_name='Изображение профиля', help_text='Лучше всего подобрать картинку с соотношением сторон 4:3.')
-    account_image_url = models.URLField(blank=True, null=True, verbose_name='Ссылка на изображение профиля', help_text='Вы можете либо загрузить картинку, либо вставить ссылку на нее.')
+    account_image_url = models.URLField(default="", blank=True, verbose_name='Ссылка на изображение профиля', help_text='Вы можете либо загрузить картинку, либо вставить ссылку на нее.')
     country = CountryField(blank_label='Выберите страну', blank=True, null=True, verbose_name='Страна')
     city = models.CharField(blank=True, null=True, max_length=50, verbose_name='Город')
     bdate = models.DateField(blank=True, null=True, verbose_name='Дата рождения')

@@ -29,11 +29,11 @@
 			<ul class="list-unstyled w-75">
 				<li>
 					<label for="id_account_image">Загрузите изображение</label>
-					<input type="file" name="account_image" id="id_account_image" accept="image/*" class="form-control">
+					<input type="file" name="account_image" id="id_account_image" accept="image/*" class="form-control" value="{{ user.account_image }}">
 				</li>
 				<li>
 					<label for="id_account_image_url">Или вставьте ссылку</label>
-					<input type="text" name="account_image_url" id="id_account_image_url" class="form-control" placeholder="https://example.com">
+					<input type="text" name="account_image_url" id="id_account_image_url" class="form-control" placeholder="https://example.com" value="{{ user.account_image_url }}">
 				</li>
 				<li>
 					<label for="id_vk_url">ВКонтакте</label>
@@ -62,7 +62,6 @@
 			</div>
 			<div class="col">
 				{{ form.username|attr:"class:form-control" }}
-				<!-- <input type="text" name="first_name" id="id_first_name" class="form-control" value="{{ user.first_name }}"></label> -->
 			</div>
 		</div>
 		<div class="row">
@@ -71,7 +70,6 @@
 			</div>
 			<div class="col">
 				{{ form.first_name|attr:"class:form-control" }}
-				<!-- <input type="text" name="first_name" id="id_first_name" class="form-control" value="{{ user.first_name }}"></label> -->
 			</div>
 		</div>
 		<div class="row">
@@ -80,7 +78,6 @@
 			</div>
 			<div class="col">
 				{{ form.last_name|attr:"class:form-control" }}
-				<!-- <input type="text" name="last_name" id="id_last_name" class="form-control" value="{{ user.last_name }}"></label> -->
 			</div>
 		</div>
 		<div class="row">
@@ -97,7 +94,6 @@
 			</div>
 			<div class="col">
 				{{ form.city|attr:"class:form-control" }}
-				<!-- <input type="text" name="city" id="id_city" class="form-control" value="{{ user.city }}"></label> -->
 			</div>
 		</div>
 		<div class="row">
