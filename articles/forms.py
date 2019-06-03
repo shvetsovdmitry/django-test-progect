@@ -52,7 +52,14 @@ class ChangeUserInfoForm(forms.ModelForm):
     
     class Meta:
         model = AdvUser
-        fields = ('username', 'email', 'first_name', 'last_name', 'send_messages', 'account_image', 'fb_url', 'tw_url', 'vk_url', 'ok_url')
+        fields = ('username', 'email',
+                  'first_name', 'last_name',
+                  'gender',
+                  'account_image', 'account_image_url',
+                  'country', 'city',
+                  'bdate',
+                   'fb_url', 'tw_url', 'vk_url', 'ok_url',
+                   'send_messages')
 
 
 class ArticleForm(forms.ModelForm):

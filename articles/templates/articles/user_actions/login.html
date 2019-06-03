@@ -15,15 +15,30 @@
 		{% csrf_token %}
 		<h5 class="mb-3 font-weight-normal text-white">Введите данные учетной записи</h5>
 
-		<label for="id_username" class="sr-only">Имя пользователя</label>
-		<input type="text" id="id_username" name="username" placeholder="Имя пользователя" class="form-control mt-2" required autofocus>
+		<div class="row container">
+			<div class="col-2">
+				<label for="id_username">
+					<img src="https://img.icons8.com/dusk/48/000000/name.png">
+				</label>
+			</div>
+			<div class="col">
+				<input type="text" id="id_username" name="username" placeholder="Имя пользователя" class="form-control mt-2" required autofocus>
+			</div>
+		</div>
 
-		<label for="id_password" class="sr-only">Пароль</label>
-		<input type="password" id="id_password" name="password" placeholder="Пароль" class="form-control mt-2" required>
+		<div class="row container">
+			<div class="col-2">
+				<label for="id_password">
+					<img src="https://img.icons8.com/dusk/48/000000/password.png">
+				</label>
+			</div>
+			<div class="col">
+				<input type="password" id="id_password" name="password" placeholder="Пароль" class="form-control mt-2" required>
+			</div>
+		</div>
 
 		<button class="btn btn-lg btn-primary btn-block mt-2" type="submit">Войти</button>
 		<a class="btn btn-md btn-default btn-block mt-1" href="{% url 'articles:register' %}" style="background-color: purple; color: white">Регистрация</a>
-		<!-- <a class="btn btn-info btn-block mt-1 mb-2" href="{% url 'articles:index' %}">На главную</a> -->
 	</form>
 </div>
 {% endblock %}

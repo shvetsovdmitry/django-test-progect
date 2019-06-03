@@ -1,37 +1,123 @@
-{% load bootstrap4 %}
+{% extends 'layout/basic.html' %}
+
 {% load static %}
+{% load bootstrap4 %}
 {% load widget_tweaks %}
+{% load countries %}
 
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<meta name="author" content="Shvetsov Dmitry">
-		{% bootstrap_css %}
-		{% bootstrap_javascript jquery='full' %}
-		<link rel="stylesheet" type="text/css" href="{% static 'articles/signin.css' %}">
-		<title>Изменить личные данные | {{ site_name }}</title>
-	</head>
-	<body class="text-center">
+{% block title %}Редактирование профиля {{ user.username }}{% endblock %}
 
-		<main role="main" class="container-fluid">
-			{% bootstrap_messages %}
-			<form class="form-signin" method="post" enctype="multipart/form-data">
-				<img class="mb-4" alt width="72" height="72">
-				{% csrf_token %}
-				<h1 class="h3 mb-3 font-weight-normal">Измените данные учетной записи</h1>
- 
-				{% bootstrap_form form layout='horizontal' %}
-				{% buttons submit='Сохранить' %}{% endbuttons %}
-				<br><br>
-				<a href="{% url 'articles:profile' %}" class="btn btn-primary btn-block">Назад</a>
-			</form>
-		</main>
-		<footer class="footer">
-      		<div class="container">
-        		<span class="text-muted">&copy; <a href="https://github.com/GrobIvanovich/">Shvetsov Dmitry</a>, 2019 г.</span>
-      		</div>
-    	</footer>
-	</body>
-</html>
+{% block content %}
+<h3 class="text-white py-3 text-center text-header-hl w-100 shadow-lg text-shadow-md">Редактирование профиля {{ user.username }}</h3>
+
+<form enctype="multipart/form-data" class="row container-fluid text-white px-0 mx-0" method="post">
+	{% csrf_token %}
+	<div class="ml-3 col-sm-9 col-md-5 col-lg-4">
+		<div class="row mx-auto">
+			<h5 class="text-white text-shadow-sm">{{ user.username }}</h5>
+		</div>
+		<div class="row mx-auto">
+			{% if user.account_image %}
+				<img src="{{ user.account_image.url }}" class="img-thumbnail profile-image">
+			{% elif user.account_image_url %}
+				<img src="{{ user.account_image_url }}" class="img-thumbnail profile-image">
+			{% else %}
+				<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Boostrap_logo.svg/2000px-Boostrap_logo.svg.png" class="img-thumbnail profile-image">
+			{% endif %}
+		</div>
+		<div class="row mx-auto">
+			<ul class="list-unstyled w-75">
+				<li>
+					<label for="id_account_image">Загрузите изображение</label>
+					<input type="file" name="account_image" id="id_account_image" accept="image/*" class="form-control">
+				</li>
+				<li>
+					<label for="id_account_image_url">Или вставьте ссылку</label>
+					<input type="text" name="account_image_url" id="id_account_image_url" class="form-control" placeholder="https://example.com">
+				</li>
+				<li>
+					<label for="id_vk_url">ВКонтакте</label>
+					<input type="text" name="vk_url" id="id_vk_url" value="{{ user.vk_url }}" class="form-control">
+				</li>
+				<li>
+					<label for="id_fb_url">Facebook</label>
+					<input type="text" name="fb_url" id="id_fb_url" value="{{ user.fb_url }}" class="form-control">
+				</li>
+				<li>
+					<label for="id_tw_url">Twitter</label>
+					<input type="text" name="tw_url" id="id_tw_url" value="{{ user.tw_url }}" class="form-control">
+				</li>
+				<li>
+					<label for="id_ok_url">Одноклассники</label>
+					<input type="text" name="ok_url" id="id_ok_url" value="{{ user.ok_url }}" class="form-control">
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="col-sm-12 col-md-6 col-lg-7">
+		<h5 class="text-white text-shadow-sm">Информация</h5>
+		<div class="row">
+			<div class="col-5">
+				<label for="id_username" class="text-secondary text-shadow-sm">Имя пользователя (логин)</h6>
+			</div>
+			<div class="col">
+				{{ form.username|attr:"class:form-control" }}
+				<!-- <input type="text" name="first_name" id="id_first_name" class="form-control" value="{{ user.first_name }}"></label> -->
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-5">
+				<label for="id_first_name" class="text-secondary text-shadow-sm">Имя</h6>
+			</div>
+			<div class="col">
+				{{ form.first_name|attr:"class:form-control" }}
+				<!-- <input type="text" name="first_name" id="id_first_name" class="form-control" value="{{ user.first_name }}"></label> -->
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-5">
+				<label for="id_last_name" class="text-secondary text-shadow-sm">Фамилия</h6>
+			</div>
+			<div class="col">
+				{{ form.last_name|attr:"class:form-control" }}
+				<!-- <input type="text" name="last_name" id="id_last_name" class="form-control" value="{{ user.last_name }}"></label> -->
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-5">
+				<label for="id_country" class="text-secondary text-shadow-sm">Страна</h6>
+			</div>
+			<div class="col">
+				{{ form.country|attr:"class:form-control" }}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-5">
+				<label for="id_city" class="text-secondary text-shadow-sm">Город</h6>
+			</div>
+			<div class="col">
+				{{ form.city|attr:"class:form-control" }}
+				<!-- <input type="text" name="city" id="id_city" class="form-control" value="{{ user.city }}"></label> -->
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-5">
+				<label for="id_bdate" class="text-secondary text-shadow-sm">Дата рождения</label>
+			</div>
+			<div class="col">
+				{{ form.bdate|attr:"class:form-control" }}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-5">
+				<label for="id_gender" class="text-secondary text-shadow-sm">Пол</h6>
+			</div>
+			<div class="col">
+				{{ form.gender|attr:"class:form-control" }}
+			</div>
+		</div>
+	</div>
+	<button type="submit" class="btn btn-outline-success btn-block">Сохранить</button>
+	<a href="{% url 'articles:profile' username=user.username %}" class="btn btn-outline-warning btn-block">Назад</a>
+</form>
+{% endblock %}

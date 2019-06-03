@@ -46,19 +46,40 @@
     	                        {% if user.is_authenticated %}
 				            	<h3 class="dropdown-header">{{ user.username }}</h3>
 						        <div class="dropdown-item">
-						            <a class="btn btn-outline-info btn-block" href="{% url 'articles:profile' username=user.username %}">Профиль</a>
+				            		<a class="btn btn-outline-info btn-block d-flex justify-content-around align-items-center" href="{% url 'articles:profile' username=user.username %}">
+				            			<div class="col-5">
+				            				Профиль 
+				            			</div>
+				            			<div class="col-1">
+				            				<img src="https://img.icons8.com/dusk/48/000000/magazine.png">
+				            			</div>
+				            		</a>
 						        </div>
 						        <div class="dropdown-divider"></div>
 						        <div class="dropdown-item">
-						            <a class="btn btn-outline-secondary btn-block" href="{% url 'articles:add_article' %}">Добавить статью</a>
+						            <a class="btn btn-outline-secondary btn-block d-flex justify-content-around align-items-center" href="{% url 'articles:add_article' %}">
+										<div class="col-5">
+						            		Добавить статью
+						            	</div>
+						            	<div class="col-1">
+						            		<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="48" height="48" viewBox="0 0 192 192" style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" troke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,192v-192h192v192z" fill="none" stroke="none"></path><g id="Layer_1" stroke="none"><g fill="#efc88e"><path d="M39,165h126v2.55c0,5.22 -4.23,9.45 -9.45,9.45h-6h-102.21c-4.605,0 -8.34,-3.735 -8.34,-8.34v-3.66z"></path></g><g fill="#efd8be"><path d="M165,21v138c0,3.315 -2.685,6 -6,6h-114c-3.243,0.165 -5.835,2.757 -6,6v-147c0,-4.971 4.029,-9 9,-9h111c3.315,0 6,2.685 6,6z"></path></g><g fill="#faefde"><rect x="27" y="15" transform="scale(3,3)" width="18" height="10"></rect></g><g fill="#8d6c9f"><path d="M96,93c0,-1.656 -1.344,-3 -3,-3h-12c-1.656,0 -3,1.344 -3,3c0,1.656 1.344,3 3,3h12c1.656,0 3,-1.344 3,-3z"></path></g><g fill="#8d6c9f"><path d="M135,90h-30c-1.656,0 -3,1.344 -3,3c0,1.656 1.344,3 3,3h30c1.656,0 3,-1.344 3,-3c0,-1.656 -1.344,-3 -3,-3z"></path></g><g fill="#8d6c9f"><path d="M129,102h-48c-1.656,0 -3,1.344 -3,3c0,1.656 1.344,3 3,3h48c1.656,0 3,-1.344 3,-3c0,-1.656 -1.344,-3 -3,-3z"></path></g><g fill="#8d6c9f"><path d="M123,114h-42c-1.656,0 -3,1.344 -3,3c0,1.656 1.344,3 3,3h42c1.656,0 3,-1.344 3,-3c0,-1.656 -1.344,-3 -3,-3z"></path></g><g fill="#8d6c9f"><path d="M159,12h-111c-6.627,0 -12,5.373 -12,12v6h-3c-4.971,0 -9,4.029 -9,9c0,4.971 4.029,9 9,9h3v6h-3c-4.971,0 -9,4.029 -9,9c0,4.971 4.029,9 9,9h3v6h-3c-4.971,0 -9,4.029 -9,9c0,4.971 4.029,9 9,9h3v6h-3c-4.971,0 -9,4.029 -9,9c0,4.971 4.029,9 9,9h3v6h-3c-4.971,0 -9,4.029 -9,9c0,4.971 4.029,9 9,9h3v27c0,4.971 4.029,9 9,9h114c4.971,0 9,-4.029 9,-9v-3.54v-146.46c0,-4.971 -4.029,-9 -9,-9zM33,42c-1.656,0 -3,-1.344 -3,-3c0,-1.656 1.344,-3 3,-3h3v6zM33,66c-1.656,0 -3,-1.344 -3,-3c0,-1.656 1.344,-3 3,-3h3v6zM33,90c-1.656,0 -3,-1.344 -3,-3c0,-1.656 1.344,-3 3,-3h3v6zM33,114c-1.656,0 -3,-1.344 -3,-3c0,-1.656 1.344,-3 3,-3h3v6zM33,138c-1.656,0 -3,-1.344 -3,-3c0,-1.656 1.344,-3 3,-3h3v6zM159,174h-114c-1.656,0 -3,-1.344 -3,-3c0,-2.19 2.49,-3 3,-3h117v3c0,1.656 -1.344,3 -3,3zM162,159c0,1.656 -1.344,3 -3,3h-114c-1.029,0.015 -2.046,0.219 -3,0.6v-6.6c1.656,0 3,-1.344 3,-3v-6c0,-1.656 -1.344,-3 -3,-3v-12h9c1.656,0 3,-1.344 3,-3c0,-1.656 -1.344,-3 -3,-3h-9v-18h9c1.656,0 3,-1.344 3,-3c0,-1.656 -1.344,-3 -3,-3h-9v-18h9c1.656,0 3,-1.344 3,-3c0,-1.656 -1.344,-3 -3,-3h-9v-18h9c1.656,0 3,-1.344 3,-3c0,-1.656 -1.344,-3 -3,-3h-9v-18h9c1.656,0 3,-1.344 3,-3c0,-1.656 -1.344,-3 -3,-3h-9v-6c0,-3.315 2.685,-6 6,-6h111c1.656,0 3,1.344 3,3v123c-1.656,0 -3,1.344 -3,3v6c0,1.656 1.344,3 3,3z"></path></g><g fill="#8d6c9f"><path d="M135,78h-54c-1.656,0 -3,-1.341 -3,-3v-30c0,-1.659 1.344,-3 3,-3h54c1.656,0 3,1.341 3,3v30c0,1.659 -1.344,3 -3,3zM84,72h48v-24h-48z"></path></g><g fill="#8d6c9f"><g><path d="M57,144c-1.656,0 -3,1.344 -3,3v6c0,1.656 1.344,3 3,3c1.656,0 3,-1.344 3,-3v-6c0,-1.656 -1.344,-3 -3,-3z"></path></g><g><path d="M72,144c-1.656,0 -3,1.344 -3,3v6c0,1.656 1.344,3 3,3c1.656,0 3,-1.344 3,-3v-6c0,-1.656 -1.344,-3 -3,-3z"></path></g><g><path d="M87,144c-1.656,0 -3,1.344 -3,3v6c0,1.656 1.344,3 3,3c1.656,0 3,-1.344 3,-3v-6c0,-1.656 -1.344,-3 -3,-3z"></path></g><g><path d="M102,144c-1.656,0 -3,1.344 -3,3v6c0,1.656 1.344,3 3,3c1.656,0 3,-1.344 3,-3v-6c0,-1.656 -1.344,-3 -3,-3z"></path></g><g><path d="M117,144c-1.656,0 -3,1.344 -3,3v6c0,1.656 1.344,3 3,3c1.656,0 3,-1.344 3,-3v-6c0,-1.656 -1.344,-3 -3,-3z"></path></g><g><path d="M132,144c-1.656,0 -3,1.344 -3,3v6c0,1.656 1.344,3 3,3c1.656,0 3,-1.344 3,-3v-6c0,-1.656 -1.344,-3 -3,-3z"></path></g><g><path d="M147,144c-1.656,0 -3,1.344 -3,3v6c0,1.656 1.344,3 3,3c1.656,0 3,-1.344 3,-3v-6c0,-1.656 -1.344,-3 -3,-3z"></path></g></g></g><g stroke="none"><g id="Layer_1"><path d="M189,141h-24v-24h-24v24h-24v24h24v24h24v-24h24z" fill="#72caaf"></path><path d="M165,192h-24c-1.656,0 -3,-1.344 -3,-3v-21h-21c-1.656,0 -3,-1.344 -3,-3v-24c0,-1.656 1.344,-3 3,-3h21v-21c0,-1.656 1.344,-3 3,-3h24c1.656,0 3,1.344 3,3v21h21c1.656,0 3,1.344 3,3v24c0,1.656 -1.344,3 -3,3h-21v21c0,1.656 -1.344,3 -3,3zM144,186h18v-21c0,-1.656 1.344,-3 3,-3h21v-18h-21c-1.656,0 -3,-1.344 -3,-3v-21h-18v21c0,1.656 -1.344,3 -3,3h-21v18h21c1.656,0 3,1.344 3,3z" fill="#8d6c9f"></path></g></g><path d="M114,192v-78h78v78z" id="overlay-drag" fill="#ff0000" stroke="none" opacity="0"></path></g></svg>
+						            	</div>
+						            </a>
 						        </div>
 						        <div class="dropdown-divider"></div>
 				            	<div class="dropdown-item">
-				            		<a href="{% url 'articles:logout' %}" class="btn btn-outline-danger btn-block">Выход</a>
+		            				<a href="{% url 'articles:logout' %}" class="btn btn-outline-danger btn-block d-flex justify-content-around align-items-center">
+										<div class="col-5">
+		            						Выход 
+		            					</div>
+		            					<div class="col-1">
+		            						<img src="https://img.icons8.com/dusk/48/000000/exit.png" class="text-right">
+		            					</div>
+		            				</a>
 				            	</div>
 						        {% else %}
 				            	<div class="dropdown-item">
-				            		<a href="{% url 'articles:login' %}" class="btn btn-info btn-block">Вход</a>
+				            		<a href="{% url 'articles:login' %}" class="btn btn-info btn-block">Вход <img src="https://img.icons8.com/dusk/32/000000/enter-2.png"> </a>
 				            	</div>
 				            	<div class="dropdown-item">
 				            		<a href="{% url 'articles:register' %}" class="btn btn-info btn-block">Регистрация</a>

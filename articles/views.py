@@ -193,34 +193,32 @@ class ChangeUserInfoView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     model = AdvUser
     template_name = 'articles/user_actions/change_user_info.html'
     form_class = ChangeUserInfoForm
-    success_url = reverse_lazy('articles:profile')
-    success_message = 'Личные данные пользователя изменены'
-
-    def dispatch(self, request, *args, **kwargs):
-        self.user = request.user
-        self.user_id = request.user.pk
+    # success_message = 'Профиль успешно отредактирован.'
+    # success_url = reverse_lazy('articles:profile')
+    
+    def dispatch(self, request, username, *args, **kwargs):
+        self.user = get_object_or_404(AdvUser, username=username)
+        self.user_id = self.user.pk
+        self.success_url = reverse_lazy('articles:profile', kwargs={'username': self.user.username})
         return super().dispatch(request, *args, **kwargs)
 
     def get_object(self, queryset=None):
         if not queryset:
             queryset = self.get_queryset()
-        return get_object_or_404(queryset, pk=self.user_id)
+        return get_object_or_404(queryset, username=self.user.username)
     
     def get(self, request):
-        self.user = get_object_or_404(AdvUser, pk=self.user_id)
+        self.user = get_object_or_404(AdvUser, username=self.user.username)
         form = ChangeUserInfoForm(instance=self.user)
         context = {'form': form}
         return render(request, self.template_name, context)
     
     def post(self, request):
+    
         form = ChangeUserInfoForm(request.POST, request.FILES, instance=self.user)
         if form.is_valid():
             form.save()
-            messages.add_message(request, messages.SUCCESS, 'Профиль изменен')
-            return redirect('articles:profile')
-        
-        
-# class CountryAutocomplete(autocomplete.Select2QuerySetView):
-    
-#     def get_queryset(self):
-#         qs     
+            messages.add_message(request, messages.SUCCESS, 'Профиль успешно отредактирован.')
+        else:
+            messages.add_message(request, messages.WARNING, 'Произошла ошибка при изменении данных профиля.')
+        return redirect('articles:profile', username=self.user.username)

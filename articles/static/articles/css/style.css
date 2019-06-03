@@ -139,13 +139,8 @@ body {
 /*.card {
 	height: 95%;
 }*/
-.crop {
-	width: 150px;
-	height: 150px;
-	overflow: hidden;
-}
-.crop img {
-	width: 180px;
-	height: 150px;
-	margin: -25px 0 0 75px;
-}
+/*.gender-image {
+	position: absolute;
+	top: 4%;
+	right: 20%;
+}*/

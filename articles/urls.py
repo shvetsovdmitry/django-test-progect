@@ -14,7 +14,7 @@ urlpatterns = [
     path('accounts/register/', ARegisterUserView.as_view(), name='register'),
     path('accounts/profile/delete/<int:pk>/', ArticleDeleteView.as_view(), name='delete_article'),
     path('accounts/profile/add/', ArticleAddView.as_view(), name='add_article'),
-    path('accounts/profile/change/', ChangeUserInfoView.as_view(), name='profile_change'),
+    path('accounts/profile/change/<str:username>', ChangeUserInfoView.as_view(), name='profile_change'),
     path('accounts/profile/<str:username>/', profile, name='profile'),
     path('accounts/logout/', ALogoutView.as_view(), name='logout'),
     path('accounts/login/', ALoginView.as_view(redirect_authenticated_user=True), name='login'),
