@@ -77,6 +77,14 @@ class AdvUser (AbstractUser):
     def unsubscribe_user(self, user):
         self.user_subscriptions.remove(user)
         self.save()
+        
+    def subscribe_tag(self, tag):
+        self.tags_subscriptions.add(tag)
+        self.save()
+        
+    def unsubscribe_tag(self, tag):
+        self.tags_subscriptions.remove(tag)
+        self.save()
 
     class Meta :
        verbose_name = 'Пользователь'

@@ -120,11 +120,11 @@
 		{% if not request.user == user %}
 			{% if user not in request.user.user_subscriptions.all %}
 			<div class="row mx-auto my-2">
-				<a href="{% url 'articles:subscribe' username=user.username %}" class="btn btn-outline-secondary btn-block"><img src="https://img.icons8.com/dusk/32/000000/add-to-favorites.png"> Подписаться</a>
+				<a href="{% url 'articles:subscribe_user' username=user.username %}" class="btn btn-outline-secondary btn-block"><img src="https://img.icons8.com/dusk/32/000000/add-to-favorites.png"> Подписаться</a>
 			</div>
 			{% else %}
 			<div class="row mx-auto my-2">
-				<a href="{% url 'articles:unsubscribe' username=user.username %}" class="btn btn-outline-secondary btn-block"><img src="https://img.icons8.com/dusk/32/000000/add-to-favorites.png"> Отписаться</a>
+				<a href="{% url 'articles:unsubscribe_user' username=user.username %}" class="btn btn-outline-secondary btn-block"><img src="https://icons8.com/icon/46336/add-to-favorites"> Отписаться</a>
 			</div>
 			{% endif %}
 		{% else %}
@@ -145,9 +145,9 @@
 			<div class="col">
 				Теги
 				<ul class="list-unstyled">
-					{% for sub in user.user_subscriptions.all %}
+					{% for tag in user.tags_subscriptions.all %}
 						<li>
-							<a href="{% url 'articles:profile' username=sub.username %}">{{ sub.username }}</a>
+							<a href="{% url 'articles:search' tag=tag.name %}">{{ tag.name }}</a>
 						</li>
 					{% endfor %}
 				</ul>

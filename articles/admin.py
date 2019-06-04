@@ -26,6 +26,7 @@ class AdvUserAdmin(admin.ModelAdmin):
               'vk_url',
               'ok_url',
               'user_subscriptions',
+              'tags_subscriptions',
               'rating',
               'send_messages',
               'is_activated',
