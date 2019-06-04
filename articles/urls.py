@@ -4,18 +4,24 @@ from .views import index, detail, profile
 from .views import ALoginView, ALogoutView, ARegisterUserView
 from .views import ARegisterDoneView, user_activate, ChangeUserInfoView
 from .views import ArticleAddView, change_rating, ArticleDeleteView
-from .views import ArticleEditView, APasswordChangeView
+from .views import ArticleEditView, APasswordChangeView, APasswordResetView
+from .views import APasswordResetDoneView, APasswordResetConfirmView
+from .views import APasswordResetCompleteView
 
 
 app_name = 'articles'
 urlpatterns = [
+    path('accounts/password/reset/complete/', APasswordResetCompleteView.as_view(), name='reset_password_complete'),
+    path('accounts/password/reset/confirm/<uidb64>/<token>/', APasswordResetConfirmView.as_view(), name='reset_password_confirm'),
+    path('accounts/password/reset/done/', APasswordResetDoneView.as_view(), name='reset_password_done'),
+    path('accounts/password/reset/', APasswordResetView.as_view(), name='reset_password'),
+    path('accounts/password/change/', APasswordChangeView.as_view(), name='change_password'),
     path('accounts/register/activate/<str:sign>/', user_activate, name='register_activate'),
     path('accounts/register/done/', ARegisterDoneView.as_view(), name='register_done'),
     path('accounts/register/', ARegisterUserView.as_view(), name='register'),
     path('accounts/profile/edit/<int:pk>/', ArticleEditView.as_view(), name='edit_article'),
     path('accounts/profile/delete/<int:pk>/', ArticleDeleteView.as_view(), name='delete_article'),
     path('accounts/profile/add/', ArticleAddView.as_view(), name='add_article'),
-    path('accounts/profile/password/change/', APasswordChangeView.as_view(), name='change_password'),
     path('accounts/profile/change/<str:username>', ChangeUserInfoView.as_view(), name='profile_change'),
     path('accounts/profile/<str:username>/', profile, name='profile'),
     path('accounts/profile/', profile, name='profile'),

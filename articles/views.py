@@ -275,14 +275,31 @@ class ChangeUserInfoView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
         return redirect('articles:profile', username=self.user.username)
 
 
+# Change password.
 class APasswordChangeView(LoginRequiredMixin, SuccessMessageMixin, PasswordChangeView):
     template_name = 'articles/user_actions/change_password.html'
-    
     success_url = reverse_lazy('articles:profile')
     success_message = 'Пароль успешно изменен.'
-           
-    # def get(self, request):
-    #     self.success_url = reverse_lazy('articles:profile', username=request.user.username)
-    #     context = {'rate_articles': rate_articles, 'site_name': SITE_NAME}
-    #     return render(request, self.template_name, context)
-        
+
+
+# Forget password.
+class APasswordResetView(PasswordResetView):
+    template_name = 'articles/user_actions/reset_password.html'
+    subject_template_name = 'email/reset_password_letter_subject.txt'
+    email_template_name = 'email/reset_password_letter_body.txt'
+    success_url = reverse_lazy('articles:reset_password_done')
+
+
+class APasswordResetDoneView(SuccessMessageMixin, PasswordResetDoneView):
+    template_name = 'articles/user_actions/reset_password_done.html'
+    success_message = 'Письмо успешно отправлено!'
+
+
+class APasswordResetConfirmView(PasswordResetConfirmView):
+    template_name = 'articles/user_actions/reset_password_confirm.html'
+    success_url = reverse_lazy('articles:reset_password_complete')
+
+
+class APasswordResetCompleteView(SuccessMessageMixin, PasswordResetCompleteView):
+    template_name = 'articles/user_actions/reset_password_complete.html'
+    success_message = 'Пароль успешно изменен.'
