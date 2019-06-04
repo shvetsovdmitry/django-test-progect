@@ -353,15 +353,26 @@ class APasswordResetView(PasswordResetView):
     email_template_name = 'email/reset_password_letter_body.txt'
     success_url = reverse_lazy('articles:reset_password_done')
     
-    form_class = ResetPasswordForm
+    # form_class = ResetPasswordForm
+    
+    def get_object(self, queryset=None):
+        if not queryset:
+            queryset = self.get_queryset()
+        return get_object_or_404(queryset, email=self.request.POST['email'])
     
     def post(self, request):
         try:
             print(self.request.POST['email'])
             self.user = AdvUser.objects.filter(email=self.request.POST['email'])
             if self.user:
-                print('A')
-                return reverse_lazy('articles:reset_password_done')
+                form = ResetPasswordForm(instance=self.user.first())
+                if form.is_valid():
+                    print('A')
+                    print('B')
+                    return super(APasswordResetView, self).form_valid(form)
+                else:
+                    messages.add_message(self.request, messages.WARNING, 'Что-то пошло не так')
+                    return redirect(self.request.META.get('HTTP_REFERER'))
             else:
                 print('C')
                 messages.add_message(self.request, messages.ERROR, 'Пользователя с таким почтовым ящиком не существует!')

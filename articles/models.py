@@ -86,6 +86,9 @@ class AdvUser (AbstractUser):
         self.tags_subscriptions.remove(tag)
         self.save()
 
+    def __get__(self):
+        pass
+
     class Meta :
        verbose_name = 'Пользователь'
        verbose_name_plural = 'Пользователи'
