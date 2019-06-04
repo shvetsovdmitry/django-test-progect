@@ -9,6 +9,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.views import LoginView, LogoutView, PasswordResetView
 from django.contrib.auth.views import PasswordResetDoneView, PasswordResetConfirmView
 from django.contrib.auth.views import PasswordResetCompleteView, PasswordChangeView
+from django.contrib.auth.forms import PasswordResetForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib.messages.views import SuccessMessageMixin
@@ -25,7 +26,7 @@ from tagging_autocomplete.models import TagAutocomplete
 
 from .models import AdvUser, Category, Article
 from .forms import ARegisterUserForm, ChangeUserInfoForm, ArticleForm, ArticleFormSet
-from .forms import DeleteArticleForm, EditArticleForm
+from .forms import DeleteArticleForm, EditArticleForm, ResetPasswordForm
 from .utilities import signer
 
 
@@ -102,9 +103,11 @@ def user_activate(request, sign):
     return render(request, template)
 
 
+# When user subscribes on other user.
 @login_required
 def subscribe_user(request, username):
     user = AdvUser.objects.get(username=username)
+    # If user not subscribed.
     if user not in request.user.user_subscriptions.all():
         request.user.subscribe_user(user)
     else:
@@ -112,9 +115,11 @@ def subscribe_user(request, username):
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
+# When user cancels subscription on other user.
 @login_required
 def unsubscribe_user(request, username):
     user = AdvUser.objects.get(username=username)
+    # If user already subscribed.
     if user in request.user.user_subscriptions.all():
         request.user.unsubscribe_user(user)
     else:
@@ -122,9 +127,11 @@ def unsubscribe_user(request, username):
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
+# When user subscribes on tag.
 @login_required
 def subscribe_tag(request, tag):
     tag = Tag.objects.get(name=tag)
+    # If user not subscribed.
     if tag not in request.user.tags_subscriptions.all():
         request.user.subscribe_tag(tag)
     else:
@@ -132,9 +139,11 @@ def subscribe_tag(request, tag):
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
+# When user cancels subscription on tag.
 @login_required
 def unsubscribe_tag(request, tag):
     tag = Tag.objects.get(name=tag)
+    # If user already subscribed.
     if tag in request.user.tags_subscriptions.all():
         request.user.unsubscribe_tag(tag)
     else:
@@ -142,6 +151,7 @@ def unsubscribe_tag(request, tag):
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
+# When user clicks on tag.
 def search_by_tag(request, tag):
     articles = Article.objects.filter(tags__contains=tag)
     paginator = Paginator(articles, 9)
@@ -179,6 +189,7 @@ class ArticleAddView(TemplateView, LoginRequiredMixin):
         fields = ('__all__', )
 
 
+# Edit article controller.
 class ArticleEditView(UpdateView, SuccessMessageMixin, LoginRequiredMixin):
     
     template_name = 'articles/user_actions/edit_article.html'
@@ -341,32 +352,31 @@ class APasswordResetView(PasswordResetView):
     subject_template_name = 'email/reset_password_letter_subject.txt'
     email_template_name = 'email/reset_password_letter_body.txt'
     success_url = reverse_lazy('articles:reset_password_done')
-
-    # # def dispatch(self, request, *args, **kwargs):
-    # #     self.user = get_object_or_404(AdvUser, email=request.POST['email'])
-    # #     return super().dispatch(request, *args, **kwargs)
-
-    # # def get_object(self, queryset=None):
-    # #     if not queryset:
-    # #         queryset = self.get_queryset()
-    # #     return get_object_or_404(queryset, email=self.user.email)
-
-    # def get(self, request):
-    #     return render(request, self.template_name)
-
-    # def post(self, request):
-    #     try:
-    #         user = AdvUser.objects.get(email=request.POST['email'])
-    #         if user:
-    #             return reverse_lazy('articles:reset_password_done')
-    #     except:
-    #         messages.add_message(request, messages.ERROR, 'Указанный Email не существует.')
-    #         return render(request, self.template_name)
+    
+    form_class = ResetPasswordForm
+    
+    def post(self, request):
+        try:
+            print(self.request.POST['email'])
+            self.user = AdvUser.objects.filter(email=self.request.POST['email'])
+            if self.user:
+                print('A')
+                return reverse_lazy('articles:reset_password_done')
+            else:
+                print('C')
+                messages.add_message(self.request, messages.ERROR, 'Пользователя с таким почтовым ящиком не существует!')
+                return redirect(self.request.META.get('HTTP_REFERER'))
+        except Exception as ex:
+            print(ex)
+            for u in self.user:
+                print(u.username)
+            messages.add_message(self.request, messages.ERROR, 'Ошибка')
+            return redirect(self.request.META.get('HTTP_REFERER'))    
 
 
 class APasswordResetDoneView(SuccessMessageMixin, PasswordResetDoneView):
     template_name = 'articles/user_actions/reset_password_done.html'
-    success_message = 'Письмо успешно отправлено!'          
+    success_message = 'Письмо успешно отправлено!'
 
 
 class APasswordResetConfirmView(PasswordResetConfirmView):

@@ -91,3 +91,12 @@ class DeleteArticleForm(forms.Form):
     
     class Meta:
         fields = ('username', )
+
+
+class ResetPasswordForm(forms.Form):
+    
+    email = forms.EmailField()
+    
+    class Meta:
+        # model = AdvUser
+        fields = ('email', )
