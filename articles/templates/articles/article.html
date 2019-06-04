@@ -24,7 +24,7 @@
 					<ul class="list-unstyled list-group list-group-horizontal  d-flex flex-wrap align-items-top justify-content-center">
 						{% for tag in tags %}
 						<li class="pr-2 pt-1">
-							<a class="btn btn-secondary" href="#">{{ tag.name }}</a>
+							<a class="btn btn-secondary" href="{% url 'articles:search' tag=tag.name %}">{{ tag.name }}</a>
 						</li>
 						{% endfor %}
 					</ul>

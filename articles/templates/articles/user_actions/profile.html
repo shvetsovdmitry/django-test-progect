@@ -132,13 +132,26 @@
 			<h4 class="text-white">Мои подписки</h4>
 		</div>
 		<div class="row">
-			<ul class="list-unstyled">
-				{% for sub in user.user_subscriptions.all %}
-					<li>
-						<a href="{% url 'articles:profile' username=sub.username %}">{{ sub.username }}</a>
-					</li>
-				{% endfor %}
-			</ul>
+			<div class="col">
+				Пользователи
+				<ul class="list-unstyled">
+					{% for sub in user.user_subscriptions.all %}
+						<li>
+							<a href="{% url 'articles:profile' username=sub.username %}">{{ sub.username }}</a>
+						</li>
+					{% endfor %}
+				</ul>
+			</div>
+			<div class="col">
+				Теги
+				<ul class="list-unstyled">
+					{% for sub in user.user_subscriptions.all %}
+						<li>
+							<a href="{% url 'articles:profile' username=sub.username %}">{{ sub.username }}</a>
+						</li>
+					{% endfor %}
+				</ul>
+			</div>
 		</div>
 		{% endif %}
 	</div>

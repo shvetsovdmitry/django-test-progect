@@ -5,6 +5,7 @@ from django.utils import timezone
 from django.utils.html import format_html
 
 from django_countries.fields import CountryField
+from tagging.models import Tag
 from tagging_autocomplete.models import TagAutocompleteField
 
 from .utilities import send_activation_notification
@@ -52,7 +53,8 @@ class AdvUser (AbstractUser):
     city = models.CharField(blank=True, null=True, max_length=50, verbose_name='Город')
     bdate = models.DateField(blank=True, null=True, verbose_name='Дата рождения')
     gender = models.ForeignKey(Gender, default=None, blank=True, null=True, on_delete=models.PROTECT, verbose_name='Пол')
-    user_subscriptions = models.ManyToManyField('self', related_name='user_subscriptions', blank=True, verbose_name='Подписки')
+    user_subscriptions = models.ManyToManyField('self', related_name='user_subscriptions', blank=True, verbose_name='Подписки на пользователей')
+    tags_subscriptions = models.ManyToManyField(Tag, related_name='tags_subscriptions', blank=True, verbose_name='Подписки на теги')
     # User's rating.
     rating = models.IntegerField(default=0, verbose_name='Рейтинг')
     # System.

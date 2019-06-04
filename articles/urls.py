@@ -7,7 +7,7 @@ from .views import ArticleAddView, change_rating, ArticleDeleteView
 from .views import ArticleEditView, APasswordChangeView, APasswordResetView
 from .views import APasswordResetDoneView, APasswordResetConfirmView
 from .views import APasswordResetCompleteView, subscribe, unsubscribe
-
+from .views import search_by_tag
 
 app_name = 'articles'
 urlpatterns = [
@@ -29,6 +29,7 @@ urlpatterns = [
     path('accounts/profile/', profile, name='profile'),
     path('accounts/logout/', ALogoutView.as_view(), name='logout'),
     path('accounts/login/', ALoginView.as_view(redirect_authenticated_user=True), name='login'),
+    path('articles/search/<str:tag>/', search_by_tag, name='search'),
     path('articles/<int:pk>/<int:rating>/', change_rating, name='change_rating'),
     path('articles/<int:pk>/', detail, name='article'),
     path('', index, name='index'),

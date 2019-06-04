@@ -123,6 +123,12 @@ def unsubscribe(request, username):
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
+def search_by_tag(request, tag):
+    articles = Article.objects.filter(tags__contains=tag)
+    context = {'rate_articles': rate_articles, 'site_name': SITE_NAME, 'articles': articles}
+    return render(request, 'articles/search.html', context)
+
+
 # Add article page view.
 class ArticleAddView(TemplateView, LoginRequiredMixin):
 
