@@ -38,7 +38,7 @@ def index(request):
     last_articles = Article.objects.filter(is_active=True)
     # Refreshing popular articles.
     rate_articles = Article.objects.order_by('-rating').filter(is_active=True)[:10]
-    context = {'last_articles': last_articles, 'rate_articles': rate_articles, 'site_name': SITE_NAME}
+    context = {'last_articles': last_articles, 'rate_articles': rate_articles}# 'site_name': SITE_NAME}
     return render(request, 'articles/index.html', context)
 
 
@@ -342,10 +342,31 @@ class APasswordResetView(PasswordResetView):
     email_template_name = 'email/reset_password_letter_body.txt'
     success_url = reverse_lazy('articles:reset_password_done')
 
+    # # def dispatch(self, request, *args, **kwargs):
+    # #     self.user = get_object_or_404(AdvUser, email=request.POST['email'])
+    # #     return super().dispatch(request, *args, **kwargs)
+
+    # # def get_object(self, queryset=None):
+    # #     if not queryset:
+    # #         queryset = self.get_queryset()
+    # #     return get_object_or_404(queryset, email=self.user.email)
+
+    # def get(self, request):
+    #     return render(request, self.template_name)
+
+    # def post(self, request):
+    #     try:
+    #         user = AdvUser.objects.get(email=request.POST['email'])
+    #         if user:
+    #             return reverse_lazy('articles:reset_password_done')
+    #     except:
+    #         messages.add_message(request, messages.ERROR, 'Указанный Email не существует.')
+    #         return render(request, self.template_name)
+
 
 class APasswordResetDoneView(SuccessMessageMixin, PasswordResetDoneView):
     template_name = 'articles/user_actions/reset_password_done.html'
-    success_message = 'Письмо успешно отправлено!'
+    success_message = 'Письмо успешно отправлено!'          
 
 
 class APasswordResetConfirmView(PasswordResetConfirmView):
