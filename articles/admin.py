@@ -3,6 +3,17 @@ from django.contrib import admin
 from .models import AdvUser, Category, Article, Tag, Gender
 
 
+def activate_articles(modeladmin, request, queryset):
+    for rec in queryset:
+        if not rec.is_active:
+            rec.is_active = True
+            rec.save()
+    modeladmin.message_user(request, 'Выбранные статьи активированы.')
+    
+
+activate_articles.short_description = 'Активация выбранных статей (пометка как модерированных).'
+
+
 # Gender admin panel.
 class GenderAdmin(admin.ModelAdmin):
     list_display = ('name', 'one_letter_name', )
@@ -59,6 +70,7 @@ class ArticleAdmin(admin.ModelAdmin):
     readonly_fields = ('views',
                        'created_at',
                        )
+    actions = (activate_articles, )
     
     
 admin.site.register(Article, ArticleAdmin)
