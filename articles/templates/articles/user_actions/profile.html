@@ -112,8 +112,9 @@
 			</div>
 		</div>
 		{% if request.user == user or request.user.username == 'admin' %}
-		<div class="row mx-auto">
+		<div class="row mx-auto my-2">
 			<a href="{% url 'articles:profile_change' username=user.username %}" class="btn btn-outline-secondary btn-block"><img src="https://img.icons8.com/dusk/32/000000/edit.png"> Редактировать профиль</a>
+			<a href="{% url 'articles:change_password' %}" class="btn btn-outline-info btn-block"><img src="https://img.icons8.com/dusk/32/000000/edit.png"> Изменить пароль</a>
 		</div>
 		{% endif %}
 

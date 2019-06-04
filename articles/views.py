@@ -6,7 +6,9 @@ from django.urls import reverse_lazy
 from django.core.signing import BadSignature
 from django.contrib import messages
 from django.contrib.auth import authenticate, login 
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.views import LoginView, LogoutView, PasswordResetView
+from django.contrib.auth.views import PasswordResetDoneView, PasswordResetConfirmView
+from django.contrib.auth.views import PasswordResetCompleteView, PasswordChangeView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib.messages.views import SuccessMessageMixin
@@ -59,8 +61,10 @@ def detail(request, pk):
 
 
 # Profile page view.
-def profile(request, username):
+def profile(request, username=None):
     # Get AdvUser object by username.
+    if username is None:
+        username = request.user.username
     user = get_object_or_404(AdvUser, username=username)
     context = {'user': user, 'rate_articles': rate_articles, 'site_name': SITE_NAME}
     return render(request, 'articles/user_actions/profile.html', context)
@@ -269,3 +273,16 @@ class ChangeUserInfoView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
         else:
             messages.add_message(request, messages.WARNING, 'Произошла ошибка при изменении данных профиля.')
         return redirect('articles:profile', username=self.user.username)
+
+
+class APasswordChangeView(LoginRequiredMixin, SuccessMessageMixin, PasswordChangeView):
+    template_name = 'articles/user_actions/change_password.html'
+    
+    success_url = reverse_lazy('articles:profile')
+    success_message = 'Пароль успешно изменен.'
+           
+    # def get(self, request):
+    #     self.success_url = reverse_lazy('articles:profile', username=request.user.username)
+    #     context = {'rate_articles': rate_articles, 'site_name': SITE_NAME}
+    #     return render(request, self.template_name, context)
+        

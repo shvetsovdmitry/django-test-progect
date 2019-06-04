@@ -36,8 +36,17 @@
 			</div>
 		</div>
 
+		<div class="row container">
+			<div class="col-2">
+				<img src="https://img.icons8.com/dusk/48/000000/forgot-password.png">
+			</div>
+			<div class="col mt-1">
+				<a href="#" class="btn btn-outline-info btn-block">Забыли пароль?</a>
+			</div>
+		</div>
+
 		<button class="btn btn-lg btn-primary btn-block mt-2" type="submit">Войти</button>
-		<a class="btn btn-md btn-default btn-block mt-1" href="{% url 'articles:register' %}" style="background-color: purple; color: white">Регистрация</a>
+		<a class="btn btn-md btn-default btn-block my-2" href="{% url 'articles:register' %}" style="background-color: purple; color: white">Регистрация</a>
 	</form>
 </div>
 {% endblock %}
