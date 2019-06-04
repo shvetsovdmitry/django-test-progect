@@ -6,11 +6,13 @@ from .views import ARegisterDoneView, user_activate, ChangeUserInfoView
 from .views import ArticleAddView, change_rating, ArticleDeleteView
 from .views import ArticleEditView, APasswordChangeView, APasswordResetView
 from .views import APasswordResetDoneView, APasswordResetConfirmView
-from .views import APasswordResetCompleteView
+from .views import APasswordResetCompleteView, subscribe, unsubscribe
 
 
 app_name = 'articles'
 urlpatterns = [
+    path('accounts/profile/unsubscribe/<str:username>/', unsubscribe, name='unsubscribe'),
+    path('accounts/profile/subscribe/<str:username>/', subscribe, name='subscribe'),
     path('accounts/password/reset/complete/', APasswordResetCompleteView.as_view(), name='reset_password_complete'),
     path('accounts/password/reset/confirm/<uidb64>/<token>/', APasswordResetConfirmView.as_view(), name='reset_password_confirm'),
     path('accounts/password/reset/done/', APasswordResetDoneView.as_view(), name='reset_password_done'),

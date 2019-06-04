@@ -117,7 +117,30 @@
 			<a href="{% url 'articles:change_password' %}" class="btn btn-outline-info btn-block"><img src="https://img.icons8.com/dusk/32/000000/edit.png"> Изменить пароль</a>
 		</div>
 		{% endif %}
-
+		{% if not request.user == user %}
+			{% if user not in request.user.user_subscriptions.all %}
+			<div class="row mx-auto my-2">
+				<a href="{% url 'articles:subscribe' username=user.username %}" class="btn btn-outline-secondary btn-block"><img src="https://img.icons8.com/dusk/32/000000/add-to-favorites.png"> Подписаться</a>
+			</div>
+			{% else %}
+			<div class="row mx-auto my-2">
+				<a href="{% url 'articles:unsubscribe' username=user.username %}" class="btn btn-outline-secondary btn-block"><img src="https://img.icons8.com/dusk/32/000000/add-to-favorites.png"> Отписаться</a>
+			</div>
+			{% endif %}
+		{% else %}
+		<div class="row mx-auto my-2">
+			<h4 class="text-white">Мои подписки</h4>
+		</div>
+		<div class="row">
+			<ul class="list-unstyled">
+				{% for sub in user.user_subscriptions.all %}
+					<li>
+						<a href="{% url 'articles:profile' username=sub.username %}">{{ sub.username }}</a>
+					</li>
+				{% endfor %}
+			</ul>
+		</div>
+		{% endif %}
 	</div>
 </div>
 {% endblock %}

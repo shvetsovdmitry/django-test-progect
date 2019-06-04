@@ -25,6 +25,7 @@ class AdvUserAdmin(admin.ModelAdmin):
               'tw_url',
               'vk_url',
               'ok_url',
+              'user_subscriptions',
               'rating',
               'send_messages',
               'is_activated',

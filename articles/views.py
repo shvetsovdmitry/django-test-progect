@@ -15,6 +15,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.views import View
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.base import TemplateView
+from django.views.generic.detail import DetailView
 from django.utils import timezone
 from django.forms import ValidationError
 
@@ -100,6 +101,26 @@ def user_activate(request, sign):
         user.is_activated = True
         user.save()
     return render(request, template)
+
+
+@login_required
+def subscribe(request, username):
+    user = AdvUser.objects.get(username=username)
+    if user not in request.user.user_subscriptions.all():
+        request.user.subscribe_user(user)
+    else:
+        messages.add_message(request, messages.WARNING, 'Вы уже подписаны на этого пользователя!')
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+@login_required
+def unsubscribe(request, username):
+    user = AdvUser.objects.get(username=username)
+    if user in request.user.user_subscriptions.all():
+        request.user.unsubscribe_user(user)
+    else:
+        messages.add_message(request, messages.WARNING, 'Вы не подписаны на этого пользователя!')
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 # Add article page view.

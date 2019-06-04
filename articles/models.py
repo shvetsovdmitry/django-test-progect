@@ -52,6 +52,7 @@ class AdvUser (AbstractUser):
     city = models.CharField(blank=True, null=True, max_length=50, verbose_name='Город')
     bdate = models.DateField(blank=True, null=True, verbose_name='Дата рождения')
     gender = models.ForeignKey(Gender, default=None, blank=True, null=True, on_delete=models.PROTECT, verbose_name='Пол')
+    user_subscriptions = models.ManyToManyField('self', related_name='user_subscriptions', blank=True, verbose_name='Подписки')
     # User's rating.
     rating = models.IntegerField(default=0, verbose_name='Рейтинг')
     # System.
@@ -66,6 +67,14 @@ class AdvUser (AbstractUser):
             return format_html('<img src="%s" style="width:300px; height: 200px" />' % self.account_image_url)
     admin_image.short_description = 'Превью'
     admin_image.allow_tags = True
+
+    def subscribe_user(self, user):
+        self.user_subscriptions.add(user)
+        self.save()
+        
+    def unsubscribe_user(self, user):
+        self.user_subscriptions.remove(user)
+        self.save()
 
     class Meta :
        verbose_name = 'Пользователь'
