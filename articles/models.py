@@ -6,7 +6,7 @@ from django.utils.html import format_html
 
 from django_countries.fields import CountryField
 from tagging.models import Tag
-from tagging_autocomplete.models import TagAutocompleteField
+from tagging_autocomplete_new.models import TagAutocompleteField
 
 from .utilities import send_activation_notification
 import os

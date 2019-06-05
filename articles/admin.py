@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import AdvUser, Category, Article, Tag, Gender
+from .models import AdvUser, Category, Article, Gender
 
 
 def activate_articles(modeladmin, request, queryset):

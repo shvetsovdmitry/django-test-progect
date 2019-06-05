@@ -22,7 +22,7 @@ from django.forms import ValidationError
 from django.core.paginator import Paginator
 
 from tagging.models import TaggedItem, Tag
-from tagging_autocomplete.models import TagAutocomplete
+from tagging_autocomplete_new.models import TagAutocomplete
 
 from .models import AdvUser, Category, Article
 from .forms import ARegisterUserForm, ChangeUserInfoForm, ArticleForm, ArticleFormSet

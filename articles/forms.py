@@ -6,7 +6,7 @@ from django.forms import inlineformset_factory, formset_factory
 
 from django_countries.widgets import CountrySelectWidget
 from tagging.forms import TagField
-from tagging_autocomplete.widgets import TagAutocomplete
+from tagging_autocomplete_new.widgets import TagAutocomplete
 
 from .models import user_registrated
 from .models import AdvUser, Article, Tag
