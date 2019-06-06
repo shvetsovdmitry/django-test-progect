@@ -147,7 +147,17 @@
 				<ul class="list-unstyled">
 					{% for tag in user.tags_subscriptions.all %}
 						<li>
-							<a href="{% url 'articles:search' tag=tag.name %}">{{ tag.name }}</a>
+							<a href="{% url 'articles:search_by_tag' tag=tag.name %}">{{ tag.name }}</a>
+						</li>
+					{% endfor %}
+				</ul>
+			</div>
+			<div class="col">
+				Категории
+				<ul class="list-unstyled">
+					{% for cat in user.cat_subscriptions.all %}
+						<li>
+							<a href="{% url 'articles:search_by_category' category_name=cat.name %}">{{ cat.name }}</a>
 						</li>
 					{% endfor %}
 				</ul>

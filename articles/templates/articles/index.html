@@ -52,6 +52,9 @@
 							<div class="col text-left">
 								<small class="text-muted">{{ article.views }} просмотров</small>
 							</div>
+							<div class="col text-center">
+								<a href="{% url 'articles:search_by_category' category_name=article.category.name %}"><small class="text-muted"><u>{{ article.category }}</u></small></a>
+							</div>
 							<div class="col text-right">
 								<small class="text-muted">{{ article.created_at }}</small>
 							</div>

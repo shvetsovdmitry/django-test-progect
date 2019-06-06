@@ -2,7 +2,7 @@
 
 {% load static %}
 
-{% block title %}{{ article.title }} - {{ article.rubric }} | ArticlesSite{% endblock %}
+{% block title %}{{ article.title }} - {{ article.category.name }}{% endblock %}
 
 {% block content%}
 <!-- Аннотация -->
@@ -24,13 +24,16 @@
 					<ul class="list-unstyled list-group list-group-horizontal  d-flex flex-wrap align-items-top justify-content-center">
 						{% for tag in tags %}
 						<li class="pr-2 pt-1">
-							<a class="btn btn-secondary" href="{% url 'articles:search' tag=tag.name %}">{{ tag.name }}</a>
+							<a class="btn btn-secondary" href="{% url 'articles:search_by_tag' tag=tag.name %}">{{ tag.name }}</a>
 						</li>
 						{% endfor %}
 					</ul>
 				</div> <!-- /row -->
 			</div> <!-- /col -->
 		</div> <!-- /row -->
+		<div class="row d-flex justify-content-center">
+			<a href="{% url 'articles:search_by_category' category_name=article.category.name %}" class="pt-3">{{ article.category.name }}</a>
+		</div>
 	</div> <!-- /col -->
 </div> <!-- /position-relative -->
 

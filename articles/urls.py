@@ -7,14 +7,17 @@ from .views import ArticleAddView, change_rating, ArticleDeleteView
 from .views import ArticleEditView, APasswordChangeView, APasswordResetView
 from .views import APasswordResetDoneView, APasswordResetConfirmView
 from .views import APasswordResetCompleteView, subscribe_user, unsubscribe_user
-from .views import search_by_tag, subscribe_tag, unsubscribe_tag
+from .views import search_by_tag, subscribe_tag, unsubscribe_tag, search_by_category
+from .views import subscribe_category, unsubscribe_category
 
 app_name = 'articles'
 urlpatterns = [
-    path('accounts/profile/unsubscribe_tag/<str:tag>/', unsubscribe_tag, name='unsubscribe_tag'),
-    path('accounts/profile/subscribe_tag/<str:tag>/', subscribe_tag, name='subscribe_tag'),
-    path('accounts/profile/unsubscribe_user/<str:username>/', unsubscribe_user, name='unsubscribe_user'),
-    path('accounts/profile/subscribe_user/<str:username>/', subscribe_user, name='subscribe_user'),
+    path('accounts/profile/unsubscribe/category/<str:category_name>/', unsubscribe_category, name='unsubscribe_category'),
+    path('accounts/profile/subscribe/category/<str:category_name>/', subscribe_category, name='subscribe_category'),
+    path('accounts/profile/unsubscribe/tag/<str:tag>/', unsubscribe_tag, name='unsubscribe_tag'),
+    path('accounts/profile/subscribe/tag/<str:tag>/', subscribe_tag, name='subscribe_tag'),
+    path('accounts/profile/unsubscribe/user/<str:username>/', unsubscribe_user, name='unsubscribe_user'),
+    path('accounts/profile/subscribe/user/<str:username>/', subscribe_user, name='subscribe_user'),
     path('accounts/password/reset/complete/', APasswordResetCompleteView.as_view(), name='reset_password_complete'),
     path('accounts/password/reset/confirm/<uidb64>/<token>/', APasswordResetConfirmView.as_view(), name='reset_password_confirm'),
     path('accounts/password/reset/done/', APasswordResetDoneView.as_view(), name='reset_password_done'),
@@ -31,7 +34,8 @@ urlpatterns = [
     path('accounts/profile/', profile, name='profile'),
     path('accounts/logout/', ALogoutView.as_view(), name='logout'),
     path('accounts/login/', ALoginView.as_view(redirect_authenticated_user=True), name='login'),
-    path('articles/search/<str:tag>/', search_by_tag, name='search'),
+    path('articles/search/category/<str:category_name>/', search_by_category, name='search_by_category'),
+    path('articles/search/tag/<str:tag>/', search_by_tag, name='search_by_tag'),
     path('articles/<int:pk>/<int:rating>/', change_rating, name='change_rating'),
     path('articles/<int:pk>/', detail, name='article'),
     path('', index, name='index'),

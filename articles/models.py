@@ -39,6 +39,20 @@ class Gender (models.Model):
         verbose_name_plural = 'Гендеры'
 
 
+# Category model.
+class Category (models.Model):
+    name = models.CharField(max_length=20, default=None, db_index=True, unique=True, verbose_name='Название')
+    order = models.SmallIntegerField(default=0, db_index=True, verbose_name='Порядок')
+    
+    def __str__(self):
+        return self.name
+    
+    class Meta:
+        ordering = ('order', 'name')
+        verbose_name = 'Категория'
+        verbose_name_plural = 'Категории'
+        
+
 # User model.
 class AdvUser (AbstractUser):
     # Socials.
@@ -55,6 +69,7 @@ class AdvUser (AbstractUser):
     gender = models.ForeignKey(Gender, default=None, blank=True, null=True, on_delete=models.PROTECT, verbose_name='Пол')
     user_subscriptions = models.ManyToManyField('self', related_name='user_subscriptions', blank=True, verbose_name='Подписки на пользователей')
     tags_subscriptions = models.ManyToManyField(Tag, related_name='tags_subscriptions', blank=True, verbose_name='Подписки на теги')
+    cat_subscriptions = models.ManyToManyField(Category, related_name='cat_subscriptions', blank=True, verbose_name='Подписки на категории')
     # User's rating.
     rating = models.IntegerField(default=0, verbose_name='Рейтинг')
     # System.
@@ -70,42 +85,33 @@ class AdvUser (AbstractUser):
     admin_image.short_description = 'Превью'
     admin_image.allow_tags = True
 
-    def subscribe_user(self, user):
+    def subscribe_user(self, user: 'self'):
         self.user_subscriptions.add(user)
         self.save()
         
-    def unsubscribe_user(self, user):
+    def unsubscribe_user(self, user: 'self'):
         self.user_subscriptions.remove(user)
         self.save()
         
-    def subscribe_tag(self, tag):
+    def subscribe_tag(self, tag: Tag):
         self.tags_subscriptions.add(tag)
         self.save()
         
-    def unsubscribe_tag(self, tag):
+    def unsubscribe_tag(self, tag: Tag):
         self.tags_subscriptions.remove(tag)
         self.save()
 
-    def __get__(self):
-        pass
+    def subscribe_category(self, category: Category):
+        self.cat_subscriptions.add(category)
+        self.save()
+        
+    def unsubscribe_category(self, category: Category):
+        self.cat_subscriptions.remove(category)
+        self.save()
 
     class Meta :
        verbose_name = 'Пользователь'
        verbose_name_plural = 'Пользователи'
-
-
-# Category model.
-class Category (models.Model):
-    name = models.CharField(max_length=20, default=None, db_index=True, unique=True, verbose_name='Название')
-    order = models.SmallIntegerField(default=0, db_index=True, verbose_name='Порядок')
-    
-    def __str__(self):
-        return self.name
-    
-    class Meta:
-        ordering = ('order', 'name')
-        verbose_name = 'Категория'
-        verbose_name_plural = 'Категории'
 
 
 # Article model.
@@ -129,7 +135,7 @@ class Article (models.Model):
     # Text on card on index page.
     card_text = models.TextField(verbose_name='Аннотация', blank=True, null=True, max_length=200, help_text='Введите до 200 символов.')
     author = models.ForeignKey(AdvUser, on_delete=models.PROTECT, verbose_name='Автор')
-    tags = TagAutocompleteField()
+    tags = TagAutocompleteField(blank=True, null=True)
     # Total article rating (sum of all votes).
     total_rating = models.IntegerField(verbose_name='Всего баллов', default=0, help_text='Всего баллов, полученных от пользователей')
     # Current rating (total_rating/rating_count).

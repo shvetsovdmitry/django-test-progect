@@ -151,6 +151,26 @@ def unsubscribe_tag(request, tag):
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
+@login_required
+def subscribe_category(request, category_name):
+    category = Category.objects.get(name=category_name)
+    if category not in request.user.cat_subscriptions.all():
+        request.user.subscribe_category(category)
+    else:
+        messages.add_message(request, messages.WARNING, 'Вы уже подписаны на эту категорию')
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+@login_required
+def unsubscribe_category(request, category_name):
+    category = Category.objects.get(name=category_name)
+    if category in request.user.cat_subscriptions.all():
+        request.user.unsubscribe_category(category)
+    else:
+        messages.add_message(request, messages.WARNING, 'Вы не подписаны на эту категорию')
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
 # When user clicks on tag.
 def search_by_tag(request, tag):
     articles = Article.objects.filter(tags__contains=tag)
@@ -162,6 +182,19 @@ def search_by_tag(request, tag):
     page = paginator.get_page(page_num)
     tag = Tag.objects.get(name=tag)
     context = {'rate_articles': rate_articles, 'site_name': SITE_NAME, 'articles': page.object_list, 'page': page, 'tag': tag}
+    return render(request, 'articles/search.html', context)
+
+
+def search_by_category(request, category_name):
+    category = Category.objects.get(name=category_name)
+    articles = Article.objects.filter(category=category)
+    paginator = Paginator(articles, 9)
+    if 'page' in request.GET:
+        page_num = request.GET['page']
+    else:
+        page_num = 1
+    page = paginator.get_page(page_num)
+    context = {'rate_articles': rate_articles, 'site_name': SITE_NAME, 'articles': page.object_list, 'page': page, 'category': category}
     return render(request, 'articles/search.html', context)
 
 
