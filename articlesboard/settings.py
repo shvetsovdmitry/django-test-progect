@@ -33,7 +33,7 @@ INSTALLED_APPS = [
     'dal',
     'dal_select2',
     'tagging',
-    'tagging_autocomplete_new.apps.TaggingAutoCompleteNewConfig',
+    'tagging_autocomplete_new',
     'django_countries',
     'django.contrib.admin',
     'django.contrib.auth',

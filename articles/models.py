@@ -108,19 +108,6 @@ class Category (models.Model):
         verbose_name_plural = 'Категории'
 
 
-# # Tag model.
-# class Tag (models.Model):
-#     name = models.CharField(max_length=20, db_index=True, unique=True, verbose_name='Название')
-    
-#     def __str__(self):
-#         return self.name
-    
-#     class Meta:
-#         verbose_name = 'Тег'
-#         verbose_name_plural = 'Теги'
-#         ordering = ['name']
-
-
 # Article model.
 class Article (models.Model):
     category = models.ForeignKey(Category, default=None, on_delete=models.PROTECT, verbose_name='Категория')

@@ -9,7 +9,7 @@ from tagging.forms import TagField
 from tagging_autocomplete_new.widgets import TagAutocomplete
 
 from .models import user_registrated
-from .models import AdvUser, Article, Tag
+from .models import AdvUser, Article
 
 
 # Registration form.
@@ -91,12 +91,3 @@ class DeleteArticleForm(forms.Form):
     
     class Meta:
         fields = ('username', )
-
-
-class ResetPasswordForm(forms.ModelForm):
-    
-    # email = forms.EmailField()
-    
-    class Meta:
-        model = AdvUser
-        fields = ('email', )

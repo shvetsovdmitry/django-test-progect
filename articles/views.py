@@ -26,7 +26,7 @@ from tagging_autocomplete_new.models import TagAutocomplete
 
 from .models import AdvUser, Category, Article
 from .forms import ARegisterUserForm, ChangeUserInfoForm, ArticleForm, ArticleFormSet
-from .forms import DeleteArticleForm, EditArticleForm, ResetPasswordForm
+from .forms import DeleteArticleForm, EditArticleForm
 from .utilities import signer
 
 
@@ -352,37 +352,6 @@ class APasswordResetView(PasswordResetView):
     subject_template_name = 'email/reset_password_letter_subject.txt'
     email_template_name = 'email/reset_password_letter_body.txt'
     success_url = reverse_lazy('articles:reset_password_done')
-    
-    # form_class = ResetPasswordForm
-    
-    def get_object(self, queryset=None):
-        if not queryset:
-            queryset = self.get_queryset()
-        return get_object_or_404(queryset, email=self.request.POST['email'])
-    
-    def post(self, request):
-        try:
-            print(self.request.POST['email'])
-            self.user = AdvUser.objects.filter(email=self.request.POST['email'])
-            if self.user:
-                form = ResetPasswordForm(instance=self.user.first())
-                if form.is_valid():
-                    print('A')
-                    print('B')
-                    return super(APasswordResetView, self).form_valid(form)
-                else:
-                    messages.add_message(self.request, messages.WARNING, 'Что-то пошло не так')
-                    return redirect(self.request.META.get('HTTP_REFERER'))
-            else:
-                print('C')
-                messages.add_message(self.request, messages.ERROR, 'Пользователя с таким почтовым ящиком не существует!')
-                return redirect(self.request.META.get('HTTP_REFERER'))
-        except Exception as ex:
-            print(ex)
-            for u in self.user:
-                print(u.username)
-            messages.add_message(self.request, messages.ERROR, 'Ошибка')
-            return redirect(self.request.META.get('HTTP_REFERER'))    
 
 
 class APasswordResetDoneView(SuccessMessageMixin, PasswordResetDoneView):
