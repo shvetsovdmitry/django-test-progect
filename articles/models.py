@@ -4,6 +4,8 @@ from django.dispatch import Signal
 from django.utils import timezone
 from django.utils.html import format_html
 
+from companies.models import Company
+
 from django_countries.fields import CountryField
 from tagging.models import Tag
 from tagging_autocomplete_new.models import TagAutocompleteField
@@ -61,6 +63,10 @@ class AdvUser (AbstractUser):
     tw_url = models.URLField(default="", blank=True, verbose_name='Twitter')
     ok_url = models.URLField(default="", blank=True, verbose_name='Одноклассники')
     # Personal.
+    bio = models.TextField(blank=True, null=True, verbose_name='Биография')
+    status = models.CharField(blank=True, null=True, max_length=200, verbose_name='Статус')
+    company = models.ForeignKey(Company, default=None, blank=True, null=True, on_delete=models.PROTECT, verbose_name='Компания')
+    
     account_image = models.ImageField(blank=True, null=True, upload_to=get_image_path, verbose_name='Изображение профиля', help_text='Лучше всего подобрать картинку с соотношением сторон 4:3.')
     account_image_url = models.URLField(default="", blank=True, verbose_name='Ссылка на изображение профиля', help_text='Вы можете либо загрузить картинку, либо вставить ссылку на нее.')
     country = CountryField(blank_label='Выберите страну', blank=True, null=True, verbose_name='Страна')
@@ -81,7 +87,7 @@ class AdvUser (AbstractUser):
         if self.account_image:
             return format_html('<img src="%s" style="width:400px; height: 200px" />' % self.account_image.url)
         elif self.account_image_url:
-            return format_html('<img src="%s" style="width:300px; height: 200px" />' % self.account_image_url)
+            return format_html('<img src="%s" style="width:400px; height: 200px" />' % self.account_image_url)
     admin_image.short_description = 'Превью'
     admin_image.allow_tags = True
 

@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.sites',
     'django.contrib.staticfiles',
+    'companies.apps.CompaniesConfig',
     'articles.apps.ArticlesConfig',
     'bootstrap4',
     'widget_tweaks',
@@ -133,7 +134,7 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-SITE_ID = 0
+# SITE_ID = 0
 
 SITE_NAME = 'ArticlesSite'
 

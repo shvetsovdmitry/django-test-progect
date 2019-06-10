@@ -6,6 +6,8 @@
 
 <head>
   <title>{% block title %}{% endblock %} | {{ request.site.name }}</title>
+  <link rel="apple-touch-icon" sizes="76x76" href="{% static 'main/assets/img/apple-icon.png' %}">
+  <link rel="icon" type="image/png" href="{% static 'main/assets/img/favicon.png' %}">
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
@@ -23,6 +25,7 @@
           {% endblock %}
         </div>
       </div>
+    </div>
       <footer class="footer">
         <div class="container-fluid">
           <nav class="float-left">
