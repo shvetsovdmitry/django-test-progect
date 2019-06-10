@@ -6,234 +6,131 @@
 
 {% block title %}Профиль пользователя{% endblock %}
 
-{% block content %}
-<div class="sidebar" data-color="purple" data-background-color="black" data-image="{% static 'main/assets/img/sidebar-2.jpg' %}">
-	<!--
-	Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
+{% block page_title %}{{ user.username }}{% endblock %}
 
-	Tip 2: you can also add an image using data-image tag
-	-->
-	<div class="logo">
-	<a href="http://www.creative-tim.com" class="simple-text logo-normal">
-	{{ request.site.name }}
-	</a>
-	</div>
-	<div class="sidebar-wrapper">
-		<ul class="nav">
-			<li class="nav-item active" id="indexNavItem">
-				<a class="nav-link" href="{% url 'articles:index' %}">
-					<i class="material-icons mr-1">dashboard</i>
-					<p>Главная</p>
-				</a>
-			</li>
-			<!-- your sidebar here -->
-			{% if request.user.is_authenticated %}
-			<li class="nav-item" id="profileNavItem">
-				<a class="nav-link" href="{% url 'articles:profile' %}">
-					<i class="material-icons">person</i>
-						<p>Профиль</p>
-				</a>
-			</li>
-			{% else %}
-			<li class="nav-item d-none d-lg-block" id="loginNavItem">
-				<a class="nav-link" href="{% url 'articles:login' %}">
-					<i class="material-icons mr-1">person</i>
-					<p>Войти/Зарегистрироваться</p>
-				</a>
-			</li>
-			{% endif %}
-		</ul>
+{% block content %}
+<div class="col-md-8">
+	<div class="card">
+		<div class="card-header card-header-primary">
+			<h4 class="card-title">Profile</h4>
+
+			<p class="card-category">Complete your profile</p>
+		</div>
+		<div class="card-body">
+				<div class="row">
+					<div class="col">
+						<div class="form-group">
+							<label class="bmd-label-floating">Company</label>
+							<!-- <input type="text" class="form-control" disabled> -->
+							user.company
+						</div>
+					</div>
+					<div class="col">
+						<div class="form-group">
+							<label class="bmd-label-floating">Username</label>
+							<!-- <input type="text" class="form-control"> -->
+							{{ user.username }}
+						</div>
+					</div>
+					<!-- <div class="col-md-4">
+						<div class="form-group">
+							<label class="bmd-label-floating">Email address</label>
+							<input type="email" class="form-control">
+							{{ user.email }}
+						</div>
+					</div> -->
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label class="bmd-label-floating">Fist Name</label>
+							<!-- <input type="text" class="form-control"> -->
+							{{ user.first_name }}
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<label class="bmd-label-floating">Last Name</label>
+							<!-- <input type="text" class="form-control"> -->
+							{{ user.last_name }}
+						</div>
+					</div>
+				</div>
+			<!-- 	<div class="row">
+					<div class="col-md-12">
+						<div class="form-group">
+							<label class="bmd-label-floating">Adress</label>
+							<input type="text" class="form-control">
+						</div>
+					</div>
+				</div> -->
+				<div class="row">
+					<div class="col">
+						<div class="form-group">
+							<label class="bmd-label-floating">Country</label>
+							<!-- <input type="text" class="form-control"> -->
+							{{ user.country }}
+						</div>
+					</div>
+					<div class="col">
+						<div class="form-group">
+							<label class="bmd-label-floating">City</label>
+							<!-- <input type="text" class="form-control"> -->
+							{{ user.city }}
+						</div>
+					</div>
+					<!-- <div class="col-md-4">
+						<div class="form-group">
+							<label class="bmd-label-floating">Postal Code</label>
+							<input type="text" class="form-control">
+						</div>
+					</div> -->
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="form-group">
+							<label>About Me</label>
+							<div class="form-group">
+								<label class="bmd-label-floating">user.bio</label>
+								<!-- <textarea class="form-control" rows="5"></textarea> -->
+							</div>
+						</div>
+					</div>
+				</div>
+				{% if user == request.user %}
+					<a href="{% url 'articles:profile_change' username=user.username %}" class="btn btn-primary pull-right">Редактировать профиль</a>
+				{% endif %}
+				<div class="clearfix"></div>
+		</div>
 	</div>
 </div>
-<div class="main-panel">
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top " id="navigation-example">
-	<div class="container-fluid">
-		<div class="navbar-wrapper">
-			<a class="navbar-brand" href="javascript:void(0)">User Profile</a>
+<div class="col-md-4">
+	<div class="card card-profile">
+		<div class="card-avatar">
+			<a href="#pablo">
+				{% if user.account_image %}
+				<img class="img" src="{{ user.account_image.url }}" />
+				{% elif user.account_image_url %}
+				<img class="img" src="{{ user.account_image_url }}" />
+				{% else %}
+				<img class="img" src="https://yt3.ggpht.com/WVRcZ5FLdU77PVwnKGRElsqYzsQQimvL8ChTiGkHYiiL3fjrezDtFCTEoHThK2M8GazV_ofA5DmBxTs3-g=s900-mo-c-c0xffffffff-rj-k-no" />
+				{% endif %}
+			</a>
 		</div>
-		<button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation" data-target="#navigation-example">
-			<span class="sr-only">Toggle navigation</span>
-			<span class="navbar-toggler-icon icon-bar"></span>
-			<span class="navbar-toggler-icon icon-bar"></span>
-			<span class="navbar-toggler-icon icon-bar"></span>
-		</button>
-		<div class="collapse navbar-collapse justify-content-end">
-			<form class="navbar-form">
-				<div class="input-group no-border">
-					<input type="text" value="" class="form-control" placeholder="Search...">
-					<button type="submit" class="btn btn-default btn-round btn-just-icon">
-					<i class="material-icons">search</i>
-					<div class="ripple-container"></div>
-					</button>
-				</div>
-			</form>
-			<ul class="navbar-nav">
-				<li class="nav-item">
-					<a class="nav-link" href="javascript:void(0)">
-						<i class="material-icons">dashboard</i>
-							<p class="d-lg-none d-md-block">
-								Stats
-							</p>
-					</a>
-				</li>
-				<li class="nav-item dropdown">
-					<a class="nav-link" href="javscript:void(0)" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						<i class="material-icons">notifications</i>
-						<span class="notification">5</span>
-						<p class="d-lg-none d-md-block">
-							Some Actions
-						</p>
-					</a>
-					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-						<a class="dropdown-item" href="javascript:void(0)">Mike John responded to your email</a>
-						<a class="dropdown-item" href="javascript:void(0)">You have 5 new tasks</a>
-						<a class="dropdown-item" href="javascript:void(0)">You're now friend with Andrew</a>
-						<a class="dropdown-item" href="javascript:void(0)">Another Notification</a>
-						<a class="dropdown-item" href="javascript:void(0)">Another One</a>
-					</div>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="javascript:void(0)">
-						<i class="material-icons">person</i>
-						<p class="d-lg-none d-md-block">
-							Account
-						</p>
-					</a>
-				</li>
-			</ul>
+		<div class="card-body">
+			<h6 class="card-category">CEO / Co-Founder</h6>
+			<h4 class="card-title">{{ user.first_name }} {{ user.last_name }}</h4>
+			<p class="card-description">
+				user.status
+			</p>
+			{% if not user.username == request.user.username %}
+				{% if user not in request.user.user_subscriptions.all %}
+				<a href="{% url 'articles:subscribe_user' username=user.username %}" class="btn btn-primary btn-round">Follow</a>
+				{% else %}
+				<a href="{% url 'articles:unsubscribe_user' username=user.username %}" class="btn btn-primary btn-round">Unfollow</a>
+				{% endif %}
+			{% endif %}
 		</div>
 	</div>
-</nav>
-<!-- End Navbar -->
-<div class="content">
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-md-8">
-				<div class="card">
-					<div class="card-header card-header-primary">
-						<h4 class="card-title">Profile</h4>
-						
-						<p class="card-category">Complete your profile</p>
-					</div>
-					<div class="card-body">
-							<div class="row">
-								<div class="col">
-									<div class="form-group">
-										<label class="bmd-label-floating">Company</label>
-										<!-- <input type="text" class="form-control" disabled> -->
-										user.company
-									</div>
-								</div>
-								<div class="col">
-									<div class="form-group">
-										<label class="bmd-label-floating">Username</label>
-										<!-- <input type="text" class="form-control"> -->
-										{{ user.username }}
-									</div>
-								</div>
-								<!-- <div class="col-md-4">
-									<div class="form-group">
-										<label class="bmd-label-floating">Email address</label>
-										<input type="email" class="form-control">
-										{{ user.email }}
-									</div>
-								</div> -->
-							</div>
-							<div class="row">
-								<div class="col-md-6">
-									<div class="form-group">
-										<label class="bmd-label-floating">Fist Name</label>
-										<!-- <input type="text" class="form-control"> -->
-										{{ user.first_name }}
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<label class="bmd-label-floating">Last Name</label>
-										<!-- <input type="text" class="form-control"> -->
-										{{ user.last_name }}
-									</div>
-								</div>
-							</div>
-						<!-- 	<div class="row">
-								<div class="col-md-12">
-									<div class="form-group">
-										<label class="bmd-label-floating">Adress</label>
-										<input type="text" class="form-control">
-									</div>
-								</div>
-							</div> -->
-							<div class="row">
-								<div class="col">
-									<div class="form-group">
-										<label class="bmd-label-floating">Country</label>
-										<!-- <input type="text" class="form-control"> -->
-										{{ user.country }}
-									</div>
-								</div>
-								<div class="col">
-									<div class="form-group">
-										<label class="bmd-label-floating">City</label>
-										<!-- <input type="text" class="form-control"> -->
-										{{ user.city }}
-									</div>
-								</div>
-								<!-- <div class="col-md-4">
-									<div class="form-group">
-										<label class="bmd-label-floating">Postal Code</label>
-										<input type="text" class="form-control">
-									</div>
-								</div> -->
-							</div>
-							<div class="row">
-								<div class="col-md-12">
-									<div class="form-group">
-										<label>About Me</label>
-										<div class="form-group">
-											<label class="bmd-label-floating">user.bio</label>
-											<!-- <textarea class="form-control" rows="5"></textarea> -->
-										</div>
-									</div>
-								</div>
-							</div>
-							{% if user == request.user %}
-								<a href="{% url 'articles:profile_change' username=user.username %}" class="btn btn-primary pull-right">Редактировать профиль</a>
-							{% endif %}
-							<div class="clearfix"></div>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-4">
-				<div class="card card-profile">
-					<div class="card-avatar">
-						<a href="#pablo">
-							{% if user.account_image %}
-							<img class="img" src="{{ user.account_image.url }}" />
-							{% elif user.account_image_url %}
-							<img class="img" src="{{ user.account_image_url }}" />
-							{% else %}
-							<img class="img" src="https://yt3.ggpht.com/WVRcZ5FLdU77PVwnKGRElsqYzsQQimvL8ChTiGkHYiiL3fjrezDtFCTEoHThK2M8GazV_ofA5DmBxTs3-g=s900-mo-c-c0xffffffff-rj-k-no" />
-							{% endif %}
-						</a>
-					</div>
-					<div class="card-body">
-						<h6 class="card-category">CEO / Co-Founder</h6>
-						<h4 class="card-title">{{ user.first_name }} {{ user.last_name }}</h4>
-						<p class="card-description">
-							user.status
-						</p>
-						{% if not user.username == request.user.username %}
-							{% if user not in request.user.user_subscriptions.all %}
-							<a href="{% url 'articles:subscribe_user' username=user.username %}" class="btn btn-primary btn-round">Follow</a>
-							{% else %}
-							<a href="{% url 'articles:unsubscribe_user' username=user.username %}" class="btn btn-primary btn-round">Unfollow</a>
-							{% endif %}
-						{% endif %}
-					</div>
-				</div>
-			</div>
-		<!-- </div> -->
-	<!-- </div> -->
-<!-- </div> -->
+</div>
 {% endblock %}
