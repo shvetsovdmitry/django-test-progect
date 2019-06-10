@@ -5,104 +5,129 @@
 {% load widget_tweaks %}
 {% block title %}Добавить статью{% endblock %}
 
+{% block page_title %}Добавить статью{% endblock %}
+
 {% block content %}
-<!-- Main content -->
-<h1 class="display-4 font-weight-normal text-white mx-4 text-shadow-lg">Добавить статью</h1>
-<div class="px-5 pt-4">
+<link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet"></link>
+<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script>
+<script src="https://code.jquery.com/jquery-migrate-3.0.0.min.js"></script>
+<div class="col">
 	<form method="post" enctype="multipart/form-data" class="text-white">
 		{% csrf_token %}
 		{{ form.author }}
-		<div class="row mb-3">
-			<div class="col-lg-2">
-				<label for="id_title">Название статьи</label>
-			</div>
-			<div class="col-lg-6">
-				<input type="text" class="form-control" id="id_title" name="title" placeholder="Название статьи" required>
-			</div>
-			<div class="col-lg-3">
-				<div class="invalid-feedback" style="width: 100%;">
-					Поле обязательно к заполнению!
-				</div>
-			</div>
-		</div>
-
-		<div class="row mb-3">
-			<div class="col-lg-2">
-				<label for="id_category">Категория</label>
-			</div>
-			<div class="col-lg-6">
-				{{ form.category|attr:"class:custom-select" }}
-			<div class="col-lg-3">
-				<div class="invalid-feedback" style="width: 100%;">
-					Поле обязательно к заполнению!
-				</div>
-			</div>
-			</div>
-		</div>
-
-		<div class="row mb-3">
-			<div class="col-lg-2">
-				<label for="id_image">Превью</label>
-			</div>
-			<div class="col">
-				<input type="file" name="image" id="id_image" accept="image/*">
-			</div>
-		</div>
-
-		<div class="row mb-3">
-			<div class="col-lg-2">
-				<label for="id_image_url">Ссылка на превью (необязательно)</label>
-			</div>
-			<div class="col-lg-6">
-				<input type="text" class="form-control" name="image_url" id="id_image_url" placeholder="http://example.com/example.jpg">
-			</div>
-			<div class="col-lg-3">
-				<div class="invalid-feedback" style="width: 100%;">
-					Поле обязательно к заполнению!
-				</div>
-			</div>
-		</div>
-
-		<div class="row mb-3">
-			<div class="col-lg-2">
-				<label for="id_card_text">Аннотация</label>
-			</div>
-			<div class="col-lg-6">
-				<textarea class="form-control" name="card_text" id="id_card_text" placeholder="До 200 символов." rows="3" required></textarea>
-			</div>
-			<div class="col-lg-3">
-				<div class="invalid-feedback" style="width: 100%;">
-					Поле обязательно к заполнению!
-				</div>
-			</div>
-		</div>
-
-		<div class="row mb-3">
-			<div class="col-lg-2">
-				<label for="id_content">Содержимое</label>
-			</div>
-			<div class="col-lg-6">
-				<textarea class="form-control" name="content" id="id_content" placeholder="Поддерживает html теги." rows="7" required></textarea>
-			</div>
-			<div class="col-lg-3">
-				<div class="invalid-feedback" style="width: 100%;">
-					Поле обязательно к заполнению!
-				</div>
-			</div>
-		</div>
-
-		<div class="row mb-3">
-			<div class="col-lg-2">
-				<label for="id_tags">Теги</label>
-			</div>
-			<div class="col-lg-6">
-				{{ form.tags|attr:"class:form-control"|attr:"required:false" }}
-			</div>
-			<div class="col-lg-3">
-				<div class="invalid-feedback" style="width: 100%;">
-					Поле обязательно к заполнению!
-				</div>
-			</div>
+		<div class="table-responsive">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>
+							Категория
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							{{ form.category|attr:"class:custom-select" }}
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>
+							Название статьи
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							{{ form.title|attr:"class:form-control"|attr:"placeholder:Введите название статьи" }}
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>
+							Превью
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							{{ form.image|attr:"class:form-control"|attr:"placeholder:Выберите изображение" }}
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>
+							Ссылка на превью (необязательно)
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							<input type="text" class="form-control" name="image_url" id="id_image_url" placeholder="http://example.com/example.jpg">
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>
+							Аннотация
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							<textarea class="form-control" name="card_text" id="id_card_text" placeholder="До 200 символов." rows="3" required></textarea>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>
+							Текст статьи
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							<textarea class="form-control" name="content" id="id_content" placeholder="Поддерживает html теги." rows="7" required></textarea>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>
+							Теги
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							{{ form.tags|attr:"class:form-control"|attr:"required:false" }}
+						</td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 
 		<div class="row mb-3">
