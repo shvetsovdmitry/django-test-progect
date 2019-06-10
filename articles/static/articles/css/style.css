@@ -144,3 +144,7 @@ body {
 	top: 4%;
 	right: 20%;
 }*/
+
+.custom-select option {
+	color: #000;
+}

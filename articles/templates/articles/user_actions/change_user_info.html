@@ -8,112 +8,280 @@
 {% block title %}Редактирование профиля {{ user.username }}{% endblock %}
 
 {% block content %}
-<h3 class="text-white py-3 text-center text-header-hl w-100 shadow-lg text-shadow-md">Редактирование профиля {{ user.username }}</h3>
+<div class="col-md-4">
+	<div class="card card-profile">
+		<div class="card-avatar">
+			<form method="post" enctype="multipart/form-data">
+				{% csrf_token %}
 
-<form enctype="multipart/form-data" class="row container-fluid text-white px-0 mx-0" method="post">
-	{% csrf_token %}
-	<div class="ml-3 col-sm-9 col-md-5 col-lg-4">
-		<div class="row mx-auto">
-			<h5 class="text-white text-shadow-sm">{{ user.username }}</h5>
+				{% if user.account_image %}
+				<img id="profilePicture" class="img" src="https://yt3.ggpht.com/WVRcZ5FLdU77PVwnKGRElsqYzsQQimvL8ChTiGkHYiiL3fjrezDtFCTEoHThK2M8GazV_ofA5DmBxTs3-g=s900-mo-c-c0xffffffff-rj-k-no" />
+				<input type="file" name="account_image" id="id_account_image" class="d-none">
+				<!-- {{ picture_form.account_image|attr:"class:d-none" }} -->
+
+				{% elif user.account_image_url %}
+				<input type="image" class="img" src="{{ user.account_image_url }}" class="form-control" />
+				<input type="file" name="account_image_url" id="id_account_image_url" class="d-none">
+				<script type="text/javascript">
+					$("input[type='image']").click(function() {
+						alert('1');
+    					$("input[id='id_account_image_url']").click();
+					});
+				</script>
+				{% else %}
+				<input type="image" class="img" src="http://upload.wikimedia.org/wikipedia/commons/c/ca/Button-Lightblue.svg" />
+				{{ picture_form.account_image }}
+				<script type="text/javascript">
+					$("input[type='image']").click(function() {
+						alert('1');
+    					$("input[id='id_account_image']").click();
+					});
+				</script>
+				{% endif %}
+			</form>
 		</div>
-		<div class="row mx-auto">
-			{% if user.account_image %}
-				<img src="{{ user.account_image.url }}" class="img-thumbnail profile-image">
-			{% elif user.account_image_url %}
-				<img src="{{ user.account_image_url }}" class="img-thumbnail profile-image">
-			{% else %}
-				<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Boostrap_logo.svg/2000px-Boostrap_logo.svg.png" class="img-thumbnail profile-image">
+<!-- 		<ul class="navbar-nav" style="position: relative; top: 0em; left: 1.5em; z-index: 10000">
+            <li class="nav-item dropdown">
+                <button class="nav-link btn btn-sm btn-primary" id="slider" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                	Изменить
+                </button>
+                <div class="dropdown-menu dropdown-menu-left" aria-labelledby="slider" style="max-width: 10px;">
+                    <a class="dropdown-item" href="javascript:void(0)">Photo</a>
+                	<a class="dropdown-item" href="javascript:void(0)">Link</a>
+                </div>
+            </li>
+        </ul> -->
+		<div class="card-body">
+			<h6 class="card-category">{{ user.activity }}</h6>
+			<h4 class="card-title">{{ user.first_name }} {{ user.last_name }}</h4>
+			<p class="card-description">
+				{{ user.status }}
+			</p>
+			{% if not user.username == request.user.username %}
+				{% if user not in request.user.user_subscriptions.all %}
+				<a href="{% url 'articles:subscribe_user' username=user.username %}" class="btn btn-primary btn-round">Follow</a>
+				{% else %}
+				<a href="{% url 'articles:unsubscribe_user' username=user.username %}" class="btn btn-primary btn-round">Unfollow</a>
+				{% endif %}
 			{% endif %}
 		</div>
-		<div class="row mx-auto">
-			<ul class="list-unstyled w-75">
-				<li>
-					<label for="id_account_image">Загрузите изображение</label>
-					<input type="file" name="account_image" id="id_account_image" accept="image/*" class="form-control" value="{{ user.account_image }}">
-				</li>
-				<li>
-					<label for="id_account_image_url">Или вставьте ссылку</label>
-					<input type="text" name="account_image_url" id="id_account_image_url" class="form-control" placeholder="https://example.com" value="{{ user.account_image_url }}">
-				</li>
-				<li>
-					<label for="id_vk_url">ВКонтакте</label>
-					<input type="text" name="vk_url" id="id_vk_url" value="{{ user.vk_url }}" class="form-control">
-				</li>
-				<li>
-					<label for="id_fb_url">Facebook</label>
-					<input type="text" name="fb_url" id="id_fb_url" value="{{ user.fb_url }}" class="form-control">
-				</li>
-				<li>
-					<label for="id_tw_url">Twitter</label>
-					<input type="text" name="tw_url" id="id_tw_url" value="{{ user.tw_url }}" class="form-control">
-				</li>
-				<li>
-					<label for="id_ok_url">Одноклассники</label>
-					<input type="text" name="ok_url" id="id_ok_url" value="{{ user.ok_url }}" class="form-control">
-				</li>
-			</ul>
+	</div>
+	<div class="card">
+		<div class="card-header card-header-info">
+			<h4 class="card-title">Подписки <!-- <i class="material-icons">grade</i> --></h4>
+		</div>
+		<div class="card-body">
+			<p>Здесь будут отображаться пользователи, теги и категории на которые вы подписаны</p>
 		</div>
 	</div>
-	<div class="col-sm-12 col-md-6 col-lg-7">
-		<h5 class="text-white text-shadow-sm">Информация</h5>
-		<div class="row">
-			<div class="col-5">
-				<label for="id_username" class="text-secondary text-shadow-sm">Имя пользователя (логин)</h6>
-			</div>
-			<div class="col">
-				{{ form.username|attr:"class:form-control" }}
-			</div>
+</div>
+<!-- {% bootstrap_form form layout='horizontal' %} -->
+<div class="col-md-8">
+	<div class="card">
+		<div class="card-header card-header-primary">
+			<h4 class="card-title">Профиль</h4>
+			<p class="card-category">Изменить информацию профиля</p>
 		</div>
-		<div class="row">
-			<div class="col-5">
-				<label for="id_first_name" class="text-secondary text-shadow-sm">Имя</h6>
-			</div>
-			<div class="col">
-				{{ form.first_name|attr:"class:form-control" }}
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-5">
-				<label for="id_last_name" class="text-secondary text-shadow-sm">Фамилия</h6>
-			</div>
-			<div class="col">
-				{{ form.last_name|attr:"class:form-control" }}
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-5">
-				<label for="id_country" class="text-secondary text-shadow-sm">Страна</h6>
-			</div>
-			<div class="col">
-				{{ form.country|attr:"class:form-control" }}
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-5">
-				<label for="id_city" class="text-secondary text-shadow-sm">Город</h6>
-			</div>
-			<div class="col">
-				{{ form.city|attr:"class:form-control" }}
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-5">
-				<label for="id_bdate" class="text-secondary text-shadow-sm">Дата рождения</label>
-			</div>
-			<div class="col">
-				{{ form.bdate|attr:"class:form-control" }}
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-5">
-				<label for="id_gender" class="text-secondary text-shadow-sm">Пол</h6>
-			</div>
-			<div class="col">
-				{{ form.gender|attr:"class:form-control" }}
-			</div>
+		<div class="card-body">
+			<form method="post" enctype="multipart/form-data">
+				{% csrf_token %}
+				<div class="row">
+					<div class="col">
+						<div class="table-responsive">
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>
+											Имя пользователя
+										</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>
+											<!-- {{ form.username|attr:"class:form-control" }} -->
+											<input type="text" class="form-control" id="id_username" name="username" placeholder="Введите имя пользователя" value="{{ user.username }}" required>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="col">
+						<div class="table-responsive">
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>
+											Email
+										</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>
+											<input type="email" class="form-control" id="id_email" name="email" placeholder="Введите email" value="{{ user.email }}" required>
+											<!-- {{ form.email|attr:"class:form-control" }} -->
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<div class="table-responsive">
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>
+											Компания
+										</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>
+											{{ form.company|attr:"class:form-control" }}
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="col">
+						<div class="table-responsive">
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>
+											Деятельность
+										</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>
+											<input type="text" class="form-control" id="id_activity" name="activity" placeholder="Введите вид деятельности" value="{{ user.activity }}">
+											<!-- {{ form.activity|attr:"class:form-control" }} -->
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<div class="table-responsive">
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>
+											Имя
+										</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>
+											<input type="text" class="form-control" id="id_first_name" name="first_name" placeholder="Введите имя" value="{{ user.first_name }}">
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="col">
+						<div class="table-responsive">
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>
+											Фамилия
+										</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>
+											<input type="text" class="form-control" id="id_last_name" name="last_name" placeholder="Введите фамилию" value="{{ user.last_name }}">
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<div class="table-responsive">
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>
+											Страна
+										</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>
+											{{ form.country|attr:"class:form-control custom-select" }}
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="col">
+						<div class="table-responsive">
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>
+											Город
+										</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>
+											<input type="text" class="form-control" id="id_city" name="city" placeholder="Введите город" value="{{ user.city }}">
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<div class="table-responsive">
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>
+											О себе
+										</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>
+											<textarea type="text" class="form-control" id="id_bio" name="bio" placeholder="Напишите о себе">{{ user.bio }}</textarea>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<button type="submit" class="btn btn-primary pull-right">Обновить информацию</button>
+				<div class="clearfix"></div>
+			</form>
 		</div>
 	</div>
-	<button type="submit" class="btn btn-outline-success btn-block">Сохранить</button>
-	<a href="{% url 'articles:profile' username=user.username %}" class="btn btn-outline-warning btn-block">Назад</a>
-</form>
+</div>
 {% endblock %}

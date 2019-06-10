@@ -56,12 +56,23 @@ class ChangeUserInfoForm(forms.ModelForm):
         model = AdvUser
         fields = ('username', 'email',
                   'first_name', 'last_name',
-                  'gender',
-                  'account_image', 'account_image_url',
+                  'company',
+                  'bio',
+                  'status',
+                #   'gender',
+                #   'account_image', 'account_image_url',
                   'country', 'city',
-                  'bdate',
-                   'fb_url', 'tw_url', 'vk_url', 'ok_url',
-                   'send_messages')
+                #   'bdate',
+                #    'fb_url', 'tw_url', 'vk_url', 'ok_url',
+                #    'send_messages')
+        )
+
+
+class ChangeUserProfilePictureForm(forms.ModelForm):
+    
+    class Meta:
+        model = AdvUser
+        fields = ('account_image',)
 
 
 class ArticleForm(forms.ModelForm):
