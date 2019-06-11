@@ -63,10 +63,10 @@ class AdvUser (AbstractUser):
     tw_url = models.URLField(default="", blank=True, verbose_name='Twitter')
     ok_url = models.URLField(default="", blank=True, verbose_name='Одноклассники')
     # Personal.
-    bio = models.TextField(blank=True, null=True, verbose_name='Биография')
-    status = models.CharField(blank=True, null=True, max_length=200, verbose_name='Статус')
+    bio = models.TextField(default='', blank=True, verbose_name='Биография')
+    status = models.CharField(default='', blank=True, max_length=200, verbose_name='Статус')
     company = models.ForeignKey(Company, default=None, blank=True, null=True, on_delete=models.PROTECT, verbose_name='Компания')
-    activity = models.CharField(max_length=100, default='', blank=True, null=True, verbose_name='Деятельность')
+    activity = models.CharField(max_length=100, default='', blank=True, verbose_name='Деятельность')
     
     account_image = models.ImageField(blank=True, null=True, upload_to=get_image_path, verbose_name='Изображение профиля', help_text='Лучше всего подобрать картинку с соотношением сторон 4:3.')
     account_image_url = models.URLField(default="", blank=True, verbose_name='Ссылка на изображение профиля', help_text='Вы можете либо загрузить картинку, либо вставить ссылку на нее.')

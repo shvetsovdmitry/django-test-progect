@@ -12,70 +12,50 @@
 {% block content %}
 <div class="col-md-4">
 	<div class="card card-profile">
-		<div class="card-avatar container" style="max-width: 200px; max-height: 250px">
+		<div class="card-avatar" style="max-width: 200px; max-height: 250px">
 			<form method="post" enctype="multipart/form-data" id="pictureForm" onchange="submitIfFormComplete()">
 				{% csrf_token %}
+
 				{% if user.account_image %}
 				<!-- <img class="img" src="https://linkconnects.com/uploads/d3ab3e7df0d626f98bb84c9a97982d4d.jpg" id="profilePicture"> -->
 				<img class="img" src="{{ user.account_image.url }}" id="profilePicture" style="cursor: pointer;"/>
 				<input type="file" name="account_image" id="id_account_image" class="d-none">
-				<script type="text/javascript">
-					// Click on image
-					$("#profilePicture").click(function() {
-    					$("#id_account_image").click();
-    					if ($('#id_account_image').prop('files')){
-    					}
-					});
-					$('#profilePicture').on('mouseover', function() {
 
-					});
-					// Check if user changed something.
-					function submitIfFormComplete() {
-						if ($('#id_account_image').prop('files')){
-							$('#pictureForm').submit();
-						}
-					}
-				</script>
 				{% elif user.account_image_url %}
 				<img class="img" src="{{ user.account_image_url }}" id="profilePicture" style="cursor: pointer;"/>
 				<input type="file" name="account_image_url" id="id_account_image_url" class="d-none">
-				<script type="text/javascript">
-					// Click on image
-					$("#profilePicture").click(function() {
-    					$("#id_account_image").click();
-    					if ($('#id_account_image').prop('files')){
-    					}
-					});
-					$('#profilePicture').on('mouseover', function() {
 
-					});
-					// Check if user changed something.
-					function submitIfFormComplete() {
-						if ($('#id_account_image').prop('files')){
-							$('#pictureForm').submit();
-						}
-					}
-				</script>
 				{% else %}
-				<input type="image" class="img" src="http://upload.wikimedia.org/wikipedia/commons/c/ca/Button-Lightblue.svg" />
-				{{ picture_form.account_image }}
-				<script type="text/javascript">
-					$("input[type='image']").click(function() {
-						alert('1');
-    					$("input[id='id_account_image']").click();
-					});
-				</script>
+				<img class="img" src="https://yt3.ggpht.com/WVRcZ5FLdU77PVwnKGRElsqYzsQQimvL8ChTiGkHYiiL3fjrezDtFCTEoHThK2M8GazV_ofA5DmBxTs3-g=s900-mo-c-c0xffffffff-rj-k-no" />
+				<input type="file" name="account_image" id="id_account_image" class="d-none">
 				{% endif %}
 			</form>
-			<!-- <button class="nav-link btn btn-sm btn-primary"></button> -->
-			<button class="nav-link btn btn-sm btn-primary" id="slider" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Изменить</button>
+			<!-- <button class="nav-link btn btn-sm btn-primary" id="slider" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Изменить</button> -->
 		</div>
-
+		<ul class="navbar-nav" >
+	        <li class="nav-item dropdown">
+	            <button class="nav-link btn btn-primary" id="slider" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 50%; left: 25%;">
+	            	Изменить изображение
+	            </button>
+	            <div class="dropdown-menu dropdown-menu-left" aria-labelledby="slider">
+	                <a class="dropdown-item" href="javascript:void(0)" id="uploadLink">Загрузить фото</a>
+	            	<a class="dropdown-item" href="javascript:void(0)">Прикрепить ссылку на фото</a>
+	            </div>
+	        </li>
+	    </ul>
 		<div class="card-body">
 			<h6 class="card-category">{{ user.activity }}</h6>
 			<h4 class="card-title">{{ user.first_name }} {{ user.last_name }}</h4>
 			<p class="card-description">
-				{{ user.status }}
+				<div class="table-responsive">
+					<table class="table table-hover">
+						<tbody>
+							<tr>
+								<td><input type="text" name="status" id="id_status" value="{{ user.status }}" placeholder="Введите статус" class="form-control"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 			</p>
 			{% if not user.username == request.user.username %}
 				{% if user not in request.user.user_subscriptions.all %}
@@ -86,14 +66,22 @@
 			{% endif %}
 		</div>
 	</div>
-<!-- 	<div class="card">
-		<div class="card-header card-header-info">
-			<h4 class="card-title">Подписки <i class="material-icons">grade</i></h4>
-		</div>
-		<div class="card-body">
-			<p>Здесь будут отображаться пользователи, теги и категории на которые вы подписаны</p>
-		</div>
-	</div> -->
+	<!-- Managing the pictureForm -->
+	<script type="text/javascript">
+		// Click on image
+		$("#profilePicture").click(function() {
+			$("#id_account_image").click();
+		});
+		$('#uploadLink').click(function() {
+			$('#id_account_image').click();
+		});
+		// Check if user changed something.
+		function submitIfFormComplete() {
+			if ($('#id_account_image').prop('files')){
+				$('#pictureForm').submit();
+			}
+		}
+	</script>
 </div>
 <!-- {% bootstrap_form form layout='horizontal' %} -->
 <div class="col-md-8">

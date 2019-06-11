@@ -292,7 +292,7 @@ class ArticleDeleteView(TemplateView, LoginRequiredMixin):
 # Login page view.
 class ALoginView(LoginView):
 
-    extra_context = {'site_name': SITE_NAME, 'rate_articles': rate_articles}
+    extra_context = {}
     template_name = 'articles/user_actions/login.html'
     
     redirect_field_name = reverse_lazy('articles:index')
@@ -308,6 +308,7 @@ class ALoginView(LoginView):
             return redirect(self.redirect_field_name)
         else:
             messages.add_message(self.request, messages.ERROR, 'Неправильный логин или пароль')
+            return HttpResponseRedirect(reverse_lazy('articles:login'))
     
 
 # Logout page view.
@@ -375,37 +376,6 @@ class ChangeUserInfoView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
         else:
             messages.add_message(request, messages.WARNING, 'Произошла ошибка при изменении данных профиля.')
         return redirect('articles:profile', username=self.user.username)
-
-
-# class ChangeUserProfilePictureView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
-    
-#     model = AdvUser
-#     template_name = 'articles/user_actions/change_user_info.html'
-#     form_class = ChangeUserProfilePictureForm
-    
-#     def dispatch(self, request, username, *args, **kwargs):
-#         self.user = get_object_or_404(AdvUser, username=username)
-#         self.success_url = reverse_lazy('articles:profile', kwargs={'username': self.user.username})
-#         return super().dispatch(request, *args, **kwargs)
-    
-#     def get_object(self, queryset=None):
-#         if not queryset:
-#             queryset = self.get_queryset()
-#         return get_object_or_404(queryset, username=self.user.username)
-    
-#     def get(self, request):
-#         form = ChangeUserProfilePictureForm(instance=self.user)
-#         context = {'picture_form': form}
-#         return render(request, self.template_name, context)
-    
-#     def post(self, request):
-#         form = ChangeUserProfilePictureForm(request.POST, request.FILES, instance=self.user)
-#         if form.is_valid():
-#             form.save()
-#             messages.add_message(request, messages.SUCCESS, 'Изображение успешно изменено')
-#         else:
-#             messages.add_message(request, messages.WARNING, 'Произошла ошибка при загрузке изображения')
-#         return redirect('articles:profile', username=self.user.username)
 
 
 # Change password.

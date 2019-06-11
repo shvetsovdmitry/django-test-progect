@@ -9,7 +9,10 @@
 {% block content %}
 <h3 class="text-white py-3 shadow text-center text-header-hl text-shadow-md">Вход</h3>
 <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 mx-auto">
-	{% bootstrap_messages %}
+	<!-- {% bootstrap_messages %} -->
+	{{ form.non_field.errors }}
+	{{ form.username.errors }}
+	{{ form.password.errors }}
 	<form class="form-signin" method="post">
 		{% csrf_token %}
 		<h5 class="mb-3 font-weight-normal text-white">Введите данные учетной записи</h5>
