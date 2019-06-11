@@ -7,26 +7,54 @@
 
 {% block title %}Редактирование профиля {{ user.username }}{% endblock %}
 
+{% block page_title %}Редактирование профиля {{ user.username }}{% endblock %}
+
 {% block content %}
 <div class="col-md-4">
 	<div class="card card-profile">
-		<div class="card-avatar">
-			<form method="post" enctype="multipart/form-data">
+		<div class="card-avatar container" style="max-width: 200px; max-height: 250px">
+			<form method="post" enctype="multipart/form-data" id="pictureForm" onchange="submitIfFormComplete()">
 				{% csrf_token %}
-
 				{% if user.account_image %}
-				<img id="profilePicture" class="img" src="https://yt3.ggpht.com/WVRcZ5FLdU77PVwnKGRElsqYzsQQimvL8ChTiGkHYiiL3fjrezDtFCTEoHThK2M8GazV_ofA5DmBxTs3-g=s900-mo-c-c0xffffffff-rj-k-no" />
+				<!-- <img class="img" src="https://linkconnects.com/uploads/d3ab3e7df0d626f98bb84c9a97982d4d.jpg" id="profilePicture"> -->
+				<img class="img" src="{{ user.account_image.url }}" id="profilePicture" style="cursor: pointer;"/>
 				<input type="file" name="account_image" id="id_account_image" class="d-none">
-				<!-- {{ picture_form.account_image|attr:"class:d-none" }} -->
+				<script type="text/javascript">
+					// Click on image
+					$("#profilePicture").click(function() {
+    					$("#id_account_image").click();
+    					if ($('#id_account_image').prop('files')){
+    					}
+					});
+					$('#profilePicture').on('mouseover', function() {
 
+					});
+					// Check if user changed something.
+					function submitIfFormComplete() {
+						if ($('#id_account_image').prop('files')){
+							$('#pictureForm').submit();
+						}
+					}
+				</script>
 				{% elif user.account_image_url %}
-				<input type="image" class="img" src="{{ user.account_image_url }}" class="form-control" />
+				<img class="img" src="{{ user.account_image_url }}" id="profilePicture" style="cursor: pointer;"/>
 				<input type="file" name="account_image_url" id="id_account_image_url" class="d-none">
 				<script type="text/javascript">
-					$("input[type='image']").click(function() {
-						alert('1');
-    					$("input[id='id_account_image_url']").click();
+					// Click on image
+					$("#profilePicture").click(function() {
+    					$("#id_account_image").click();
+    					if ($('#id_account_image').prop('files')){
+    					}
 					});
+					$('#profilePicture').on('mouseover', function() {
+
+					});
+					// Check if user changed something.
+					function submitIfFormComplete() {
+						if ($('#id_account_image').prop('files')){
+							$('#pictureForm').submit();
+						}
+					}
 				</script>
 				{% else %}
 				<input type="image" class="img" src="http://upload.wikimedia.org/wikipedia/commons/c/ca/Button-Lightblue.svg" />
@@ -39,18 +67,10 @@
 				</script>
 				{% endif %}
 			</form>
+			<!-- <button class="nav-link btn btn-sm btn-primary"></button> -->
+			<button class="nav-link btn btn-sm btn-primary" id="slider" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Изменить</button>
 		</div>
-<!-- 		<ul class="navbar-nav" style="position: relative; top: 0em; left: 1.5em; z-index: 10000">
-            <li class="nav-item dropdown">
-                <button class="nav-link btn btn-sm btn-primary" id="slider" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                	Изменить
-                </button>
-                <div class="dropdown-menu dropdown-menu-left" aria-labelledby="slider" style="max-width: 10px;">
-                    <a class="dropdown-item" href="javascript:void(0)">Photo</a>
-                	<a class="dropdown-item" href="javascript:void(0)">Link</a>
-                </div>
-            </li>
-        </ul> -->
+
 		<div class="card-body">
 			<h6 class="card-category">{{ user.activity }}</h6>
 			<h4 class="card-title">{{ user.first_name }} {{ user.last_name }}</h4>

@@ -69,7 +69,7 @@ class ChangeUserInfoForm(forms.ModelForm):
         )
 
 
-class ChangeUserProfilePictureForm(forms.ModelForm):
+class ChangeUserAdditionalInfoForm(forms.ModelForm):
     
     class Meta:
         model = AdvUser

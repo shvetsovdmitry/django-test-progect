@@ -11,7 +11,7 @@
 {% block content %}
 <div class="col-md-4">
 	<div class="card card-profile">
-		<div class="card-avatar">
+		<div class="card-avatar" style="max-width: 200px; max-height: 250px">
 			<a href="#pablo">
 				{% if user.account_image %}
 				<img class="img" src="{{ user.account_image.url }}" />
@@ -48,7 +48,7 @@
 </div>
 <div class="col-md-8">
 	<div class="card">
-		<div class="card-header card-header-primary">
+		<div class="card-header card-header-success">
 			<h4 class="card-title">Профиль</h4>
 
 			<p class="card-category">Информация</p>

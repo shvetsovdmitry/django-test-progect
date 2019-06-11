@@ -26,7 +26,7 @@ from tagging_autocomplete_new.models import TagAutocomplete
 
 from .models import AdvUser, Category, Article
 from .forms import ARegisterUserForm, ChangeUserInfoForm, ArticleForm, ArticleFormSet
-from .forms import DeleteArticleForm, EditArticleForm, ChangeUserProfilePictureForm
+from .forms import DeleteArticleForm, EditArticleForm, ChangeUserAdditionalInfoForm
 from .utilities import signer
 
 
@@ -344,7 +344,7 @@ class ChangeUserInfoView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     
     model = AdvUser
     template_name = 'articles/user_actions/change_user_info.html'
-    form_class = ChangeUserInfoForm
+    # form_class = ChangeUserInfoForm
     
     def dispatch(self, request, username, *args, **kwargs):
         self.user = get_object_or_404(AdvUser, username=username)
@@ -359,49 +359,53 @@ class ChangeUserInfoView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     
     def get(self, request):
         form = ChangeUserInfoForm(instance=self.user)
-        picture_form = ChangeUserProfilePictureForm(instance=self.user)
+        picture_form = ChangeUserAdditionalInfoForm(instance=self.user)
         context = {'form': form, 'picture_form': picture_form}
         return render(request, self.template_name, context)
     
     def post(self, request):
         form = ChangeUserInfoForm(request.POST, request.FILES, instance=self.user)
+        picture_form = ChangeUserAdditionalInfoForm(request.POST, request.FILES, instance=self.user)
         if form.is_valid():
             form.save()
             messages.add_message(request, messages.SUCCESS, 'Профиль успешно отредактирован.')
+        elif picture_form.is_valid():
+            picture_form.save()
+            messages.add_message(request, messages.SUCCESS, 'Информация успешно изменена.')
         else:
             messages.add_message(request, messages.WARNING, 'Произошла ошибка при изменении данных профиля.')
         return redirect('articles:profile', username=self.user.username)
 
 
-class ChangeUserProfilePictureView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
+# class ChangeUserProfilePictureView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     
-    model = AdvUser
-    template_name = 'articles/user_actions/change_user_info.html'
-    form_class = ChangeUserProfilePictureForm
+#     model = AdvUser
+#     template_name = 'articles/user_actions/change_user_info.html'
+#     form_class = ChangeUserProfilePictureForm
     
-    def dispatch(self, request, username, *args, **kwargs):
-        self.user = get_object_or_404(AdvUser, username=username)
-        self.success_url = reverse_lazy('articles:profile', kwargs={'username': self.user.username})
-        return super().dispatch(request, *args, **kwargs)
+#     def dispatch(self, request, username, *args, **kwargs):
+#         self.user = get_object_or_404(AdvUser, username=username)
+#         self.success_url = reverse_lazy('articles:profile', kwargs={'username': self.user.username})
+#         return super().dispatch(request, *args, **kwargs)
     
-    def get_object(self, queryset=None):
-        if not queryset:
-            queryset = self.get_queryset()
-        return get_object_or_404(queryset, username=self.user.username)
+#     def get_object(self, queryset=None):
+#         if not queryset:
+#             queryset = self.get_queryset()
+#         return get_object_or_404(queryset, username=self.user.username)
     
-    def get(self, request):
-        form = ChangeUserProfilePictureForm(instance=self.user)
-        context = {'picture_form': form}
-        return render(request, self.template_name, context)
+#     def get(self, request):
+#         form = ChangeUserProfilePictureForm(instance=self.user)
+#         context = {'picture_form': form}
+#         return render(request, self.template_name, context)
     
-    def post(self, request):
-        form = ChangeUserProfilePictureForm(request.POST, request.FILES, instance=self.user)
-        if form.is_valid():
-            form.save()
-            messages.add_message(request, messages.SUCCESS, 'Изображение успешно изменено')
-        else:
-            messages.add_message(request, messages.WARNING, 'Произошла ошибка при загрузке изображения')
-        return redirect('articles:profile', username=self.user.username)
+#     def post(self, request):
+#         form = ChangeUserProfilePictureForm(request.POST, request.FILES, instance=self.user)
+#         if form.is_valid():
+#             form.save()
+#             messages.add_message(request, messages.SUCCESS, 'Изображение успешно изменено')
+#         else:
+#             messages.add_message(request, messages.WARNING, 'Произошла ошибка при загрузке изображения')
+#         return redirect('articles:profile', username=self.user.username)
 
 
 # Change password.
