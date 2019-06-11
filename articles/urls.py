@@ -8,7 +8,7 @@ from .views import ArticleEditView, APasswordChangeView, APasswordResetView
 from .views import APasswordResetDoneView, APasswordResetConfirmView
 from .views import APasswordResetCompleteView, subscribe_user, unsubscribe_user
 from .views import search_by_tag, subscribe_tag, unsubscribe_tag, search_by_category
-from .views import subscribe_category, unsubscribe_category
+from .views import subscribe_category, unsubscribe_category, update_user_status
 
 app_name = 'articles'
 urlpatterns = [
@@ -26,6 +26,7 @@ urlpatterns = [
     path('accounts/register/activate/<str:sign>/', user_activate, name='register_activate'),
     path('accounts/register/done/', ARegisterDoneView.as_view(), name='register_done'),
     path('accounts/register/', ARegisterUserView.as_view(), name='register'),
+    path('accounts/profile/updatestatus/', update_user_status, name='update_status'),
     path('accounts/profile/change/<str:username>', ChangeUserInfoView.as_view(), name='profile_change'),
     path('accounts/profile/<str:username>/', profile, name='profile'),
     path('accounts/profile/', profile, name='profile'),

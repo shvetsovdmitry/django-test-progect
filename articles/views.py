@@ -198,6 +198,16 @@ def search_by_category(request, category_name):
     return render(request, 'articles/search.html', context)
 
 
+@login_required
+def update_user_status(request):
+    user = get_object_or_404(AdvUser, pk=request.user.pk)
+    if request.method == 'POST':
+        status = request.POST['status']
+        user.status = status
+        user.save()
+    return HttpResponseRedirect(reverse_lazy(request.META.get('HTTP_REFERER')))
+
+
 # Add article page view.
 class ArticleAddView(TemplateView, LoginRequiredMixin):
 
