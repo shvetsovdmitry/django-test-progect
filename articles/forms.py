@@ -59,6 +59,7 @@ class ChangeUserInfoForm(forms.ModelForm):
                   'company',
                   'bio',
                   'status',
+                  'activity',
                 #   'gender',
                 #   'account_image', 'account_image_url',
                   'country', 'city',
