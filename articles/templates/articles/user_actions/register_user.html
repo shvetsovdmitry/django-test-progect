@@ -6,85 +6,172 @@
 
 {% block title %}Регистрация{% endblock %}
 
+{% block page_title %}Регистрация{% endblock %}
+
 {% block content %}
-<h3 class="text-white py-3 shadow text-center text-header-hl text-shadow-md">Вход</h3>
-<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 mx-auto">
-	{% bootstrap_messages %}
-	<form class="form-signin mb-2" method="post">
+{% bootstrap_messages %}
+<div class="col-md-2 col-lg-3">
+</div>
+<div class="card col">
+	<div class="card-header card-header-primary">
+		<h4 class="card-title">Регистрация</h4>
+		Введите данные учетной записи
+	</div>
+	<div class="mt-4">
+		{% if form.non_field_errors %}
+			<div class="card-header card-header-danger list-unstyled">{{ form.non_field_errors }}</div>
+		{% endif %}
+		{% if form.username.errors %}
+			<div class="card-header card-header-danger list-unstyled">{{ form.username.errors }}</div>
+		{% endif %}
+		{% if form.email.errors %}
+			<div class="card-header card-header-danger list-unstyled">{{ form.email.errors }}</div>
+		{% endif %}
+		{% if form.password1.errors %}
+			<div class="card-header card-header-danger list-unstyled">{{ form.password1.errors }}</div>
+		{% endif %}
+		{% if form.password2.errors %}
+			<div class="card-header card-header-danger list-unstyled">{{ form.password2.errors }}</div>
+		{% endif %}
+	</div>
+	<form method="post" id="registerForm">
 		{% csrf_token %}
-		<h5 class="mb-3 font-weight-normal text-white">Введите данные учетной записи</h5>
-
-		<!-- Username -->
-		<div class="row container">
-			<div class="col-2">
-				<label for="id_username">
-					<img src="https://img.icons8.com/dusk/48/000000/name.png">
-				</label>
-			</div>
-			<div class="col">
-				<input type="text" id="id_username" name="username" placeholder="Имя пользователя" class="form-control mt-2" required autofocus>
-			</div>
+		<div class="table-responsive">
+			<table class="table table-hover">
+				<tbody>
+					<tr>
+						<td>
+							<span class="bmd-form-group">
+								<input type="text" id="id_username" name="username" placeholder="Имя пользователя" class="form-control mt-2" required autofocus>
+							</span>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<span class="btd-form-group">
+								<input type="email" id="id_email" name="email" placeholder="Email" class="form-control mt-2" required>
+							</span>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<span class="bmd-form-group">
+								<input type="password" id="id_password1" name="password1" placeholder="Пароль" class="form-control mt-2" required>
+							</span>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<span class="bmd-form-group">
+								<input type="password" id="id_password2" name="password2" placeholder="Повторите пароль" class="form-control mt-2" required>
+							</span>
+							<span class="text-success d-none h6" id="passwordSuccessful"><!-- <i class="material-icons">done_outline</i> -->Пароли совпадают</span>
+							<span class="text-warning d-none h6" id="passwordWarning"><!-- <i class="material-icons">warning</i> -->Пароли не совпадают</span>
+						</td>
+					</tr>
+					<tr id="sendMessagesRow">
+						<td>
+							<input type="checkbox" name="send_messages" id="id_send_messages"> Получать уведомления по почте?
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<button class="btn btn-success" type="submit" id="submitBtn" style="cursor: not-allowed;" disabled>Зарегистрироваться</button>
+							или войти с помощью
+							<ul class="list-inline" style="display: inline-block">
+								<li class="list-inline-item">
+									<a href="#" title="Sign up with Google Plus."><img src="https://img.icons8.com/color/48/000000/google-plus.png"></a>
+								</li>
+								<li class="list-inline-item">
+									<a href="#" title="Sign up with Facebook."><img src="https://img.icons8.com/color/48/000000/facebook.png"></a>
+								</li>
+								<li class="list-inline-item">
+									<a href="#" title="Sign up with VKontakte."><img src="https://img.icons8.com/color/48/000000/vk-com.png"></a>
+								</li>
+								<li class="list-inline-item">
+									<a href="#" title="Sign up with Github."><img src="https://img.icons8.com/color/48/000000/github.png"></a>
+								</li>
+							</ul>
+						</td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
-
-		<!-- Email -->
-		<div class="row container">
-			<div class="col-2">
-				<label for="id_email">
-					<img src="https://img.icons8.com/dusk/48/000000/email.png">
-				</label>
-			</div>
-			<div class="col">
-				<input type="email" id="id_email" name="email" placeholder="Email" class="form-control mt-2" required>
-			</div>
-		</div>
-
-		<!-- Password -->
-		<div class="row container mt-1">
-			<div class="col-2">
-				<label for="id_password">
-					<img src="https://img.icons8.com/dusk/48/000000/password1.png">
-				</label>
-			</div>
-			<div class="col">
-				<input type="password" id="id_password1" name="password1" placeholder="Пароль" class="form-control mt-2" required>
-			</div>
-		</div>
-
-		<!-- Repeat password -->
-		<div class="row container">
-			<div class="col-2">
-				<label for="id_password2">
-					<img src="https://img.icons8.com/dusk/48/000000/password.png">
-				</label>
-			</div>
-			<div class="col">
-				<input type="password" id="id_password2" name="password2" placeholder="Повторите пароль" class="form-control mt-2" required>
-			</div>
-		</div>
-
-		<!-- Notifications -->
-		<div class="row container">
-			<div class="col-2">
-				<label for="id_password2">
-					<img src="https://img.icons8.com/dusk/48/000000/password.png">
-				</label>
-			</div>
-			<div class="col">
-				<div class="d-flex justify-content-around">
-					<div class="col-1 mt-1">
-						<input type="checkbox" name="send_messages" id="id_send_messages" class="form-control" value="Присылать уведомления по почте?">
-					</div>
-					<div class="col text-white mt-2">
-						Присылать уведомления по почте?
-					</div>
-				</div>
-			</div>
-		</div>
-
-
-		<button class="btn btn-lg btn-primary btn-block mt-2" type="submit">Регистрация 
-			<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="32" height="32" viewBox="0 0 192 192" style=" fill:#000000;"><g fill="тone" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,192v-192h192v192z" fill="none" stroke="none"></path><g stroke="none"><g id="surface1"><path d="M177,21v150c0,3.31641 -2.68359,6 -6,6h-102c-0.94922,0 -1.88672,-0.22266 -2.73047,-0.65625c-2.00391,-1.03125 -3.26953,-3.09375 -3.26953,-5.34375v-150c0,-3.31641 2.68359,-6 6,-6h102c0.57422,0 1.13672,0.08203 1.67578,0.23438c2.56641,0.75 4.32422,3.09375 4.32422,5.76563z" fill="#c2cde7"></path><path d="M178.67578,70.32422l-100.01953,100.01953h-12.38672c-2.00391,-1.03125 -3.26953,-3.09375 -3.26953,-5.34375v-21l114,-114z" fill="#ced9ed"></path><path d="M175.13672,18.57422l-112.13672,112.10156v-19.67578l96,-96h13.5l0.17578,0.23438z" fill="#ced9ed"></path><path d="M144,15l-81,81v-12l69,-69z" fill="#ced9ed"></path><path d="M177,175.67578c0,1.66406 -1.34766,3 -3,3h-108c-1.65234,0 -3,-1.33594 -3,-3c0,-6.62109 5.36719,-12 12,-12h90c6.63281,0 12,5.37891 12,12z" fill="#acb7d0"></path><path d="M91.5,36l3.71484,6.78516l6.78516,3.71484l-6.78516,3.71484l-3.71484,6.78516l-3.71484,-6.78516l-6.78516,-3.71484l6.78516,-3.71484z" fill="#edf0f4"></path><path d="M150,120.48047l2.55469,4.71094l4.71094,2.54297l-4.71094,2.58984l-2.55469,4.67578l-2.55469,-4.67578l-4.71094,-2.58984l4.71094,-2.54297z" fill="#edf0f4"></path><path d="M91.94531,135l1.74609,3.17578l3.21094,1.76953l-3.21094,1.74609l-1.74609,3.21094l-1.73437,-3.21094l-3.21094,-1.74609l3.21094,-1.76953z" fill="#edf0f4"></path><path d="M75,156c-1.65234,0 -3,1.34766 -3,3v6c0,1.65234 1.34766,3 3,3c1.65234,0 3,-1.34766 3,-3v-6c0,-1.65234 -1.34766,-3 -3,-3z" fill="#8d6c9f"></path><path d="M90,156c-1.65234,0 -3,1.34766 -3,3v6c0,1.65234 1.34766,3 3,3c1.65234,0 3,-1.34766 3,-3v-6c0,-1.65234 -1.34766,-3 -3,-3z" fill="#8d6c9f"></path><path d="M102,159v6c0,1.65234 1.34766,3 3,3c1.65234,0 3,-1.34766 3,-3v-6c0,-1.65234 -1.34766,-3 -3,-3c-1.65234,0 -3,1.34766 -3,3z" fill="#8d6c9f"></path><path d="M120,168c1.65234,0 3,-1.34766 3,-3v-6c0,-1.65234 -1.34766,-3 -3,-3c-1.65234,0 -3,1.34766 -3,3v6c0,1.65234 1.34766,3 3,3z" fill="#8d6c9f"></path><path d="M135,168c1.65234,0 3,-1.34766 3,-3v-6c0,-1.65234 -1.34766,-3 -3,-3c-1.65234,0 -3,1.34766 -3,3v6c0,1.65234 1.34766,3 3,3z" fill="#8d6c9f"></path><path d="M150,168c1.65234,0 3,-1.34766 3,-3v-6c0,-1.65234 -1.34766,-3 -3,-3c-1.65234,0 -3,1.34766 -3,3v6c0,1.65234 1.34766,3 3,3z" fill="#8d6c9f"></path><path d="M165,168c1.65234,0 3,-1.34766 3,-3v-6c0,-1.65234 -1.34766,-3 -3,-3c-1.65234,0 -3,1.34766 -3,3v6c0,1.65234 1.34766,3 3,3z" fill="#8d6c9f"></path><path d="M180,21c0,-4.96875 -4.03125,-9 -9,-9h-102c-4.96875,0 -9,4.03125 -9,9v150c0,4.96875 4.03125,9 9,9h102c4.96875,0 9,-4.03125 9,-9zM174,171c0,1.65234 -1.34766,3 -3,3h-102c-1.65234,0 -3,-1.34766 -3,-3v-150c0,-1.65234 1.34766,-3 3,-3h102c1.65234,0 3,1.34766 3,3z" fill="#8d6c9f"></path><path d="M21,87h93l-12,-12l12,-12l33,33l-33,33l-12,-12l12,-12h-93z" fill="#faefde"></path><path d="M149.13281,93.86719l-33,-33c-1.17187,-1.16016 -3.0586,-1.16016 -4.23047,0l-12,12c-1.16015,1.17188 -1.16015,3.05859 0,4.23047l6.86719,6.90234h-85.76953c-1.65234,0 -3,1.34766 -3,3v18c0,1.65234 1.34766,3 3,3h85.76953l-6.86719,6.86719c-1.16015,1.17188 -1.16015,3.05859 0,4.23047l12,12c1.17188,1.16016 3.0586,1.16016 4.23047,0l33,-33c1.16015,-1.17187 1.16015,-3.05859 0,-4.23047zM114,124.76953l-7.76953,-7.76953l9.86719,-9.86719c0.86719,-0.85547 1.125,-2.14453 0.66797,-3.26953c-0.45703,-1.125 -1.54687,-1.86328 -2.76562,-1.86328h-90v-12h90c1.21875,0.01172 2.32031,-0.72656 2.78906,-1.85156c0.46875,-1.125 0.21094,-2.42578 -0.65625,-3.28125l-9.90235,-9.86719l7.76953,-7.76953l28.76953,28.76953z" fill="#8d6c9f"></path></g></g><g stroke="none"><g id="Layer_1"><circle cx="51" cy="51" transform="scale(3,3)" r="12" fill="#72caaf"></circle><path d="M171,150h-15v-15c0,-1.656 -1.344,-3 -3,-3c-1.656,0 -3,1.344 -3,3v15h-15c-1.656,0 -3,1.344 -3,3c0,1.656 1.344,3 3,3h15v15c0,1.656 1.344,3 3,3c1.656,0 3,-1.344 3,-3v-15h15c1.656,0 3,-1.344 3,-3c0,-1.656 -1.344,-3 -3,-3z" fill="#f9efde"></path><path d="M153,192c-21.504,0 -39,-17.496 -39,-39c0,-21.504 17.496,-39 39,-39c21.504,0 39,17.496 39,39c0,21.504 -17.496,39 -39,39zM153,120c-18.195,0 -33,14.805 -33,33c0,18.195 14.805,33 33,33c18.195,0 33,-14.805 33,-33c0,-18.195 -14.805,-33 -33,-33z" fill="#8d6c9f"></path></g></g><path d="M114,192v-78h78v78z" id="overlay-drag" fill="#ff0000" stroke="none" opacity="0"></path></g></svg></button>
-		<a class="btn btn-md btn-default btn-block mt-1" href="{% url 'articles:login' %}" style="background-color: purple; color: white">Войти <img src="https://img.icons8.com/dusk/32/000000/enter-2.png"></a>
 	</form>
 </div>
+<div class="col-md-2 col-lg-3">
+</div>
+<script type="text/javascript">
+	$('#id_username').on('blur', function() {
+		if ($(this).val().length > 3){
+			$(this).parent().addClass('form-control-success');
+			$(this).parent().removeClass('form-control-warning');
+		}
+		else {
+			$(this).parent().addClass('form-control-warning');
+			$(this).parent().removeClass('form-control-success');
+		}
+	});
+	function isEmail(email) {
+		var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+		return regex.test(email);
+	}
+	$('#id_email').on('input', function() {
+		if (isEmail($(this).val()) == true){
+			$(this).parent().removeClass('form-control-warning');
+			$(this).parent().addClass('form-control-success');
+		}
+		else {
+			$(this).parent().removeClass('form-control-success');
+			$(this).parent().addClass('form-control-warning');
+		}
+	});
+	$('#id_password1').on('input', function(){
+		if ($(this).val().length < 8){
+			$(this).parent().removeClass('form-control-success');
+			$(this).parent().addClass('form-control-warning');
+		}
+		else {
+			$(this).parent().addClass('form-control-success');
+			$(this).parent().removeClass('form-control-warning');
+		}
+	});
+	// Check if passwords equal.
+	$('#id_password2').on('input', function() {
+		if ($('#id_password1').val() == $('#id_password2').val()){
+			$('#passwordSuccessful').removeClass('d-none');
+			if (!$('#passwordWarning').hasClass('d-none')){
+				$('#passwordWarning').addClass('d-none');
+			}
+			$('#id_password2').parent().addClass('form-control-success');
+			$('#id_password2').parent().removeClass('form-control-warning');
+			$('#id_password1').parent().addClass('form-control-success');
+			$('#id_password1').parent().removeClass('form-control-warning');
+			if ($('#id_username').val().length > 3){
+				if (isEmail($('#id_email').val())){
+					$('#submitBtn').attr('disabled', false);
+					$('#submitBtn').attr('style', 'cursor: pointer');
+				}
+			}
+		}
+		else {
+			$('#passwordWarning').removeClass('d-none');
+			if (!$('#passwordSuccessful').hasClass('d-none')){
+				$('#passwordSuccessful').addClass('d-none');
+			}
+			$('#id_password2').parent().removeClass('form-control-success');
+			$('#id_password2').parent().addClass('form-control-warning');
+			$('#id_password1').parent().removeClass('form-control-success');
+			$('#id_password1').parent().addClass('form-control-warning');
+			if ($('#id_username').val().length > 3 || !isEmail($('#id_email').val())){
+				$('#submitBtn').attr('disabled', true);
+				$('#submitBtn').attr('style', 'cursor: not-allowed');
+			}
+		}
+	});
+	// When click on the row - it clicks itself.
+	// $('#sendMessagesRow').on('click', function() {
+	// 	$('#id_send_messages').click();
+	// });
+</script>
 {% endblock %}

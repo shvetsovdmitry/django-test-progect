@@ -223,12 +223,12 @@
                 </li>
                 <!-- your sidebar here -->
                 {% if request.user.is_authenticated %}
-        <!--         <li class="nav-item {% if 'profile' in request.path %}active{% endif %}" id="profileNavItem">
+                <li class="nav-item {% if 'profile' in request.path %}active{% endif %}" id="profileNavItem">
                     <a class="nav-link" href="{% url 'articles:profile' %}">
                         <i class="material-icons mr-1">person</i>
                         <p>Профиль</p>
                     </a>
-                </li> -->
+                </li>
                 <li class="nav-item {% if 'articles/add' in request.path %} active{% endif %}">
                     <a class="nav-link" href="{% url 'articles:add_article' %}">
                         <i class="material-icons mr-1">add_circle</i>
@@ -239,7 +239,13 @@
                 <li class="nav-item d-none d-lg-block {% if 'login' in request.path %}active{% endif %}" id="loginNavItem">
                     <a class="nav-link" href="{% url 'articles:login' %}">
                         <i class="material-icons mr-1">person</i>
-                        <p>Войти/Зарегистрироваться</p>
+                        <p>Войти</p>
+                    </a>
+                </li>
+                <li class="nav-item d-none d-lg-block {% if 'register' in request.path %}active{% endif %}" id="registerNavItem">
+                    <a class="nav-link" href="{% url 'articles:register' %}">
+                        <i class="material-icons mr-1">person</i>
+                        <p>Зарегистрироваться</p>
                     </a>
                 </li>
                 {% endif %}
@@ -339,14 +345,25 @@
                                 Creative Tim
                             </a>
                         </li>
+                        <li>
+                            <a href="https://github.com/GrobIvanovich/">GrobIvanovich</a>
+                        </li>
                     </ul>
                 </nav>
                 <div class="copyright float-right">
-                    &copy;
-                    <script>
-                        document.write(new Date().getFullYear())
-                    </script>, made with <i class="material-icons">favorite</i> by
-                    <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> for a better web.
+<!--                     <div class="row d-flex w-50 justify-content-between">
+                        &copy;
+                        <script type="text/javascript">
+                            document.write(new Date().getFullYear())
+                        </script>, made by <a href="https://github.com/GrobIvanovich/">GrobIvanovich</a>.
+                    </div>
+                    <div class="row d-flex w-50 justify-content-between"> -->
+                        &copy;
+                        <script>
+                            document.write(new Date().getFullYear())
+                        </script>, design made with <i class="material-icons">favorite</i> by
+                        <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> for a better web.
+                    <!-- </div> -->
                 </div>
             <!-- your footer here -->
             </div>
