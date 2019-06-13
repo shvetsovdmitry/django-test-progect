@@ -147,12 +147,12 @@
 			$('#id_password2').parent().removeClass('form-control-warning');
 			$('#id_password1').parent().addClass('form-control-success');
 			$('#id_password1').parent().removeClass('form-control-warning');
-			if ($('#id_username').val().length > 3){
-				if (isEmail($('#id_email').val())){
-					$('#submitBtn').attr('disabled', false);
-					$('#submitBtn').attr('style', 'cursor: pointer');
-				}
-			}
+			// if ($('#id_username').val().length > 3){
+			// 	if (isEmail($('#id_email').val())){
+			// 		$('#submitBtn').attr('disabled', false);
+			// 		$('#submitBtn').attr('style', 'cursor: pointer');
+			// 	}
+			// }
 		}
 		else {
 			$('#passwordWarning').removeClass('d-none');
@@ -162,16 +162,18 @@
 			$('#id_password2').parent().removeClass('form-control-success');
 			$('#id_password2').parent().addClass('form-control-warning');
 			$('#id_password1').parent().removeClass('form-control-success');
-			$('#id_password1').parent().addClass('form-control-warning');
-			if ($('#id_username').val().length > 3 || !isEmail($('#id_email').val())){
-				$('#submitBtn').attr('disabled', true);
-				$('#submitBtn').attr('style', 'cursor: not-allowed');
-			}
+			$('#id_password1').parent().addClass('form-control-warning');	
 		}
 	});
-	// When click on the row - it clicks itself.
-	// $('#sendMessagesRow').on('click', function() {
-	// 	$('#id_send_messages').click();
-	// });
+	$(document).on('input', function() {
+		if ($('#id_username').val().length > 3 && isEmail($('#id_email').val()) && $('#id_password1').val().length >= 8 && $('#id_password1').val() == $('#id_password2').val()){
+			$('#submitBtn').attr('disabled', false);
+			$('#submitBtn').attr('style', 'cursor: pointer');
+		}
+		else {
+			$('#submitBtn').attr('disabled', true);
+			$('#submitBtn').attr('style', 'cursor: not-allowed');
+		}
+	});
 </script>
 {% endblock %}
