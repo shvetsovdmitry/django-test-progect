@@ -130,3 +130,8 @@ SITE_NAME = 'ArticlesSite'
 TAGGING_AUTOCOMPLETE_SEARCH_CONTAINS = True
 
 TAGGING_AUTOCOMPLETE_MIN_LENGTH = 1
+
+# Test this!
+# PASSWORD_HASHERS = [
+#     'django.contrib.auth.hashers.MD5PasswordHasher',
+# ]

@@ -46,44 +46,6 @@
 			{% endif %}
 		</div>
 	</div>
-
-
-		<script type="text/javascript">
-			// Show and hide submitStatus button.
-			$(document).ready(function() {
-				$('#id_status').on('focus', function() {
-					$('#submitStatus').slideDown('fast');
-				});
-				var status = '';
-				$('#submitStatus').on('click', function() {
-					$('#submitStatus').slideUp('fast');
-					status = $('#id_status').val();
-					alert(status);
-					$.post('{{ request.META.HTTP_HOST }}{% url "articles:update_status" %}', status).done(function(data) {
-						$('.content div.text-center').append('<div class="alert alert-success alert-dismissable fade show" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="close">×</button>Вы успешно вышли с сайта!</div>')
-					});
-				});
-				$("#id_status").on('blur', function() {
-					$('#submitStatus').slideUp('fast');
-				});
-			});
-
-			// Click on image
-			$("#profilePicture").click(function() {
-				$("#id_account_image").click();
-			});
-			$('#uploadLink').click(function() {
-				$('#id_account_image').click();
-			});
-			// Check if user changed something.
-			function submitIfFormComplete() {
-				if ($('#id_account_image').prop('files')){
-					$('#pictureForm').submit();
-				}
-			}
-		</script>
-
-
 	<div class="card">
 		<div class="card-header card-header-info">
 			<h4 class="card-title">Подписки <!-- <i class="material-icons">grade</i> --></h4>
@@ -276,4 +238,39 @@
 		</div>
 	</div>
 </div>
+
+<script type="text/javascript">
+	// Show and hide submitStatus button.
+	$(document).ready(function() {
+		$('#id_status').on('focus', function() {
+			$('#submitStatus').slideDown('fast');
+		});
+		var status = '';
+		$('#submitStatus').on('click', function() {
+			$('#submitStatus').slideUp('fast');
+			status = $('#id_status').val();
+			alert(status);
+			$.post('{{ request.META.HTTP_HOST }}{% url "articles:update_status" %}', status).done(function(data) {
+				$('.content div.text-center').append('<div class="alert alert-success alert-dismissable fade show" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="close">×</button>Вы успешно вышли с сайта!</div>')
+			});
+		});
+		$("#id_status").on('blur', function() {
+			$('#submitStatus').slideUp('fast');
+		});
+	});
+
+	// Click on image
+	$("#profilePicture").click(function() {
+		$("#id_account_image").click();
+	});
+	$('#uploadLink').click(function() {
+		$('#id_account_image').click();
+	});
+	// Check if user changed something.
+	function submitIfFormComplete() {
+		if ($('#id_account_image').prop('files')){
+			$('#pictureForm').submit();
+		}
+	}
+</script>
 {% endblock %}
