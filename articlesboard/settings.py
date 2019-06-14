@@ -1,4 +1,7 @@
 import os
+import django_heroku
+import dj_database_url
+# import psycopg2.extensions
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -12,17 +15,58 @@ SECRET_KEY = 'i+j!kxzy0=v1k@8g)8hl(%w=f&7d!glt_5t_e4w6z@&sbo4^6w'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
-ALLOWED_HOSTS = []
+DEBUG_PROPAGATE_EXCEPTIONS = True
+ALLOWED_HOSTS = ['articlesboard.herokuapp.com', '127.0.0.1',]
 
 # Email settings
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 25
+EMAIL_HOST_USER = 'grobivanovich@yandex.ru'
+EMAIL_HOST_PASSWORD = '22MeHaRa00431@'
+DEFAULT_FROM_EMAIL = 'grobivanovich@yandex.ru'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Application definition
 
+# settings.py
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format' : "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
+            'datefmt' : "%d/%b/%Y %H:%M:%S"
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
+    },
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'mysite.log',
+            'formatter': 'verbose'
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers':['file'],
+            'propagate': True,
+            'level':'DEBUG',
+        },
+        'articles': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+        },
+    }
+}
+
 INSTALLED_APPS = [
-    'dal',
-    'dal_select2',
     'tagging',
     'tagging_autocomplete_new',
     'django_countries',
@@ -73,13 +117,14 @@ TEMPLATES = [
 WSGI_APPLICATION = 'articlesboard.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'default',                      
+        'USER': 'django',
+        'PASSWORD': 'q1w2e3R$',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
     }
 }
 
@@ -116,11 +161,13 @@ USE_L10N = True
 
 USE_TZ = True
 
+# SITE_ID = 1
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
@@ -131,7 +178,4 @@ TAGGING_AUTOCOMPLETE_SEARCH_CONTAINS = True
 
 TAGGING_AUTOCOMPLETE_MIN_LENGTH = 1
 
-# Test this!
-# PASSWORD_HASHERS = [
-#     'django.contrib.auth.hashers.MD5PasswordHasher',
-# ]
+django_heroku.settings(locals())
