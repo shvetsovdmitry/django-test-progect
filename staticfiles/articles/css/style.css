@@ -1,0 +1,150 @@
+body {
+	background-color: #100417;
+}
+.content {
+	/*position: relative;*/
+	margin-right: 0px;
+}
+.nav-bg {
+	/*background-color: #350057;*/
+	background-color: #212121;
+}
+.text-header-hl {
+	/*background-color: #27132b;*/
+	background-color: #4a5261;
+}
+.text-body-hl {
+	/*background-color: #000000;*/
+	background-color: #686d78;
+}
+.col-light {
+	background-color: #3a3b3e;
+	min-height: 100%;
+}
+.col-dark {
+	background-color: #2E2E2E;
+}
+.btn-success {
+	background-color: #187b57;
+	border-color: #0c563b;
+}
+.text-shadow-lg {
+	text-shadow: 5px 5px #292929;
+}
+.text-shadow-md {
+	text-shadow: 3px 3px #292929;
+}
+.text-shadow-sm {
+	text-shadow: 2px 2px #292929;
+}
+.border-right {
+	border-right: 1px dashed #333;
+}
+.footer-bg {
+	background-color: #373d48;
+}
+.img-thumbnail .profile-image {
+	max-height: 250px;
+	max-width: 250px;
+}
+.bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+@media (max-width: 768px) {
+	.auth-icon {
+		height: 2.5rem;
+	}
+	.card-image {
+		height: 375px;
+	}
+}
+@media (min-width: 768px) and (max-width: 992px) {
+	.bd-placeholder-img-lg {
+    	font-size: 3.5rem;
+	}
+	.auth-icon {
+		height: 2.5rem;
+	}
+	.auth-item {
+		/*margin-left: 0px;*/
+		margin: 5px 10px auto auto;
+	}
+	.dropdown-menu {
+		max-width: 400px;
+	}
+	.card-image {
+		height: 325px;
+	}
+}
+@media (min-width: 992px) {
+	.dropdown-menu {
+		min-width: 250px;
+	}
+	.card-image {
+		height: 325px;
+	}
+}
+.dropdown-item:active {
+	background-color: #fff;
+}
+.rating {
+	position: absolute;
+	left: 0%;
+	top: 0%;
+	background-color: #333;
+	border-radius: 4px;
+}
+.rating-text {
+	margin: 3px;
+}
+.author {
+	position: absolute;
+	left: 3%;
+	top: 3%;
+	background-color: #333;
+	border-radius: 4px;
+}
+.author-text {
+	margin: 3px;
+}
+.article-read {
+	border-color: #188c73;
+}
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.preview-container {
+	width: 100%;
+	padding: 0;
+}
+.preview-text {
+	background-color: rgba(255, 255, 255, 0.7);
+	border-radius: 10px;
+}
+.preview-article-info {
+	background-color: rgba(200, 200, 200, 0.7);
+}
+.profile-image {
+	max-height: 225px;
+	max-width: 225px;
+}
+/*.card {
+	height: 95%;
+}*/
+/*.gender-image {
+	position: absolute;
+	top: 4%;
+	right: 20%;
+}*/
+
+.custom-select option {
+	color: #000;
+}

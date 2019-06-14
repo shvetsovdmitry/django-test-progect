@@ -1,0 +1,24 @@
+.custom-select option {
+	color: #000;
+	width: 100%;
+}
+.list-inline li.list-inline-item a img {
+	display: inline-block;
+}
+.list-inline li.list-inline-item a img:hover {
+    opacity: .5;
+}
+.form-control-success{
+	background-size: 100% 100%, 100% 100%;
+  	transition-duration: 0.3s;
+  	box-shadow: none;
+ 	background-image: linear-gradient(to top, #4caf50 2px, rgba(76, 175, 80, 0) 2px), linear-gradient(to top, #d2d2d2 1px, rgba(210, 210, 210, 0) 1px);
+ 	display: block;
+}
+.form-control-warning{
+	background-size: 100% 100%, 100% 100%;
+  	transition-duration: 0.3s;
+  	box-shadow: none;
+ 	background-image: linear-gradient(to top, #f44336 2px, rgba(76, 175, 80, 0) 2px), linear-gradient(to top, #d2d2d2 1px, rgba(210, 210, 210, 0) 1px);
+ 	display: block;
+}
