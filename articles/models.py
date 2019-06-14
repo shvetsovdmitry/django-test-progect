@@ -55,6 +55,15 @@ class Category (models.Model):
         verbose_name_plural = 'Категории'
         
 
+class Notification(models.Model):
+    content = models.CharField(max_length=50, default='', verbose_name='Содержимое')
+    viewed = models.BooleanField(default=False, verbose_name='Просмотрено')
+    
+    class Meta:
+        verbose_name = 'Уведомление'
+        verbose_name_plural = 'Уведомления'
+    
+
 # User model.
 class AdvUser (AbstractUser):
     # Socials.
@@ -77,6 +86,7 @@ class AdvUser (AbstractUser):
     user_subscriptions = models.ManyToManyField('self', related_name='user_subscriptions', blank=True, verbose_name='Подписки на пользователей')
     tags_subscriptions = models.ManyToManyField(Tag, related_name='tags_subscriptions', blank=True, verbose_name='Подписки на теги')
     cat_subscriptions = models.ManyToManyField(Category, related_name='cat_subscriptions', blank=True, verbose_name='Подписки на категории')
+    notifications = models.ManyToManyField(Notification, related_name='notifications', blank=True, verbose_name='Уведомления')
     # User's rating.
     rating = models.IntegerField(default=0, verbose_name='Рейтинг')
     # System.

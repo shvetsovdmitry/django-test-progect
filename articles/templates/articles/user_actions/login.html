@@ -24,12 +24,16 @@
 					<tbody>
 						<tr>
 							<td>
-								<input type="text" id="id_username" name="username" placeholder="Имя пользователя" class="form-control mt-2" required autofocus>
+								<span class="bmd-form-group">
+									<input type="text" id="id_username" name="username" placeholder="Имя пользователя" class="form-control mt-2" required autofocus>
+								</span>
 							</td>
 						</tr>
 						<tr>
 							<td>
-								<input type="password" id="id_password" name="password" placeholder="Пароль" class="form-control mt-2" required>
+								<span class="bmd-form-group">
+									<input type="password" id="id_password" name="password" placeholder="Пароль" class="form-control mt-2" required>
+								</span>
 							</td>
 						</tr>
 						<tr>
@@ -55,9 +59,32 @@
 					</tbody>
 				</table>
 			</div>
+			Не можете войти в учетную запись? <a class="btn btn-sm btn-primary" href="{% url 'articles:reset_password' %}">Восстановить доступ</a>
 		</form>
 	</div>
 </div>
 <div class="col-md-2 col-lg-3">
 </div>
+<script type="text/javascript">
+	$('#id_username').on('input', function() {
+		if ($(this).val().length > 3){
+			$(this).parent().addClass('form-control-success');
+			$(this).parent().removeClass('form-control-warning');
+		}
+		else {
+			$(this).parent().addClass('form-control-warning');
+			$(this).parent().removeClass('form-control-success');
+		}
+	});
+	$('#id_password').on('input', function() {
+		if ($(this).val().length > 7){
+			$(this).parent().addClass('form-control-success');
+			$(this).parent().removeClass('form-control-warning');
+		}
+		else {
+			$(this).parent().addClass('form-control-warning');
+			$(this).parent().removeClass('form-control-success');
+		}
+	});
+</script>
 {% endblock %}

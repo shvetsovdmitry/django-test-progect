@@ -82,7 +82,13 @@
 			<h4 class="card-title">Подписки <!-- <i class="material-icons">grade</i> --></h4>
 		</div>
 		<div class="card-body">
-			<p>Здесь будут отображаться пользователи, теги и категории на которые вы подписаны</p>
+			{% for sub in subscribers %}
+			<p>
+				<a href="{% url 'articles:profile' username=sub %}">{{ sub }}</a>
+			</p>
+			{% endfor %}
+			<!-- <p>Здесь будут отображаться пользователи, теги и категории на которые вы подписаны</p> -->
+			
 		</div>
 	</div>
 </div>
