@@ -5,81 +5,34 @@
 {% block title %}{{ article.title }} - {{ article.category.name }}{% endblock %}
 
 {% block content%}
-<!-- Аннотация -->
-{% if article.image %}
-<div class="position-relative overflow-hidden p-md-1 m-2 text-center bg-light img-thumbnail shadow" style="background-image: url({{ article.image.url }}); background-size: cover; border-radius: 5px; background-repeat: no-repeat;">
-{% elif article.image_url %}
-<div class="position-relative overflow-hidden p-md-1 m-2 text-center bg-light img-thumbnail shadow" style="background-image: url({{ article.image_url }}); background-size: cover; border-radius: 5px; background-repeat: no-repeat;">
-{% else %}
-<div class="position-relative overflow-hidden p-md-1 m-2 text-center bg-light img-thumbnail shadow">
-{% endif %}
-	<div class="col-md-12 py-3 mx-auto my-5">
-		<h1 class="display-4 font-weight-normal preview-text">{{ article.title }}</h1>
-		<p class="lead font-weith-normal py-3 preview-text">
-			{{ article.card_text }}
-		</p>
+<div class="card text-center">
+	<div class="card-header">
+		<img src="https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fi.stack.imgur.com%2FdLtpP.png&f=1">
+	</div>
+	<div class="card-body pt-0">
+		<div>
+			<h4 class="card-category">Категория: <a class="btn btn-sm btn-info" href="{% url 'articles:search_by_category' category_name=article.category.name %}">{{ article.category }}</a></h4>
+		</div>
+		<div>
+			<h4 class="card-category">Теги: 
+				{% for tag in tags %}
+					<a class="btn btn-sm btn-default" href="{% url 'articles:search_by_tag' tag=tag.name %}">{{ tag.name }}</a>
+				{% endfor %}
+			</h4>
+		</div>
+		<h4 class="h2 card-category">{{ article.title }}</h4>
+		<div class="h4 text-center" style="text-align: justify">
+			{{ article.content }}
+		</div>
 		<div class="row">
 			<div class="col">
-				<div class="row d-flex justify-content-center">
-					<ul class="list-unstyled list-group list-group-horizontal  d-flex flex-wrap align-items-top justify-content-center">
-						{% for tag in tags %}
-						<li class="pr-2 pt-1">
-							<a class="btn btn-secondary" href="{% url 'articles:search_by_tag' tag=tag.name %}">{{ tag.name }}</a>
-						</li>
-						{% endfor %}
-					</ul>
-				</div> <!-- /row -->
-			</div> <!-- /col -->
-		</div> <!-- /row -->
-		<div class="row d-flex justify-content-center">
-			<a href="{% url 'articles:search_by_category' category_name=article.category.name %}" class="pt-3">{{ article.category.name }}</a>
+				Автор: <a class="btn btn-sm" href="{% url 'articles:profile' username=article.author %}">{{ article.author }}</a>
+			</div>
+			<div class="col">
+				Опубликовано: <a class="btn btn-sm" href="#">{{ article.created_at }}</a>
+			</div>
 		</div>
-	</div> <!-- /col -->
-</div> <!-- /position-relative -->
-
-<div class="row mx-0">
-	<div class="col pl-4 ml-2 col-light d-flex align-items-center">
-			<h6 class="text-white text-left">Рейтинг: {{ article.rating }}</h6>
-	</div>
-	<div class="col pr-4 mr-2 col-light text-right">
-		{% if user.is_authenticated %}
-			<div class="py-1">
-				<a class="btn btn-outline-info" href="{% url 'articles:change_rating' pk=article.pk rating=1 %}">1</a>
-				<a class="btn btn-outline-info" href="{% url 'articles:change_rating' pk=article.pk rating=2 %}">2</a>
-				<a class="btn btn-outline-info" href="{% url 'articles:change_rating' pk=article.pk rating=3 %}">3</a>
-				<a class="btn btn-outline-info" href="{% url 'articles:change_rating' pk=article.pk rating=4 %}">4</a>
-				<a class="btn btn-outline-info" href="{% url 'articles:change_rating' pk=article.pk rating=5 %}">5</a>
-			</div> <!-- /py-1 -->
-		{% endif %}
 	</div>
 </div>
-<div class="row mx-0 mt-1">
-	<div class="col pl-4 pr-0 ml-2 mr-0 col-light py-1">
-		<h6 class="text-white text-left">Просмотры: {{ article.views }}</h6>
-	</div>
-	<div class="col pr-4 mr-2 pl-0 ml-0 col-light py-1">
-		<h6 class="text-white text-right">{{ article.created_at }}</h6>
-	</div>
-</div> <!-- /row -->
 
-
-
-<!-- Статья -->
-<div class="col-dark mr-md-2 pt-3 px-3 pt-md-4 px-md-5 text-center text-white overflow-hidden">
-	<div class="my-3 py-1">
-		<h2 class="display-5">{{ article.title }}</h2>
-		<p class="lead pt-3">
-			{{ article.content|safe }}
-		</p>
-
-	</div>
-	<div class="row p-md-3">
-		<div class="col text-left">
-			<h6 class="btn btn-secondary">Автор: <a class="btn btn-secondary" href="{% url 'articles:profile' username=article.author %}">{{ article.author }}</a></h6>
-		</div>
-		<div class="col text-right">
-			<h6 class="btn btn-secondary">Рейтинг: <a class="btn btn-secondary">{{ article.rating }}</a></h6>
-		</div>
-	</div>
-</div> <!-- /col-dark -->
 {% endblock %}
