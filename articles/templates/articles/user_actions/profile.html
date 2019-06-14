@@ -12,16 +12,41 @@
 <div class="col-md-4">
 	<div class="card card-profile">
 		<div class="card-avatar" style="max-width: 200px; max-height: 250px">
-			<a href="#pablo">
+			<form method="post" enctype="multipart/form-data" id="pictureForm" onchange="submitIfFormComplete()">
+				<div id="id_csrf">
+					{% csrf_token %}
+				</div>
+
 				{% if user.account_image %}
-				<img class="img" src="{{ user.account_image.url }}" />
+				<!-- <img class="img" src="https://linkconnects.com/uploads/d3ab3e7df0d626f98bb84c9a97982d4d.jpg" id="profilePicture"> -->
+				<img class="img" src="{{ user.account_image.url }}" id="profilePicture" style="cursor: pointer;"/>
+				<input type="file" name="account_image" id="id_account_image" class="d-none">
+
 				{% elif user.account_image_url %}
-				<img class="img" src="{{ user.account_image_url }}" />
+				<img class="img" src="{{ user.account_image_url }}" id="profilePicture" style="cursor: pointer;"/>
+				<input type="file" name="account_image_url" id="id_account_image_url" class="d-none">
+
 				{% else %}
-				<img class="img" src="https://yt3.ggpht.com/WVRcZ5FLdU77PVwnKGRElsqYzsQQimvL8ChTiGkHYiiL3fjrezDtFCTEoHThK2M8GazV_ofA5DmBxTs3-g=s900-mo-c-c0xffffffff-rj-k-no" />
+				<img class="img" src="https://yt3.ggpht.com/WVRcZ5FLdU77PVwnKGRElsqYzsQQimvL8ChTiGkHYiiL3fjrezDtFCTEoHThK2M8GazV_ofA5DmBxTs3-g=s900-mo-c-c0xffffffff-rj-k-no" id="profilePicture" style="cursor: pointer" />
+				<input type="file" name="account_image" id="id_account_image" class="d-none">
 				{% endif %}
-			</a>
+			</form>
 		</div>
+		<ul class="navbar-nav" id="uploadImageNav">
+	        <li class="nav-item dropdown">
+	            <button class="nav-link btn btn-primary btn-block" id="slider" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 50%; left: 25%;">
+	            	Изображение
+	            </button>
+	            <div class="dropdown-menu dropdown-menu-left" aria-labelledby="slider">
+	                <a class="dropdown-item" href="javascript:void(0)" id="uploadPicture">Загрузить фото</a>
+	            	<a class="dropdown-item" href="javascript:void(0)" id="uploadLink">Прикрепить ссылку на фото</a>
+	            	<span class="bmd-form-group" style="background-image: linear-gradient(to top, #f44336 2px, rgba(76, 175, 80, 0) 2px), linear-gradient(to top, #d2d2d2 1px, rgba(210, 210, 210, 0) 1px); ">
+	            		<input class="form-control" id="id_account_image_url" name="account_image_url" type="text" style="display: none; color: #000" placeholder="Введите ссылку" value="{{ user.account_image_url }}" autofocus>
+	            		<button id="submitImageLink" type="button" class="btn btn-sm btn-block btn-info" style="display: none;">Отправить</button>
+	            	</span>
+	            </div>
+	        </li>
+	    </ul>
 		<div class="card-body">
 			<h6 class="card-category">{{ user.activity }}</h6>
 			<h4 class="card-title">{{ user.first_name }} {{ user.last_name }}</h4>
@@ -247,21 +272,71 @@
 
 <script type="text/javascript">
 	// Show and hide submitStatus button.
+	// $(document).ready(function() {
+	// 	$('#id_status').on('focus', function() {
+	// 		$('#submitStatus').slideDown('fast');
+	// 	});
+	// 	var status = '';
+	// 	$('#submitStatus').on('click', function() {
+	// 		$('#submitStatus').slideUp('fast');
+	// 		status = $('#id_status').val();
+	// 		alert(status);
+	// 		$.post('{{ request.META.HTTP_HOST }}{% url "articles:update_status" %}', status).done(function(data) {
+	// 			$('.content div.text-center').append('<div class="alert alert-success alert-dismissable fade show" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="close">×</button>Вы успешно вышли с сайта!</div>')
+	// 		});
+	// 	});
+	// 	$("#id_status").on('blur', function() {
+	// 		$('#submitStatus').slideUp('fast');
+	// 	});
+	// });
+
+	// // Click on image
+	// $("#profilePicture").click(function() {
+	// 	$("#id_account_image").click();
+	// });
+	// $('#uploadLink').click(function() {
+	// 	$('#id_account_image').click();
+	// });
+	// // Check if user changed something.
+	// function submitIfFormComplete() {
+	// 	if ($('#id_account_image').prop('files')){
+	// 		$('#pictureForm').submit();
+	// 	}
+	// }
+</script>
+<script type="text/javascript">
+	// Show and hide submitStatus button.
 	$(document).ready(function() {
 		$('#id_status').on('focus', function() {
 			$('#submitStatus').slideDown('fast');
 		});
 		var status = '';
+		var csrftoken = $('#id_csrf').children().val();
+		console.log(csrftoken);
 		$('#submitStatus').on('click', function() {
 			$('#submitStatus').slideUp('fast');
-			status = $('#id_status').val();
-			alert(status);
-			$.post('{{ request.META.HTTP_HOST }}{% url "articles:update_status" %}', status).done(function(data) {
-				$('.content div.text-center').append('<div class="alert alert-success alert-dismissable fade show" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="close">×</button>Вы успешно вышли с сайта!</div>')
+			data = {
+				status: $('#id_status').val(),
+				csrfmiddlewaretoken: csrftoken
+			}
+			// alert(status);
+			$.post('{% url "articles:update_status" %}', data, function(data, status) {
+				// $('.content div.text-center').append('<div class="alert alert-success alert-dismissable fade show" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="close">×</button>Вы успешно вышли с сайта!</div>')
+				console.log('Status sent: ' + status);
 			});
 		});
-		$("#id_status").on('blur', function() {
-			$('#submitStatus').slideUp('fast');
+		$('#submitImageLink').click(function() {
+			if ($('#id_account_image_url').val().length > 0) {
+				var image_url = $('#id_account_image_url').val();
+				var csrftoken = $('#id_csrf').children().val();
+				data = {
+					account_image_url: image_url,
+					csrfmiddlewaretoken: csrftoken
+				}
+				$.post('{% url "articles:update_image_url" %}', data, function(data, status) {
+					console.log('Image url sent status: ' + status);
+				});
+			}
 		});
 	});
 
@@ -269,8 +344,23 @@
 	$("#profilePicture").click(function() {
 		$("#id_account_image").click();
 	});
-	$('#uploadLink').click(function() {
+	$('#uploadPicture').click(function() {
 		$('#id_account_image').click();
+	});
+	$('#uploadLink').on('click', function() {
+		$('#uploadImageNav').dropdown();
+		$('.dropdown-toggle').dropdown();
+		$('.dropdown div').click(function(e){
+			e.stopPropagation();
+		});
+		$('#id_account_image_url').slideDown('fast');
+		$('#submitImageLink').slideDown('fast');
+	});
+	$(document).click(function() {
+		if ($('#id_account_image_url').val().length == 0){
+			$('#id_account_image_url').slideUp('fast');
+			$('#submitImageLink').slideUp('fast');
+		}
 	});
 	// Check if user changed something.
 	function submitIfFormComplete() {

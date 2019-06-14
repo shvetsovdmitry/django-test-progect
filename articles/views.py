@@ -201,10 +201,19 @@ def search_by_category(request, category_name):
 @login_required
 def update_user_status(request):
     user = get_object_or_404(AdvUser, pk=request.user.pk)
-    print(f'got message {request.POST["status"]}')
     if request.method == 'POST':
         status = request.POST['status']
         user.status = status
+        user.save()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+@login_required
+def update_account_image_url(request):
+    user = get_object_or_404(AdvUser, pk=request.user.pk)
+    if request.method == 'POST':
+        image_url = request.POST['account_image_url']
+        user.account_image_url = image_url
         user.save()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
