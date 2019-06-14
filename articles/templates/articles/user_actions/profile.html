@@ -30,18 +30,24 @@
 					<table class="table table-hover">
 						<tbody>
 							<tr>
+								{% if request.user.is_authenticated and request.user.username == user.username %}
 								<td><input type="text" name="status" id="id_status" value="{{ user.status }}" placeholder="Введите статус" class="form-control"></td>
 								<td><button id="submitStatus" type="button" class="btn btn-sm btn-primary" style="display: none">OK</button></td>
+								{% else %}
+								<td>{{ user.status }}</td>
+								{% endif %}
 							</tr>
 						</tbody>
 					</table>
 				</div>
 			</p>
-			{% if not user.username == request.user.username %}
-				{% if user not in request.user.user_subscriptions.all %}
-				<a href="{% url 'articles:subscribe_user' username=user.username %}" class="btn btn-primary btn-round">Follow</a>
-				{% else %}
-				<a href="{% url 'articles:unsubscribe_user' username=user.username %}" class="btn btn-primary btn-round">Unfollow</a>
+			{% if request.user.is_authenticated %}
+				{% if not user.username == request.user.username %}
+					{% if user not in request.user.user_subscriptions.all %}
+					<a href="{% url 'articles:subscribe_user' username=user.username %}" class="btn btn-primary btn-round">Follow</a>
+					{% else %}
+					<a href="{% url 'articles:unsubscribe_user' username=user.username %}" class="btn btn-primary btn-round">Unfollow</a>
+					{% endif %}
 				{% endif %}
 			{% endif %}
 		</div>
