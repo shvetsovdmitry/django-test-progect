@@ -16,47 +16,12 @@ SECRET_KEY = 'i+j!kxzy0=v1k@8g)8hl(%w=f&7d!glt_5t_e4w6z@&sbo4^6w'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 # DEBUG_PROPAGATE_EXCEPTIONS = True
-ALLOWED_HOSTS = ['articlesboard.herokuapp.com', '127.0.0.1',]
+ALLOWED_HOSTS = ['127.0.0.1']
 
 # Email settings
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Application definition
-
-# settings.py
-# LOGGING = {
-#     'version': 1,
-#     'disable_existing_loggers': False,
-#     'formatters': {
-#         'verbose': {
-#             'format' : "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
-#             'datefmt' : "%d/%b/%Y %H:%M:%S"
-#         },
-#         'simple': {
-#             'format': '%(levelname)s %(message)s'
-#         },
-#     },
-#     'handlers': {
-#         'file': {
-#             'level': 'DEBUG',
-#             'class': 'logging.FileHandler',
-#             'filename': 'mysite.log',
-#             'formatter': 'verbose'
-#         },
-#     },
-#     'loggers': {
-#         'django': {
-#             'handlers':['file'],
-#             'propagate': True,
-#             'level':'DEBUG',
-#         },
-#         'articles': {
-#             'handlers': ['file'],
-#             'level': 'DEBUG',
-#         },
-#     }
-# }
-
 INSTALLED_APPS = [
     'tagging',
     'tagging_autocomplete_new',
@@ -110,12 +75,12 @@ WSGI_APPLICATION = 'articlesboard.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'default',                      
-        'USER': 'django',
-        'PASSWORD': 'q1w2e3R$',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),                      
+        # 'USER': 'django',
+        # 'PASSWORD': 'q1w2e3R$',
+        # 'HOST': '127.0.0.1',
+        # 'PORT': '5432',
     }
 }
 

@@ -34,7 +34,7 @@ from .utilities import signer
 def index(request):
     last_articles = Article.objects.filter(is_active=True)
     # Refreshing popular articles.
-    context = {'last_articles': last_articles, 'rate_articles': rate_articles}# 'site_name': SITE_NAME}
+    context = {'last_articles': last_articles}
     return render(request, 'articles/index.html', context)
 
 
@@ -52,7 +52,7 @@ def detail(request, pk):
     tags = []
     for tag in tags_objs:
         tags.append(tag.tag)
-    context = {'article': article, 'tags': tags, 'site_name': SITE_NAME, 'rate_articles': rate_articles}
+    context = {'article': article, 'tags': tags}
     return render(request, 'articles/article.html', context)
 
 
@@ -66,7 +66,7 @@ def profile(request, username=None):
     subs = []
     for sub in subscribers_objs:
         subs.append(sub.username)
-    context = {'user': user, 'rate_articles': rate_articles, 'subscribers': subs}
+    context = {'user': user, 'subscribers': subs}
     return render(request, 'articles/user_actions/profile.html', context)
 
 
@@ -79,9 +79,7 @@ def change_rating(request, rating, pk):
         messages.add_message(request, messages.SUCCESS, 'Спасибо! Ваш голос учтен.')
     else:
         messages.add_message(request, messages.WARNING, 'Вы уже голосовали за эту статью!')
-    # Refresh current rate_articles.
-    global rate_articles
-    rate_articles = Article.objects.order_by('-rating').filter(is_active=True)[:10]
+
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
@@ -186,7 +184,7 @@ def search_by_tag(request, tag):
         page_num = 1
     page = paginator.get_page(page_num)
     tag = Tag.objects.get(name=tag)
-    context = {'rate_articles': rate_articles, 'site_name': SITE_NAME, 'articles': page.object_list, 'page': page, 'tag': tag}
+    context = {'articles': page.object_list, 'page': page, 'tag': tag}
     return render(request, 'articles/search.html', context)
 
 
@@ -199,7 +197,7 @@ def search_by_category(request, category_name):
     else:
         page_num = 1
     page = paginator.get_page(page_num)
-    context = {'rate_articles': rate_articles, 'site_name': SITE_NAME, 'articles': page.object_list, 'page': page, 'category': category}
+    context = {'articles': page.object_list, 'page': page, 'category': category}
     return render(request, 'articles/search.html', context)
 
 
@@ -230,7 +228,7 @@ class ArticleAddView(TemplateView, LoginRequiredMixin):
 
     def get(self, request, *args, **kwargs):
         form = ArticleForm(initial={'author': self.request.user.pk})
-        context = {'form': form, 'site_name': SITE_NAME, 'rate_articles': rate_articles}
+        context = {'form': form}
         return render(self.request, self.template_name, context=context, *args)
     
     def post(self, request):
@@ -267,7 +265,7 @@ class ArticleEditView(UpdateView, SuccessMessageMixin, LoginRequiredMixin):
     
     def get(self, request):
         form = EditArticleForm(instance=self.article)
-        context = {'article': self.article, 'form': form, 'site_name': SITE_NAME, 'rate_articles': rate_articles}
+        context = {'article': self.article, 'form': form}
         return render(self.request, self.template_name, context=context)
     
     def post(self, request):
@@ -294,7 +292,7 @@ class ArticleDeleteView(TemplateView, LoginRequiredMixin):
     def get(self, *args, pk):
         article = get_object_or_404(Article, pk=pk)
         form = DeleteArticleForm()
-        context = {'form': form, 'article': article, 'site_name': SITE_NAME, 'rate_articles': rate_articles}
+        context = {'form': form, 'article': article}
         return render(self.request, self.template_name, context)
     
     def post(self, *args, pk):
